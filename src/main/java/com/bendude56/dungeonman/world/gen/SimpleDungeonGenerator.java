@@ -2,6 +2,7 @@ package com.bendude56.dungeonman.world.gen;
 
 import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -31,29 +32,36 @@ public class SimpleDungeonGenerator extends WorldGenerator {
 		generate(new WorldFeatureCorridor(random.nextInt(5) + 10), new WorldLocation(world, 50, 50), random.nextInt(4));
 	}
 	
+	@SuppressWarnings("unchecked")
 	public boolean generate(WorldFeature f, WorldLocation l, int orientation) {
 		WorldFeatureInfo info;
 		
 		if (f.checkLocation(l, orientation)) {
 			info = f.generateAt(DoorType.NONE, l, orientation);
 			
-			if (random.nextInt(2) > 0) {
-				System.out.println("GENERATION CONTINUE!");
-				int wall = random.nextInt(info.walls.size());
-				generate(new WorldFeatureCorridor(random.nextInt(5) + 5), info.walls.get(wall), info.wallOrientations.get(wall));
-				
-				wall = random.nextInt(info.walls.size());
-				generate(new WorldFeatureCorridor(random.nextInt(5) + 5), info.walls.get(wall), info.wallOrientations.get(wall));
+			if (random.nextInt(10) > 0) {
+				tryGenerate(new WorldFeatureCorridor(2), (List<WorldLocation>) info.walls.clone(), (List<Integer>) info.wallOrientations.clone());
 			}
 			
 			return true;
 		} else {
-			System.out.println("CANNOT GENERATE THERE!");
+			l.world.tiles[l.x][l.y] = Tile.redFloor;
 			return false;
 		}
 	}
 	
-	
+	public void tryGenerate(WorldFeature f, List<WorldLocation> locations, List<Integer> orientations) {
+		while (locations.size() > 0) {
+			int location = random.nextInt(locations.size());
+			
+			if (generate(f, locations.get(location), orientations.get(location))) {
+				return;
+			} else {
+				locations.remove(location);
+				orientations.remove(location);
+			}
+		}
+	}
 	
 	public static void main(String[] args) {
 		int width = 100, height = 100;
