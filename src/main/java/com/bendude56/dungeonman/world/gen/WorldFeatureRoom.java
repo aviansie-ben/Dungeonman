@@ -1,41 +1,119 @@
 package com.bendude56.dungeonman.world.gen;
 
+import com.bendude56.dungeonman.world.Tile;
 import com.bendude56.dungeonman.world.WorldLocation;
 
 /**
- * Benjamin C. Thomas
- * Computer Science 30
- * 2012/13 Semester 2
- * Centennial High School
- *
+ * Benjamin C. Thomas Computer Science 30 2012/13 Semester 2 Centennial High
+ * School
+ * 
  * @author Benjamin C. Thomas
  */
 
 public class WorldFeatureRoom extends WorldFeature {
-	
+	public int	width;
+	public int	height;
+
 	public WorldFeatureRoom(int width, int height) {
-		
+		this.width = width;
+		this.height = height;
 	}
 
 	@Override
 	public boolean checkLocation(WorldLocation l, int orientation) {
-		// TODO Auto-generated method stub
-		return false;
+		WorldLocation l1, l2;
+
+		if (orientation == -1) {
+			l1 = l.adjustLocation(-((width / 2) + 1), (height / 2) + 1);
+			l2 = l1.adjustLocation(width + 2, -(height + 2));
+
+			return l.world.isAvailable(l1, l2);
+		} else {
+			l1 = l.adjustLocation(-((width / 2) + 1), height + 2, orientation);
+			l2 = l1.adjustLocation(width + 2, -(height + 2), orientation);
+			
+			// l1.setTile(Tile.redFloor);
+			// l2.setTile(Tile.redFloor);
+
+			return l.world.isAvailable(l1, l2);
+		}
 	}
 
 	@Override
-	public WorldFeatureInfo generateAt(DoorType door, WorldLocation l,
-			int orientation) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+	public WorldFeatureInfo generateAt(DoorType door, WorldLocation l, int orientation) {
+		WorldFeatureInfo info = new WorldFeatureInfo();
+		WorldLocation l1, l2;
+		
+		if (orientation == -1) {
+			l1 = l.adjustLocation(-(width / 2), height / 2);
+			l2 = l1.adjustLocation(width, -height);
+			
+			for (int y = l1.y; y <= l2.y; y++) {
+				for (int x = l1.x; x <= l2.x; x++) {
+					l.world.tiles[x][y] = Tile.stoneFloor;
+				}
+			}
+			
+			for (int x = l1.x; x <= l2.x; x++) {
+				info.walls.add(new WorldLocation(l.world, x, l1.y - 1));
+				info.wallOrientations.add(0);
+				
+				info.walls.add(new WorldLocation(l.world, x, l2.y + 1));
+				info.wallOrientations.add(2);
+			}
+			
+			for (int y = l1.y; y <= l2.y; y++) {
+				info.walls.add(new WorldLocation(l.world, l1.x - 1, y));
+				info.wallOrientations.add(3);
+				
+				info.walls.add(new WorldLocation(l.world, l2.x + 1, y));
+				info.wallOrientations.add(1);
+			}
+		} else {
+			int x1, y1, x2, y2;
+			
+			l.setTile(Tile.stoneFloor);
+			
+			l1 = l.adjustLocation(-(width / 2), height + 1, orientation);
+			l2 = l1.adjustLocation(width, -height, orientation);
+			
+			if (l1.x > l2.x) {
+				x1 = l2.x;
+				x2 = l1.x;
+			} else {
+				x1 = l1.x;
+				x2 = l2.x;
+			}
+			
+			if (l1.y > l2.y) {
+				y1 = l2.y;
+				y2 = l1.y;
+			} else {
+				y1 = l1.y;
+				y2 = l2.y;
+			}
+			
+			for (int y = y1; y <= y2; y++) {
+				for (int x = x1; x <= x2; x++) {
+					l.world.tiles[x][y] = Tile.stoneFloor;
+				}
+			}
+			
+			for (int x = x1; x <= x2; x++) {
+				info.walls.add(l1.adjustLocation(x - x1, 1, orientation));
+				info.wallOrientations.add(orientation);
+			}
+			
+			for (int y = y1; y <= y2; y++) {
+				info.walls.add(l1.adjustLocation(-1, y1 - y, orientation));
+				info.wallOrientations.add((orientation + 3) % 4);
+				
+				info.walls.add(l2.adjustLocation(1, y - y1, orientation));
+				info.wallOrientations.add((orientation + 1) % 4);
+			}
+		}
+		
+		return info;
 	}
 
 }

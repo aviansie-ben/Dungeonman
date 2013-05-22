@@ -19,21 +19,19 @@ public class WorldFeatureCorridor extends WorldFeature {
 	public WorldFeatureInfo generateAt(DoorType door, WorldLocation l, int orientation) {
 		WorldFeatureInfo info = new WorldFeatureInfo();
 		
-		l.setTile(Tile.stoneFloor);
-		
 		for (int i = 0; i < corridorLength; i++) {
-			l = l.adjustLocation(0, 1, orientation);
-			
 			l.setTile(Tile.stoneFloor);
 			
 			info.walls.add(l.adjustLocation(1, 0, orientation));
-			info.wallOrientations.add(0);
+			info.wallOrientations.add((orientation + 1) % 4);
 			
 			info.walls.add(l.adjustLocation(-1, 0, orientation));
-			info.wallOrientations.add(0);
+			info.wallOrientations.add((orientation + 3) % 4);
+			
+			l = l.adjustLocation(0, 1, orientation);
 		}
 		
-		info.walls.add(l.adjustLocation(0, 1, orientation));
+		info.walls.add(l);
 		info.wallOrientations.add(orientation);
 		
 		return info;

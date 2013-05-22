@@ -38,8 +38,8 @@ public class World {
 		}
 		
 		// If any tile within the bounds isn't a wall, the area is unavailable
-		for (int x = x1; x < x2; x++) {
-			for (int y = y1; y < y2; y++) {
+		for (int x = x1; x <= x2; x++) {
+			for (int y = y1; y <= y2; y++) {
 				if (!(tiles[x][y] instanceof TileWall))
 					return false;
 			}

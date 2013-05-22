@@ -30,15 +30,40 @@ public class WorldLocation {
 	
 	public WorldLocation adjustLocation(int deltaX, int deltaY, int orientation) {
 		if (orientation == 0) {
-			return new WorldLocation(world, x + deltaX, y + deltaY);
+			return new WorldLocation(world, x + deltaX, y - deltaY);
 		} else if (orientation == 1) {
 			return new WorldLocation(world, x + deltaY, y + deltaX);
 		} else if (orientation == 2) {
-			return new WorldLocation(world, x - deltaX, y - deltaY);
+			return new WorldLocation(world, x - deltaX, y + deltaY);
 		} else if (orientation == 3) {
 			return new WorldLocation(world, x - deltaY, y - deltaX);
 		} else {
 			throw new IllegalArgumentException("orientation must be between 0 and 3");
 		}
+	}
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + x;
+		result = prime * result + y;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		WorldLocation other = (WorldLocation)obj;
+		if (x != other.x)
+			return false;
+		if (y != other.y)
+			return false;
+		return true;
 	}
 }
