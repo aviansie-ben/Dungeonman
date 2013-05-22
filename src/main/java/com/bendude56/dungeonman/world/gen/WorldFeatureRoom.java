@@ -1,5 +1,7 @@
 package com.bendude56.dungeonman.world.gen;
 
+import java.util.Random;
+
 import com.bendude56.dungeonman.world.Tile;
 import com.bendude56.dungeonman.world.WorldLocation;
 
@@ -31,18 +33,16 @@ public class WorldFeatureRoom extends WorldFeature {
 		} else {
 			l1 = l.adjustLocation(-((width / 2) + 1), height + 2, orientation);
 			l2 = l1.adjustLocation(width + 2, -(height + 2), orientation);
-			
-			// l1.setTile(Tile.redFloor);
-			// l2.setTile(Tile.redFloor);
 
 			return l.world.isAvailable(l1, l2);
 		}
 	}
 
 	@Override
-	public WorldFeatureInfo generateAt(DoorType door, WorldLocation l, int orientation) {
+	public WorldFeatureInfo generateAt(DoorType door, WorldLocation l, int orientation, Random random) {
 		WorldFeatureInfo info = new WorldFeatureInfo();
 		WorldLocation l1, l2;
+		int numItems = random.nextInt((width * height) / 5);
 		
 		if (orientation == -1) {
 			l1 = l.adjustLocation(-(width / 2), height / 2);
@@ -110,6 +110,17 @@ public class WorldFeatureRoom extends WorldFeature {
 				
 				info.walls.add(l2.adjustLocation(1, y - y1, orientation));
 				info.wallOrientations.add((orientation + 1) % 4);
+			}
+			
+			info.possibleStairs.add(l1.adjustLocation(random.nextInt(width + 1), -random.nextInt(height + 1), orientation));
+			
+			for (int i = 0; i < numItems; i++) {
+				WorldLocation itemLocation = l1.adjustLocation(random.nextInt(width + 1), -random.nextInt(height + 1), orientation);
+				
+				if (!info.possibleStairs.contains(itemLocation) && !info.possibleItems.contains(itemLocation)) {
+					info.possibleItems.add(itemLocation);
+					itemLocation.setTile(Tile.redFloor);
+				}
 			}
 		}
 		

@@ -1,5 +1,7 @@
 package com.bendude56.dungeonman.world.gen;
 
+import java.util.Random;
+
 import com.bendude56.dungeonman.world.Tile;
 import com.bendude56.dungeonman.world.WorldLocation;
 
@@ -16,7 +18,7 @@ public class WorldFeatureCorridor extends WorldFeature {
 	}
 
 	@Override
-	public WorldFeatureInfo generateAt(DoorType door, WorldLocation l, int orientation) {
+	public WorldFeatureInfo generateAt(DoorType door, WorldLocation l, int orientation, Random random) {
 		WorldFeatureInfo info = new WorldFeatureInfo();
 		
 		for (int i = 0; i < corridorLength; i++) {

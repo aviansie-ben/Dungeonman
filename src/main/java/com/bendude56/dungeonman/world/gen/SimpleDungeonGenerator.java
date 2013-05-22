@@ -29,16 +29,16 @@ public class SimpleDungeonGenerator extends WorldGenerator {
 		}
 		
 		// Select a position
-		generate(new WorldFeatureRoom(4, 4), new WorldLocation(world, 50, 50), DoorType.NONE, -1, 0);
+		generate(new WorldFeatureRoom(4, 4), new WorldLocation(world, world.width / 2, world.height / 2), DoorType.NONE, -1, 0);
 	}
 	
 	public boolean generate(WorldFeature f, WorldLocation l, DoorType door, int orientation, int iteration) {
 		WorldFeatureInfo info;
 		
 		if (f.checkLocation(l, orientation)) {
-			info = f.generateAt(door, l, orientation);
+			info = f.generateAt(door, l, orientation, random);
 			
-			if (iteration < 10) {
+			if (iteration < 20) {
 				generateChildren(f, info, iteration);
 			}
 			
@@ -55,20 +55,28 @@ public class SimpleDungeonGenerator extends WorldGenerator {
 		if (f instanceof WorldFeatureCorridor) {
 			numRooms = (random.nextInt(3) > 0) ? 1 : 0;
 			numCorridors = random.nextInt((((WorldFeatureCorridor)f).corridorLength / 3) + 1);
+			
+			if (iteration < 3 && numCorridors == 0 && numRooms == 0) {
+				numRooms = 1;
+			}
 		} else if (f instanceof WorldFeatureRoom) {
 			numRooms = 0;
 			numCorridors = random.nextInt(3) + ((iteration > 0) ? 0 : 1);
+			
+			if (iteration < 3 && numCorridors == 0) {
+				numCorridors = 1;
+			}
 		} else {
 			numRooms = 0;
 			numCorridors = 0;
 		}
 		
 		for (int i = 0; i < numRooms; i++) {
-			tryGenerate(new WorldFeatureRoom(4, 4), (List<WorldLocation>) info.walls.clone(), (List<Integer>) info.wallOrientations.clone(), DoorType.NONE, iteration);
+			tryGenerate(new WorldFeatureRoom(random.nextInt(5) + 3, random.nextInt(5) + 3), (List<WorldLocation>) info.walls.clone(), (List<Integer>) info.wallOrientations.clone(), DoorType.NONE, iteration);
 		}
 		
 		for (int i = 0; i < numCorridors; i++) {
-			tryGenerate(new WorldFeatureCorridor(10), (List<WorldLocation>) info.walls.clone(), (List<Integer>) info.wallOrientations.clone(), DoorType.NONE, iteration);
+			tryGenerate(new WorldFeatureCorridor(random.nextInt(10) + 5), (List<WorldLocation>) info.walls.clone(), (List<Integer>) info.wallOrientations.clone(), DoorType.NONE, iteration);
 		}
 	}
 	
@@ -86,7 +94,7 @@ public class SimpleDungeonGenerator extends WorldGenerator {
 	}
 	
 	public static void main(String[] args) {
-		int width = 100, height = 100;
+		int width = 300, height = 300;
 		
 		while (true) {
 			World w = new World();
@@ -105,7 +113,7 @@ public class SimpleDungeonGenerator extends WorldGenerator {
 			}
 			img.setRGB(0, 0, width, height, p, 0, width);
 			
-			JOptionPane.showMessageDialog(null, null, "Generation Test", JOptionPane.INFORMATION_MESSAGE, new ImageIcon(img.getScaledInstance(width * 4, height * 4, Image.SCALE_AREA_AVERAGING)));
+			JOptionPane.showMessageDialog(null, null, "Generation Test", JOptionPane.INFORMATION_MESSAGE, new ImageIcon(img.getScaledInstance(width * 2, height * 2, Image.SCALE_AREA_AVERAGING)));
 		}
 	}
 
