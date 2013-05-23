@@ -1,5 +1,7 @@
 package com.bendude56.dungeonman.world;
 
+import com.bendude56.dungeonman.world.tile.Tile;
+
 public class WorldLocation {
 	public World world;
 	public int x, y;
@@ -11,11 +13,11 @@ public class WorldLocation {
 	}
 	
 	public Tile getTile() {
-		return world.tiles[x][y];
+		return world.getTile(this);
 	}
 	
 	public void setTile(Tile t) {
-		world.tiles[x][y] = t;
+		world.setTile(this, t);
 	}
 	
 	public WorldLocation adjustLocation(int deltaX, int deltaY) {

@@ -7,7 +7,6 @@ import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
-import com.bendude56.dungeonman.world.Tile;
 import com.bendude56.dungeonman.world.World;
 import com.bendude56.dungeonman.world.WorldLocation;
 import com.bendude56.dungeonman.world.gen.WorldFeature.DoorType;
@@ -20,16 +19,9 @@ public class SimpleDungeonGenerator extends WorldGenerator {
 	}
 
 	@Override
-	public void generateLevel(int difficulty) {
-		// Clear the map
-		for (int y = 0; y < world.height; y++) {
-			for (int x = 0; x < world.width; x++) {
-				world.tiles[x][y] = Tile.wall;
-			}
-		}
-		
-		// Select a position
-		generate(new WorldFeatureRoom(4, 4), new WorldLocation(world, world.width / 2, world.height / 2), DoorType.NONE, -1, 0);
+	public void generateLevel(int difficulty) {	
+		// Start the generation algorithm with a 4x4 room in the center of the map
+		generate(new WorldFeatureRoom(4, 4), new WorldLocation(world, world.getWidth() / 2, world.getHeight() / 2), DoorType.NONE, -1, 0);
 	}
 	
 	public boolean generate(WorldFeature f, WorldLocation l, DoorType door, int orientation, int iteration) {
@@ -97,10 +89,7 @@ public class SimpleDungeonGenerator extends WorldGenerator {
 		int width = 300, height = 300;
 		
 		while (true) {
-			World w = new World();
-			w.width = width;
-			w.height = height;
-			w.tiles = new Tile[width][height];
+			World w = new World(width, height, 1);
 			
 			new SimpleDungeonGenerator(w).generateLevel(0);
 			
@@ -108,7 +97,7 @@ public class SimpleDungeonGenerator extends WorldGenerator {
 			int[] p = new int[width * height];
 			for (int y = 0; y < height; y++) {
 				for (int x = 0; x < width; x++) {
-					p[(y * width) + x] = w.tiles[x][y].getColor().getRGB();
+					p[(y * width) + x] = w.getTile(x, y).getColor().getRGB();
 				}
 			}
 			img.setRGB(0, 0, width, height, p, 0, width);

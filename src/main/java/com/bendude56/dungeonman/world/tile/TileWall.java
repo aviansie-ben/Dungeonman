@@ -1,4 +1,4 @@
-package com.bendude56.dungeonman.world;
+package com.bendude56.dungeonman.world.tile;
 
 import java.awt.Color;
 

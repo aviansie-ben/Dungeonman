@@ -2,8 +2,8 @@ package com.bendude56.dungeonman.world.gen;
 
 import java.util.Random;
 
-import com.bendude56.dungeonman.world.Tile;
 import com.bendude56.dungeonman.world.WorldLocation;
+import com.bendude56.dungeonman.world.tile.Tile;
 
 /**
  * Benjamin C. Thomas Computer Science 30 2012/13 Semester 2 Centennial High
@@ -13,8 +13,8 @@ import com.bendude56.dungeonman.world.WorldLocation;
  */
 
 public class WorldFeatureRoom extends WorldFeature {
-	public int	width;
-	public int	height;
+	public int width;
+	public int height;
 
 	public WorldFeatureRoom(int width, int height) {
 		this.width = width;
@@ -48,11 +48,7 @@ public class WorldFeatureRoom extends WorldFeature {
 			l1 = l.adjustLocation(-(width / 2), height / 2);
 			l2 = l1.adjustLocation(width, -height);
 			
-			for (int y = l1.y; y <= l2.y; y++) {
-				for (int x = l1.x; x <= l2.x; x++) {
-					l.world.tiles[x][y] = Tile.stoneFloor;
-				}
-			}
+			l.world.setRect(l1, l2, Tile.stoneFloor);
 			
 			for (int x = l1.x; x <= l2.x; x++) {
 				info.walls.add(new WorldLocation(l.world, x, l1.y - 1));
@@ -93,22 +89,18 @@ public class WorldFeatureRoom extends WorldFeature {
 				y2 = l2.y;
 			}
 			
-			for (int y = y1; y <= y2; y++) {
-				for (int x = x1; x <= x2; x++) {
-					l.world.tiles[x][y] = Tile.stoneFloor;
-				}
-			}
+			l.world.setRect(x1, y1, x2, y2, Tile.stoneFloor);
 			
-			for (int x = x1; x <= x2; x++) {
-				info.walls.add(l1.adjustLocation(x - x1, 1, orientation));
+			for (int i = 0; i <= width; i++) {
+				info.walls.add(l1.adjustLocation(i, 1, orientation));
 				info.wallOrientations.add(orientation);
 			}
 			
-			for (int y = y1; y <= y2; y++) {
-				info.walls.add(l1.adjustLocation(-1, y1 - y, orientation));
+			for (int i = 0; i <= height; i++) {
+				info.walls.add(l1.adjustLocation(-1, -i, orientation));
 				info.wallOrientations.add((orientation + 3) % 4);
 				
-				info.walls.add(l2.adjustLocation(1, y - y1, orientation));
+				info.walls.add(l2.adjustLocation(1, i, orientation));
 				info.wallOrientations.add((orientation + 1) % 4);
 			}
 			

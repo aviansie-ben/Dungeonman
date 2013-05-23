@@ -2,8 +2,8 @@ package com.bendude56.dungeonman.world.gen;
 
 import java.util.Random;
 
-import com.bendude56.dungeonman.world.Tile;
 import com.bendude56.dungeonman.world.WorldLocation;
+import com.bendude56.dungeonman.world.tile.Tile;
 
 public class WorldFeatureCorridor extends WorldFeature {
 	public int corridorLength;
