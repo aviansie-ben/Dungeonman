@@ -1,6 +1,7 @@
 package com.bendude56.dungeonman.world;
 
 import com.bendude56.dungeonman.world.tile.Tile;
+import com.bendude56.dungeonman.world.tile.TileMetadata;
 
 public class WorldLocation {
 	public World world;
@@ -18,6 +19,14 @@ public class WorldLocation {
 	
 	public void setTile(Tile t) {
 		world.setTile(this, t);
+	}
+	
+	public TileMetadata getMetadata() {
+		return world.getMetadata(this);
+	}
+	
+	public void setMetadata(TileMetadata m) {
+		world.setMetadata(this, m);
 	}
 	
 	public WorldLocation adjustLocation(int deltaX, int deltaY) {

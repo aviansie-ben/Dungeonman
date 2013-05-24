@@ -111,7 +111,6 @@ public class WorldFeatureRoom extends WorldFeature {
 				
 				if (!info.possibleStairs.contains(itemLocation) && !info.possibleItems.contains(itemLocation)) {
 					info.possibleItems.add(itemLocation);
-					itemLocation.setTile(Tile.redFloor);
 				}
 			}
 		}

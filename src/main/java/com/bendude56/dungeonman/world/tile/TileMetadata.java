@@ -1,7 +1,5 @@
 package com.bendude56.dungeonman.world.tile;
 
-import java.awt.Color;
-
 /**
  * Benjamin C. Thomas
  * Computer Science 30
@@ -11,11 +9,8 @@ import java.awt.Color;
  * @author Benjamin C. Thomas
  */
 
-public class TileRedFloor extends TileFloor {
-
-	@Override
-	public Color getColor() {
-		return Color.red;
+public class TileMetadata {
+	public TileMetadata clone() {
+		return new TileMetadata();
 	}
-
 }

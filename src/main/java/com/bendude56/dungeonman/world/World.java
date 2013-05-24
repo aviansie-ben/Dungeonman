@@ -1,13 +1,21 @@
 package com.bendude56.dungeonman.world;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map.Entry;
 
+import com.bendude56.dungeonman.GameInstance;
 import com.bendude56.dungeonman.entity.Entity;
 import com.bendude56.dungeonman.world.tile.Tile;
+import com.bendude56.dungeonman.world.tile.TileMetadata;
 import com.bendude56.dungeonman.world.tile.TileWall;
 
 public class World {
+	private GameInstance game;
+	
 	private Tile[][] tiles;
+	private TileMetadata[][] tileMeta;
 	private int width, height;
 	private int entryX, entryY;
 	private int exitX, exitY;
@@ -15,14 +23,14 @@ public class World {
 	private boolean[][] tileKnown;
 	private boolean[][] tileVisible;
 	
-	private ArrayList<Entity> entities;
+	private HashMap<Integer, Entity> entities;
 	
 	public World(int width, int height, int dungeonLevel) {
 		this.tiles = new Tile[width][height];
 		this.width = width;
 		this.height = height;
 		this.dungeonLevel = dungeonLevel;
-		this.entities = new ArrayList<Entity>();
+		this.entities = new HashMap<Integer, Entity>();
 		
 		setRect(0, 0, width - 1, height - 1, Tile.wall);
 	}
@@ -57,6 +65,23 @@ public class World {
 		}
 		
 		tiles[x][y] = tile;
+		tileMeta[x][y] = new TileMetadata();
+	}
+	
+	public TileMetadata getMetadata(WorldLocation l) {
+		return getMetadata(l.x, l.y);
+	}
+	
+	public TileMetadata getMetadata(int x, int y) {
+		return tileMeta[x][y];
+	}
+	
+	public void setMetadata(WorldLocation l, TileMetadata m) {
+		setMetadata(l.x, l.y, m);
+	}
+	
+	public void setMetadata(int x, int y, TileMetadata m) {
+		tileMeta[x][y] = m;
 	}
 	
 	public void setRect(WorldLocation l1, WorldLocation l2, Tile tile) {
@@ -87,6 +112,7 @@ public class World {
 		for (int x = x1; x <= x2; x++) {
 			for (int y = y1; y <= y2; y++) {
 				tiles[x][y] = tile;
+				tileMeta[x][y] = new TileMetadata();
 			}
 		}
 	}
@@ -170,5 +196,50 @@ public class World {
 	
 	public int getFloor() {
 		return dungeonLevel;
+	}
+	
+	public void addEntity(Entity e) {
+		entities.put(e.getEntityId(), e);
+	}
+	
+	public Entity getEntity(int id) {
+		return entities.get(id);
+	}
+	
+	public List<Entity> getEntities(WorldLocation l) {
+		return getEntities(l.x, l.y);
+	}
+	
+	public List<Entity> getEntities(int x, int y) {
+		if (x < 0 || x >= width || y < 0 || y >= height) {
+			throw new IllegalArgumentException("Location is out of bounds!");
+		}
+		
+		ArrayList<Entity> presentEntities = new ArrayList<Entity>();
+		
+		for (Entry<Integer, Entity> e : entities.entrySet()) {
+			if (e.getValue().getLocation().equals(new WorldLocation(this, x, y))) {
+				presentEntities.add(e.getValue());
+			}
+		}
+		
+		return presentEntities;
+	}
+	
+	public GameInstance getGameInstance() {
+		return game;
+	}
+	
+	public void doTurn() {
+		ArrayList<Integer> deadEntities = new ArrayList<Integer>();
+		
+		for (Entry<Integer, Entity> e : entities.entrySet()) {
+			if (!e.getValue().isDead()) e.getValue().doTurn();
+			if (e.getValue().isDead()) deadEntities.add(e.getKey());
+		}
+		
+		for (Integer dead : deadEntities) {
+			entities.remove(dead);
+		}
 	}
 }

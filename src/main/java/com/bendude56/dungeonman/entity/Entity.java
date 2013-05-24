@@ -7,9 +7,11 @@ public abstract class Entity {
 	private int x, y;
 	private World world;
 	private boolean dead = false;
+	private final int id;
 	
 	public Entity(WorldLocation l) {
 		setLocation(l);
+		id = l.world.getGameInstance().generateEntityId();
 	}
 	
 	public final World getWorld() {
@@ -29,7 +31,7 @@ public abstract class Entity {
 	public abstract void doTurn();
 	
 	public boolean isVisible() {
-		return world.isTileVisible(getLocation());
+		return world.isTileVisible(getLocation()) && !dead;
 	}
 	
 	public final boolean isDead() {
@@ -38,5 +40,9 @@ public abstract class Entity {
 	
 	public void die() {
 		dead = true;
+	}
+	
+	public final int getEntityId() {
+		return id;
 	}
 }
