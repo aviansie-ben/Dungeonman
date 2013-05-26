@@ -13,4 +13,9 @@ public class TileMetadata {
 	public TileMetadata clone() {
 		return new TileMetadata();
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		return obj.getClass().equals(TileMetadata.class);
+	}
 }

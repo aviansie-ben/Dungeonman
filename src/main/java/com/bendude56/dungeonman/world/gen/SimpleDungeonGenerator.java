@@ -8,6 +8,7 @@ import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
+import com.bendude56.dungeonman.GameInstance;
 import com.bendude56.dungeonman.world.World;
 import com.bendude56.dungeonman.world.WorldLocation;
 import com.bendude56.dungeonman.world.gen.WorldFeature.DoorType;
@@ -113,23 +114,20 @@ public class SimpleDungeonGenerator extends WorldGenerator {
 	}
 	
 	public static void main(String[] args) {
-		int width = 300, height = 300;
-		
 		while (true) {
-			World w = new World(width, height, 1);
+			GameInstance.createNewGame(0);
+			World w = GameInstance.getActiveInstance().getFloor(1);
 			
-			new SimpleDungeonGenerator(w).generateLevel(0);
-			
-			BufferedImage img = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
-			int[] p = new int[width * height];
-			for (int y = 0; y < height; y++) {
-				for (int x = 0; x < width; x++) {
-					p[(y * width) + x] = w.getTile(x, y).getColor(w.getTileState(x, y)).getRGB();
+			BufferedImage img = new BufferedImage(w.getWidth(), w.getHeight(), BufferedImage.TYPE_INT_RGB);
+			int[] p = new int[w.getWidth() * w.getHeight()];
+			for (int y = 0; y < w.getHeight(); y++) {
+				for (int x = 0; x < w.getWidth(); x++) {
+					p[(y * w.getWidth()) + x] = w.getTile(x, y).getColor(w.getTileState(x, y)).getRGB();
 				}
 			}
-			img.setRGB(0, 0, width, height, p, 0, width);
+			img.setRGB(0, 0, w.getWidth(), w.getHeight(), p, 0, w.getWidth());
 			
-			JOptionPane.showMessageDialog(null, null, "Generation Test", JOptionPane.INFORMATION_MESSAGE, new ImageIcon(img.getScaledInstance(width * 2, height * 2, Image.SCALE_AREA_AVERAGING)));
+			JOptionPane.showMessageDialog(null, null, "Generation Test", JOptionPane.INFORMATION_MESSAGE, new ImageIcon(img.getScaledInstance(w.getWidth() * 2, w.getHeight() * 2, Image.SCALE_AREA_AVERAGING)));
 		}
 	}
 

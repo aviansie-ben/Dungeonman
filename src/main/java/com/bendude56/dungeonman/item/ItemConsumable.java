@@ -19,20 +19,24 @@ public abstract class ItemConsumable extends Item {
 	}
 
 	@Override
-	public boolean canUse(ItemMetadata m, Entity e) {
+	public boolean canUse(ItemStack stack, Entity e) {
 		return e instanceof EntityPlayer;
 	}
 
 	@Override
-	public boolean onUsed(ItemMetadata m, Entity e) {
-		if (canUse(m, e)) {
-			onConsumed(m, (EntityPlayer)e);
+	public boolean onUsed(ItemStack stack, Entity e) {
+		if (canUse(stack, e)) {
+			onConsumed(stack, (EntityPlayer)e);
 			return true;
 		} else {
 			return false;
 		}
 	}
 	
-	public abstract void onConsumed(ItemMetadata m, EntityPlayer p);
+	public boolean onPickedUp(ItemStack stack, EntityPlayer p) {
+		return true;
+	}
+	
+	public abstract void onConsumed(ItemStack stack, EntityPlayer p);
 
 }

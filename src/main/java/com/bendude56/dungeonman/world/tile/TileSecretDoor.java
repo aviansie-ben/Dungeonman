@@ -5,25 +5,27 @@ import java.awt.Color;
 import com.bendude56.dungeonman.entity.Entity;
 import com.bendude56.dungeonman.entity.EntityPlayer;
 
-public class TileStoneFloor extends TileFloor {
+public class TileSecretDoor extends Tile {
 
-	public TileStoneFloor() {
-		super(1);
+	public TileSecretDoor() {
+		super(4);
 	}
 
 	@Override
 	public Color getColor(TileState state) {
-		return Color.lightGray;
+		return Color.darkGray;
 	}
 
 	@Override
 	public boolean onPlayerMove(TileState state, EntityPlayer player) {
-		return true;
+		player.logMessage("You discover a hidden door!");
+		state.setTileType(Tile.door);
+		return false;
 	}
 
 	@Override
 	public boolean onEntityMove(TileState state, Entity e) {
-		return true;
+		return false;
 	}
 
 }

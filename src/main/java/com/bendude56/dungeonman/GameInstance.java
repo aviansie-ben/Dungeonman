@@ -1,21 +1,42 @@
 package com.bendude56.dungeonman;
 
 import java.util.HashMap;
+import java.util.Random;
 
 import com.bendude56.dungeonman.entity.Entity;
 import com.bendude56.dungeonman.entity.EntityPlayer;
 import com.bendude56.dungeonman.item.Item;
+import com.bendude56.dungeonman.item.ItemGoldCoin;
+import com.bendude56.dungeonman.item.ItemPotion;
 import com.bendude56.dungeonman.world.World;
 import com.bendude56.dungeonman.world.WorldLocation;
+import com.bendude56.dungeonman.world.gen.SimpleDungeonGenerator;
 
 public class GameInstance {
+	private static GameInstance activeInstance;
+	
+	public static GameInstance getActiveInstance() {
+		return activeInstance;
+	}
+	
+	public static GameInstance createNewGame(int difficulty) {
+		activeInstance = new GameInstance();
+		activeInstance.difficulty = difficulty;
+		activeInstance.populateItems();
+		activeInstance.generateFloor(1);
+		
+		return activeInstance;
+	}
+	
 	private int nextEntityId = 1;
 	private HashMap<Integer, World> floors = new HashMap<Integer, World>();
 	private HashMap<Integer, Item> items = new HashMap<Integer, Item>();
 	private EntityPlayer player;
+	private HashMap<Integer, Boolean> itemIdentified = new HashMap<Integer, Boolean>();
+	private int difficulty;
+	private Random random = new Random();
 	
 	public GameInstance() {
-		populateItems();
 	}
 	
 	public EntityPlayer getPlayerEntity() {
@@ -31,12 +52,20 @@ public class GameInstance {
 	}
 	
 	public void generateFloor(int floor) {
-		// TODO: Generate world
-		floors.put(floor, null);
+		floors.put(floor, new World(100, 100, floor));
+		new SimpleDungeonGenerator(floors.get(floor)).generateLevel(difficulty);
 	}
 	
 	public int getCurrentFloor(int floor) {
 		return player.getWorld().getFloor();
+	}
+	
+	public boolean isItemIdentified(Item item) {
+		return itemIdentified.get(item.getItemId());
+	}
+	
+	public void setItemIdentified(Item item, boolean identified) {
+		itemIdentified.put(item.getItemId(), identified);
 	}
 	
 	public void teleport(Entity e, WorldLocation l) {
@@ -54,6 +83,11 @@ public class GameInstance {
 	}
 	
 	private void populateItems() {
+		int numPotions = 10 + random.nextInt(11);
+		items.put(1, new ItemGoldCoin(1));
 		
+		for (int i = 0; i < numPotions; i++) {
+			items.put(2 + i, ItemPotion.generateNewPotion(2 + i, difficulty, random));
+		}
 	}
 }

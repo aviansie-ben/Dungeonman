@@ -1,5 +1,7 @@
 package com.bendude56.dungeonman.entity;
 
+import java.awt.Image;
+
 import com.bendude56.dungeonman.world.World;
 import com.bendude56.dungeonman.world.WorldLocation;
 
@@ -28,7 +30,9 @@ public abstract class Entity {
 		world = l.world;
 	}
 	
+	public abstract Image getDrawImage();
 	public abstract void doTurn();
+	public abstract void doAction(ActionType type, Entity e);
 	
 	public boolean isVisible() {
 		return world.isTileVisible(getLocation()) && !dead;
@@ -44,5 +48,9 @@ public abstract class Entity {
 	
 	public final int getEntityId() {
 		return id;
+	}
+	
+	public enum ActionType {
+		PICKUP, MOVE, CLIMB
 	}
 }

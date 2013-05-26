@@ -4,10 +4,19 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import com.bendude56.dungeonman.world.WorldLocation;
+import com.bendude56.dungeonman.world.tile.Tile;
 
 public abstract class WorldFeature {
 	public abstract boolean checkLocation(WorldLocation l, int orientation);
 	public abstract WorldFeatureInfo generateAt(DoorType door, WorldLocation l, int orientation, Random random);
+	
+	public void setDoor(WorldLocation l, DoorType door) {
+		if (door == DoorType.NONE) {
+			l.setTile(Tile.stoneFloor);
+		} else if (door == DoorType.NORMAL){
+			l.setTile(Tile.door);
+		}
+	}
 	
 	public static class WorldFeatureInfo {
 		public ArrayList<WorldLocation> walls = new ArrayList<WorldLocation>();

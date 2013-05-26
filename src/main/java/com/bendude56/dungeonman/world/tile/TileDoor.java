@@ -5,25 +5,28 @@ import java.awt.Color;
 import com.bendude56.dungeonman.entity.Entity;
 import com.bendude56.dungeonman.entity.EntityPlayer;
 
-public class TileStoneFloor extends TileFloor {
+public class TileDoor extends Tile {
 
-	public TileStoneFloor() {
-		super(1);
+	public TileDoor() {
+		super(3);
 	}
 
 	@Override
 	public Color getColor(TileState state) {
-		return Color.lightGray;
+		return Color.green;
 	}
 
 	@Override
 	public boolean onPlayerMove(TileState state, EntityPlayer player) {
-		return true;
+		// TODO: Implement door locking here
+		state.setTileType(Tile.stoneFloor);
+		player.logMessage("You open the door!");
+		return false;
 	}
 
 	@Override
 	public boolean onEntityMove(TileState state, Entity e) {
-		return true;
+		return false;
 	}
 
 }

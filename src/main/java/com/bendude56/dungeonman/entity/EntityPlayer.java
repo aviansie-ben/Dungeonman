@@ -1,5 +1,7 @@
 package com.bendude56.dungeonman.entity;
 
+import java.awt.Image;
+
 import com.bendude56.dungeonman.world.WorldLocation;
 
 /**
@@ -21,6 +23,21 @@ public class EntityPlayer extends EntityAlive {
 	@Override
 	public void doTurn() {
 		// Do nothing (UI will control player actions)
+	}
+
+	@Override
+	public void doAction(ActionType type, Entity e) {
+		// TODO: Damage when attacked by monsters
+	}
+	
+	public void logMessage(String message) {
+		// TODO: Log message
+	}
+
+	@Override
+	public Image getDrawImage() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

@@ -10,4 +10,9 @@ package com.bendude56.dungeonman.item;
  */
 
 public class ItemMetadata {
+	
+	public ItemMetadata clone() {
+		return new ItemMetadata();
+	}
+	
 }
