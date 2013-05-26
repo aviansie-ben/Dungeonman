@@ -2,6 +2,7 @@ package com.bendude56.dungeonman.world.gen;
 
 import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.ImageIcon;
@@ -11,8 +12,14 @@ import com.bendude56.dungeonman.world.World;
 import com.bendude56.dungeonman.world.WorldLocation;
 import com.bendude56.dungeonman.world.gen.WorldFeature.DoorType;
 import com.bendude56.dungeonman.world.gen.WorldFeature.WorldFeatureInfo;
+import com.bendude56.dungeonman.world.tile.Tile;
+import com.bendude56.dungeonman.world.tile.TileMetadataStairs;
 
 public class SimpleDungeonGenerator extends WorldGenerator {
+	
+	private ArrayList<WorldLocation> possibleStairs = new ArrayList<WorldLocation>();
+	private ArrayList<WorldLocation> possibleItems = new ArrayList<WorldLocation>();
+	private ArrayList<WorldLocation> possibleMonsters = new ArrayList<WorldLocation>();
 
 	public SimpleDungeonGenerator(World world) {
 		super(world);
@@ -22,6 +29,17 @@ public class SimpleDungeonGenerator extends WorldGenerator {
 	public void generateLevel(int difficulty) {	
 		// Start the generation algorithm with a 4x4 room in the center of the map
 		generate(new WorldFeatureRoom(4, 4), new WorldLocation(world, world.getWidth() / 2, world.getHeight() / 2), DoorType.NONE, -1, 0);
+		
+		// Select locations for entry and exit stairs
+		WorldLocation entry = possibleStairs.get(random.nextInt(possibleStairs.size()));
+		possibleStairs.remove(entry);
+		WorldLocation exit = possibleStairs.get(random.nextInt(possibleStairs.size()));
+		
+		// Set up the entry and exit stairs
+		world.setEntryLocation(entry);
+		world.setTileAndMetadata(entry, Tile.stairs, new TileMetadataStairs(true));
+		world.setExitLocation(exit);
+		world.setTileAndMetadata(exit, Tile.stairs, new TileMetadataStairs(false));
 	}
 	
 	public boolean generate(WorldFeature f, WorldLocation l, DoorType door, int orientation, int iteration) {
@@ -30,7 +48,16 @@ public class SimpleDungeonGenerator extends WorldGenerator {
 		if (f.checkLocation(l, orientation)) {
 			info = f.generateAt(door, l, orientation, random);
 			
-			if (iteration < 20) {
+			for (WorldLocation possibleLocation : info.possibleStairs)
+				possibleStairs.add(possibleLocation);
+			
+			for (WorldLocation possibleLocation : info.possibleItems)
+				possibleItems.add(possibleLocation);
+			
+			for (WorldLocation possibleLocation : info.possibleMonsters)
+				possibleMonsters.add(possibleLocation);
+			
+			if (iteration < 10) {
 				generateChildren(f, info, iteration);
 			}
 			
@@ -97,7 +124,7 @@ public class SimpleDungeonGenerator extends WorldGenerator {
 			int[] p = new int[width * height];
 			for (int y = 0; y < height; y++) {
 				for (int x = 0; x < width; x++) {
-					p[(y * width) + x] = w.getTile(x, y).getColor().getRGB();
+					p[(y * width) + x] = w.getTile(x, y).getColor(w.getTileState(x, y)).getRGB();
 				}
 			}
 			img.setRGB(0, 0, width, height, p, 0, width);

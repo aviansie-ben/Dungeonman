@@ -10,7 +10,4 @@ package com.bendude56.dungeonman.item;
  */
 
 public class ItemMetadata {
-	
-	
-
 }

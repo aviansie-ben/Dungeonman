@@ -9,6 +9,7 @@ import com.bendude56.dungeonman.GameInstance;
 import com.bendude56.dungeonman.entity.Entity;
 import com.bendude56.dungeonman.world.tile.Tile;
 import com.bendude56.dungeonman.world.tile.TileMetadata;
+import com.bendude56.dungeonman.world.tile.TileState;
 import com.bendude56.dungeonman.world.tile.TileWall;
 
 public class World {
@@ -27,6 +28,7 @@ public class World {
 	
 	public World(int width, int height, int dungeonLevel) {
 		this.tiles = new Tile[width][height];
+		this.tileMeta = new TileMetadata[width][height];
 		this.width = width;
 		this.height = height;
 		this.dungeonLevel = dungeonLevel;
@@ -68,6 +70,15 @@ public class World {
 		tileMeta[x][y] = new TileMetadata();
 	}
 	
+	public void setTileAndMetadata(WorldLocation l, Tile tile, TileMetadata m) {
+		setTileAndMetadata(l.x, l.y, tile, m);
+	}
+	
+	public void setTileAndMetadata(int x, int y, Tile tile, TileMetadata m) {
+		setTile(x, y, tile);
+		setMetadata(x, y, m);
+	}
+	
 	public TileMetadata getMetadata(WorldLocation l) {
 		return getMetadata(l.x, l.y);
 	}
@@ -82,6 +93,14 @@ public class World {
 	
 	public void setMetadata(int x, int y, TileMetadata m) {
 		tileMeta[x][y] = m;
+	}
+	
+	public TileState getTileState(int x, int y) {
+		return getTileState(new WorldLocation(this, x, y));
+	}
+	
+	public TileState getTileState(WorldLocation l) {
+		return new TileState(l);
 	}
 	
 	public void setRect(WorldLocation l1, WorldLocation l2, Tile tile) {
@@ -200,6 +219,10 @@ public class World {
 	
 	public void addEntity(Entity e) {
 		entities.put(e.getEntityId(), e);
+	}
+	
+	public void removeEntity(Entity e) {
+		entities.remove(e.getEntityId());
 	}
 	
 	public Entity getEntity(int id) {

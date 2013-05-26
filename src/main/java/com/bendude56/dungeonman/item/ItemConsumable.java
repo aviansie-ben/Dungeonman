@@ -14,6 +14,10 @@ import com.bendude56.dungeonman.entity.EntityPlayer;
 
 public abstract class ItemConsumable extends Item {
 
+	public ItemConsumable(int id, int rarity) {
+		super(id, rarity);
+	}
+
 	@Override
 	public boolean canUse(ItemMetadata m, Entity e) {
 		return e instanceof EntityPlayer;

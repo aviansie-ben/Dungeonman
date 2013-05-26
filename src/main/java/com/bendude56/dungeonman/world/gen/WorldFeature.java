@@ -14,6 +14,7 @@ public abstract class WorldFeature {
 		public ArrayList<Integer> wallOrientations = new ArrayList<Integer>();
 		public ArrayList<WorldLocation> possibleItems = new ArrayList<WorldLocation>();
 		public ArrayList<WorldLocation> possibleStairs = new ArrayList<WorldLocation>();
+		public ArrayList<WorldLocation> possibleMonsters = new ArrayList<WorldLocation>();
 	}
 	
 	public enum DoorType {
