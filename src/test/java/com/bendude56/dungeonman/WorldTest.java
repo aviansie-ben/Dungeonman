@@ -19,7 +19,7 @@ public class WorldTest {
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		GameInstance.createNewGame(0);
+		GameInstance.createNewGame(0, 0);
 	}
 
 	@Before

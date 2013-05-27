@@ -19,13 +19,20 @@ public class GameInstance {
 		return activeInstance;
 	}
 	
-	public static GameInstance createNewGame(int difficulty) {
+	public static GameInstance createNewGame(int difficulty, int maxHealth) {
 		activeInstance = new GameInstance();
 		activeInstance.difficulty = difficulty;
 		activeInstance.populateItems();
 		activeInstance.generateFloor(1);
 		
+		activeInstance.player = new EntityPlayer(activeInstance.getFloor(1).getEntryLocation(), maxHealth);
+		activeInstance.getFloor(1).addEntity(activeInstance.player);
+		
 		return activeInstance;
+	}
+	
+	public static World getActiveWorld() {
+		return activeInstance.getFloor(activeInstance.getCurrentFloor());
 	}
 	
 	private int nextEntityId = 1;
@@ -52,11 +59,11 @@ public class GameInstance {
 	}
 	
 	public void generateFloor(int floor) {
-		floors.put(floor, new World(100, 100, floor));
+		floors.put(floor, new World(200, 200, floor));
 		new SimpleDungeonGenerator(floors.get(floor)).generateLevel(difficulty);
 	}
 	
-	public int getCurrentFloor(int floor) {
+	public int getCurrentFloor() {
 		return player.getWorld().getFloor();
 	}
 	

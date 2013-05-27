@@ -2,6 +2,8 @@ package com.bendude56.dungeonman.entity;
 
 import java.awt.Image;
 
+import com.bendude56.dungeonman.gfx.ImageUtil;
+import com.bendude56.dungeonman.ui.GameFrame;
 import com.bendude56.dungeonman.world.WorldLocation;
 
 /**
@@ -14,6 +16,7 @@ import com.bendude56.dungeonman.world.WorldLocation;
  */
 
 public class EntityPlayer extends EntityAlive {
+	public static final Image humanSprite = ImageUtil.loadImage("/entity/player/human.png");
 
 	public EntityPlayer(WorldLocation l, int maxHp) {
 		super(l, maxHp);
@@ -31,13 +34,12 @@ public class EntityPlayer extends EntityAlive {
 	}
 	
 	public void logMessage(String message) {
-		// TODO: Log message
+		GameFrame.activeFrame.logMessage(message);
 	}
 
 	@Override
 	public Image getDrawImage() {
-		// TODO Auto-generated method stub
-		return null;
+		return humanSprite;
 	}
 
 }

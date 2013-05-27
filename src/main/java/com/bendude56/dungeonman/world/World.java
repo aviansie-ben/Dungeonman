@@ -250,6 +250,37 @@ public class World {
 		return presentEntities;
 	}
 	
+	public List<Entity> getEntities(WorldLocation l1, WorldLocation l2) {
+		return getEntities(l1.x, l1.y, l2.x, l2.y);
+	}
+	
+	public List<Entity> getEntities(int x1, int y1, int x2, int y2) {
+		int temp;
+		
+		// Make sure x1 < x2 and y1 < y2
+		if (x1 > x2) {
+			temp = x1;
+			x1 = x2;
+			x2 = temp;
+		}
+		if (y1 > y2) {
+			temp = y1;
+			y1 = y2;
+			y2 = temp;
+		}
+		
+		ArrayList<Entity> presentEntities = new ArrayList<Entity>();
+		
+		for (Entry<Integer, Entity> e : entities.entrySet()) {
+			WorldLocation l = e.getValue().getLocation();
+			if (l.x >= x1 && l.x <= x2 && l.y >= y1 && l.y <= y2) {
+				presentEntities.add(e.getValue());
+			}
+		}
+		
+		return presentEntities;
+	}
+	
 	public void clearEntities() {
 		entities.clear();
 	}

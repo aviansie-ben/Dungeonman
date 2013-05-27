@@ -58,7 +58,7 @@ public class SimpleDungeonGenerator extends WorldGenerator {
 			for (WorldLocation possibleLocation : info.possibleMonsters)
 				possibleMonsters.add(possibleLocation);
 			
-			if (iteration < 10) {
+			if (iteration < 15) {
 				generateChildren(f, info, iteration);
 			}
 			
@@ -115,7 +115,7 @@ public class SimpleDungeonGenerator extends WorldGenerator {
 	
 	public static void main(String[] args) {
 		while (true) {
-			GameInstance.createNewGame(0);
+			GameInstance.createNewGame(0, 300);
 			World w = GameInstance.getActiveInstance().getFloor(1);
 			
 			BufferedImage img = new BufferedImage(w.getWidth(), w.getHeight(), BufferedImage.TYPE_INT_RGB);

@@ -24,7 +24,7 @@ public class InventoryTest {
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		GameInstance.createNewGame(0);
+		GameInstance.createNewGame(0, 0);
 		world = GameInstance.getActiveInstance().getFloor(1);
 	}
 
