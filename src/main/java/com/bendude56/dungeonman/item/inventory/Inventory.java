@@ -1,6 +1,7 @@
 package com.bendude56.dungeonman.item.inventory;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.bendude56.dungeonman.item.ItemStack;
 
@@ -40,5 +41,13 @@ public class Inventory {
 		if (stack.getAmount() > 0) {
 			items.add(stack);
 		}
+	}
+	
+	public void removeItem(ItemStack stack) {
+		items.remove(stack);
+	}
+	
+	public List<ItemStack> getItems() {
+		return items;
 	}
 }

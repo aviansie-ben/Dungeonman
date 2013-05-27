@@ -15,4 +15,8 @@ public class ItemMetadata {
 		return new ItemMetadata();
 	}
 	
+	public boolean equals(Object o) {
+		return o.getClass() == ItemMetadata.class;
+	}
+	
 }

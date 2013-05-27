@@ -84,10 +84,11 @@ public class GameInstance {
 	
 	private void populateItems() {
 		int numPotions = 10 + random.nextInt(11);
-		items.put(1, new ItemGoldCoin(1));
+		items.put(1, Item.goldCoin = new ItemGoldCoin(1));
 		
+		Item.potions = new ItemPotion[numPotions];
 		for (int i = 0; i < numPotions; i++) {
-			items.put(2 + i, ItemPotion.generateNewPotion(2 + i, difficulty, random));
+			items.put(2 + i, Item.potions[i] = ItemPotion.generateNewPotion(2 + i, difficulty, random));
 		}
 	}
 }

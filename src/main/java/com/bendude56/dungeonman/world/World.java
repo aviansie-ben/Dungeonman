@@ -33,6 +33,7 @@ public class World {
 		this.height = height;
 		this.dungeonLevel = dungeonLevel;
 		this.entities = new HashMap<Integer, Entity>();
+		this.game = GameInstance.getActiveInstance();
 		
 		setRect(0, 0, width - 1, height - 1, Tile.wall);
 	}
@@ -247,6 +248,10 @@ public class World {
 		}
 		
 		return presentEntities;
+	}
+	
+	public void clearEntities() {
+		entities.clear();
 	}
 	
 	public GameInstance getGameInstance() {
