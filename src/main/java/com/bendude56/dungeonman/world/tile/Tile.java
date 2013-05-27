@@ -1,6 +1,7 @@
 package com.bendude56.dungeonman.world.tile;
 
 import java.awt.Color;
+import java.awt.Graphics;
 import java.util.HashMap;
 
 import com.bendude56.dungeonman.entity.Entity;
@@ -29,6 +30,7 @@ public abstract class Tile {
 		return id;
 	}
 	
+	public abstract void render(Graphics g, int x, int y, TileState state);
 	public abstract Color getColor(TileState state);
 	public abstract boolean onPlayerMove(TileState state, EntityPlayer player);
 	public abstract boolean onEntityMove(TileState state, Entity e);

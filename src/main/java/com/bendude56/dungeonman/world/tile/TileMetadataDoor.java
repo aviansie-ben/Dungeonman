@@ -34,4 +34,8 @@ public class TileMetadataDoor extends TileMetadata {
 			return false;
 		return true;
 	}
+	
+	public TileMetadata clone() {
+		return new TileMetadataDoor(keyId);
+	}
 }

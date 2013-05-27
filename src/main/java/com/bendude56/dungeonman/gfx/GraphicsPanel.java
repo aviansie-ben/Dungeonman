@@ -11,7 +11,6 @@ import javax.swing.JPanel;
 
 import com.bendude56.dungeonman.GameInstance;
 import com.bendude56.dungeonman.entity.Entity;
-import com.bendude56.dungeonman.world.WorldLocation;
 import com.bendude56.dungeonman.world.tile.TileState;
 
 public class GraphicsPanel extends JPanel {
@@ -59,19 +58,16 @@ public class GraphicsPanel extends JPanel {
 				if (y >= 0 && y < GameInstance.getActiveWorld().getHeight()) {
 					for (int x = viewpointX / 33; x <= (viewpointX + img.getWidth(null)) / 33; x++) {
 						if (x >= 0 && x < GameInstance.getActiveWorld().getWidth()) {
-							g.setColor(GameInstance.getActiveWorld().getTile(x, y).getColor(new TileState(new WorldLocation(GameInstance.getActiveWorld(), x, y))));
-							g.fillRect(x * 33 - viewpointX, y * 33 - viewpointY, 32, 32);
+							TileState state = GameInstance.getActiveWorld().getTileState(x, y);
+							
+							state.getTileType().render(g, x * 33 - viewpointX, y * 33 - viewpointY, state);
 						}
 					}
 				}
 			}
 			
 			for (Entity e : GameInstance.getActiveWorld().getEntities(viewpointX / 33, viewpointY / 33, (viewpointX + img.getWidth(null)) / 33, (viewpointY + img.getHeight(null)) / 33)) {
-				Image i = e.getDrawImage();
-				
-				if (i != null) {
-					g.drawImage(i, e.getLocation().x * 33 - viewpointX, e.getLocation().y * 33 - viewpointY, null);
-				}
+				e.render(g, e.getLocation().x * 33 - viewpointX, e.getLocation().y * 33 - viewpointY);
 			}
 		}
 	}

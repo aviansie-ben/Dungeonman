@@ -1,5 +1,6 @@
 package com.bendude56.dungeonman.entity;
 
+import java.awt.Graphics;
 import java.awt.Image;
 
 import com.bendude56.dungeonman.gfx.ImageUtil;
@@ -25,7 +26,7 @@ public class EntityPlayer extends EntityAlive {
 
 	@Override
 	public void doTurn() {
-		// Do nothing (UI will control player actions)
+		// Do nothing (Player actions are handled elsewhere)
 	}
 
 	@Override
@@ -38,8 +39,8 @@ public class EntityPlayer extends EntityAlive {
 	}
 
 	@Override
-	public Image getDrawImage() {
-		return humanSprite;
+	public void render(Graphics g, int x, int y) {
+		g.drawImage(humanSprite, x, y, null);
 	}
 
 }

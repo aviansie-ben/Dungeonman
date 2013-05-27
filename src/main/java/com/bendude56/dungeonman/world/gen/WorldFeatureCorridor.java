@@ -22,7 +22,10 @@ public class WorldFeatureCorridor extends WorldFeature {
 		WorldFeatureInfo info = new WorldFeatureInfo();
 		
 		for (int i = 0; i < corridorLength; i++) {
-			l.setTile(Tile.stoneFloor);
+			if (i == 0)
+				setDoor(l, door);
+			else
+				l.setTile(Tile.stoneFloor);
 			
 			info.walls.add(l.adjustLocation(1, 0, orientation));
 			info.wallOrientations.add((orientation + 1) % 4);

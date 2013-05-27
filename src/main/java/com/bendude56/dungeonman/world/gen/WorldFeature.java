@@ -5,6 +5,7 @@ import java.util.Random;
 
 import com.bendude56.dungeonman.world.WorldLocation;
 import com.bendude56.dungeonman.world.tile.Tile;
+import com.bendude56.dungeonman.world.tile.TileMetadataDoor;
 
 public abstract class WorldFeature {
 	public abstract boolean checkLocation(WorldLocation l, int orientation);
@@ -15,6 +16,16 @@ public abstract class WorldFeature {
 			l.setTile(Tile.stoneFloor);
 		} else if (door == DoorType.NORMAL){
 			l.setTile(Tile.door);
+			l.setMetadata(new TileMetadataDoor(-1));
+		} else if (door == DoorType.SECRET) {
+			l.setTile(Tile.secretDoor);
+			l.setMetadata(new TileMetadataDoor(-1));
+		} else if (door == DoorType.LOCKED) {
+			l.setTile(Tile.door);
+			l.setMetadata(new TileMetadataDoor(1));
+		} else if (door == DoorType.SECRET_LOCKED) {
+			l.setTile(Tile.secretDoor);
+			l.setMetadata(new TileMetadataDoor(1));
 		}
 	}
 	
@@ -27,6 +38,16 @@ public abstract class WorldFeature {
 	}
 	
 	public enum DoorType {
-		NONE, NORMAL, SECRET, LOCKED, SECRET_LOCKED
+		NONE, NORMAL, SECRET, LOCKED, SECRET_LOCKED;
+
+		public static DoorType getRandomType(Random random) {
+			boolean locked = (random.nextInt(4) == 0);
+			
+			if (random.nextInt(5) == 0) {
+				return (locked) ? DoorType.SECRET_LOCKED : DoorType.SECRET;
+			} else {
+				return (locked) ? DoorType.LOCKED : DoorType.NORMAL;
+			}
+		}
 	}
 }

@@ -1,5 +1,6 @@
 package com.bendude56.dungeonman.entity;
 
+import java.awt.Graphics;
 import java.awt.Image;
 
 import com.bendude56.dungeonman.world.World;
@@ -30,7 +31,7 @@ public abstract class Entity {
 		world = l.world;
 	}
 	
-	public abstract Image getDrawImage();
+	public abstract void render(Graphics g, int x, int y);
 	public abstract void doTurn();
 	public abstract void doAction(ActionType type, Entity e);
 	

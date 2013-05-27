@@ -1,6 +1,7 @@
 package com.bendude56.dungeonman.world.tile;
 
 import java.awt.Color;
+import java.awt.Graphics;
 
 import com.bendude56.dungeonman.entity.Entity;
 import com.bendude56.dungeonman.entity.EntityPlayer;
@@ -24,6 +25,12 @@ public class TileStoneFloor extends TileFloor {
 	@Override
 	public boolean onEntityMove(TileState state, Entity e) {
 		return true;
+	}
+	
+	@Override
+	public void render(Graphics g, int x, int y, TileState state) {
+		g.setColor(getColor(state));
+		g.fillRect(x, y, 32, 32);
 	}
 
 }

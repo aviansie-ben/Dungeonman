@@ -68,7 +68,7 @@ public class WorldFeatureRoom extends WorldFeature {
 		} else {
 			int x1, y1, x2, y2;
 			
-			l.setTile(Tile.stoneFloor);
+			setDoor(l, door);
 			
 			l1 = l.adjustLocation(-(width / 2), height + 1, orientation);
 			l2 = l1.adjustLocation(width, -height, orientation);

@@ -92,11 +92,15 @@ public class SimpleDungeonGenerator extends WorldGenerator {
 		}
 		
 		for (int i = 0; i < numRooms; i++) {
-			tryGenerate(new WorldFeatureRoom(random.nextInt(5) + 3, random.nextInt(5) + 3), (List<WorldLocation>) info.walls.clone(), (List<Integer>) info.wallOrientations.clone(), DoorType.NONE, iteration);
+			DoorType door = DoorType.getRandomType(random);
+			
+			tryGenerate(new WorldFeatureRoom(random.nextInt(5) + 3, random.nextInt(5) + 3), (List<WorldLocation>) info.walls.clone(), (List<Integer>) info.wallOrientations.clone(), door, iteration);
 		}
 		
 		for (int i = 0; i < numCorridors; i++) {
-			tryGenerate(new WorldFeatureCorridor(random.nextInt(10) + 5), (List<WorldLocation>) info.walls.clone(), (List<Integer>) info.wallOrientations.clone(), DoorType.NONE, iteration);
+			DoorType door = (f instanceof WorldFeatureRoom) ? DoorType.getRandomType(random) : DoorType.NONE;
+			
+			tryGenerate(new WorldFeatureCorridor(random.nextInt(10) + 5), (List<WorldLocation>) info.walls.clone(), (List<Integer>) info.wallOrientations.clone(), door, iteration);
 		}
 	}
 	

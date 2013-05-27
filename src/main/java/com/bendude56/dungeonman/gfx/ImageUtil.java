@@ -16,6 +16,10 @@ public class ImageUtil {
 		}
 	}
 	
+	public static ImageSheet loadImageSheet(String resourceName, int tileWidth, int tileHeight) {
+		return new ImageSheet(loadImage(resourceName), tileWidth, tileHeight);
+	}
+	
 	public static Image colorPotion(Image original, Color color) {
 		// TODO: Color potions
 		return original;

@@ -25,6 +25,7 @@ import com.bendude56.dungeonman.entity.EntityPlayer;
 import com.bendude56.dungeonman.gfx.GraphicsPanel;
 import com.bendude56.dungeonman.world.World;
 import com.bendude56.dungeonman.world.WorldLocation;
+import com.bendude56.dungeonman.world.tile.TileState;
 
 public class GameFrame extends JFrame {
 	private static final long	serialVersionUID	= 1L;
@@ -168,9 +169,13 @@ public class GameFrame extends JFrame {
 				EventQueue.invokeLater(new Runnable() {
 					public void run() {
 						try {
-							activeLog = new TextLogFrame();
-							activeLog.logTextBox.setText(loggedMessages);
-							activeLog.setVisible(true);
+							if (activeLog == null) {
+								activeLog = new TextLogFrame();
+								activeLog.logTextBox.setText(loggedMessages);
+								activeLog.setVisible(true);
+							} else {
+								activeLog.requestFocus();
+							}
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
@@ -184,6 +189,7 @@ public class GameFrame extends JFrame {
 		loggedMessages += message + "\n";
 		if (activeLog != null) {
 			activeLog.logTextBox.setText(activeLog.logTextBox.getText() + message + "\n");
+			activeLog.logTextBox.select(activeLog.logTextBox.getText().length(), 0);
 		}
 	}
 	
@@ -235,9 +241,11 @@ public class GameFrame extends JFrame {
 				newLocation = newLocation.adjustLocation(-1, 0);
 			}
 			
-			if (w.getTile(newLocation).onPlayerMove(w.getTileState(newLocation), p)) {
+			TileState state = w.getTileState(newLocation);
+			if (!newLocation.equals(p.getLocation()) && state.getTileType().onPlayerMove(state, p)) {
 				p.setLocation(newLocation);
 			}
+			state.update();
 		}
 	}
 }

@@ -1,6 +1,6 @@
 package com.bendude56.dungeonman.entity;
 
-import java.awt.Image;
+import java.awt.Graphics;
 
 import com.bendude56.dungeonman.item.ItemStack;
 import com.bendude56.dungeonman.world.WorldLocation;
@@ -30,8 +30,8 @@ public class EntityDroppedItem extends Entity {
 	}
 
 	@Override
-	public Image getDrawImage() {
-		return stack.getItem().getDrawImage(stack);
+	public void render(Graphics g, int x, int y) {
+		// TODO: Render dropped item
 	}
 
 }
