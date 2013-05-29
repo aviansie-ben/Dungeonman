@@ -4,6 +4,7 @@ import java.awt.Image;
 
 import com.bendude56.dungeonman.entity.Entity;
 import com.bendude56.dungeonman.entity.EntityPlayer;
+import com.bendude56.dungeonman.gfx.ImageUtil;
 
 /**
  * Benjamin C. Thomas
@@ -15,33 +16,30 @@ import com.bendude56.dungeonman.entity.EntityPlayer;
  */
 
 public class ItemKey extends Item {
+	public static final Image keySprite = ImageUtil.loadImage("/entity/item/key.png");
 
-	public ItemKey(int id, int rarity) {
-		super(id, rarity);
+	public ItemKey(int id) {
+		super(id, -1);
 	}
 
 	@Override
 	public Image getDrawImage(ItemStack stack) {
-		// TODO Auto-generated method stub
-		return null;
+		return keySprite;
 	}
 
 	@Override
 	public boolean canUse(ItemStack stack, Entity e) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public String getItemName(ItemStack stack) {
-		// TODO Auto-generated method stub
-		return null;
+		return "Key";
 	}
 
 	@Override
 	public int getMaxStack(ItemStack stack) {
-		// TODO Auto-generated method stub
-		return 0;
+		return 1;
 	}
 
 	@Override
@@ -51,14 +49,12 @@ public class ItemKey extends Item {
 
 	@Override
 	public boolean onUsed(ItemStack stack, Entity e) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public boolean onPickedUp(ItemStack stack, EntityPlayer p) {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 }

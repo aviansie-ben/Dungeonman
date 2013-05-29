@@ -17,6 +17,7 @@ import com.bendude56.dungeonman.entity.EntityPlayer;
 public abstract class Item {
 	public static ItemGoldCoin goldCoin;
 	public static ItemPotion[] potions;
+	public static ItemKey key;
 	
 	private final int id;
 	private final int rarity;

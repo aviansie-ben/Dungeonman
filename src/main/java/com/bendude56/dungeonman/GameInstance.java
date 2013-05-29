@@ -7,6 +7,7 @@ import com.bendude56.dungeonman.entity.Entity;
 import com.bendude56.dungeonman.entity.EntityPlayer;
 import com.bendude56.dungeonman.item.Item;
 import com.bendude56.dungeonman.item.ItemGoldCoin;
+import com.bendude56.dungeonman.item.ItemKey;
 import com.bendude56.dungeonman.item.ItemPotion;
 import com.bendude56.dungeonman.world.World;
 import com.bendude56.dungeonman.world.WorldLocation;
@@ -36,6 +37,7 @@ public class GameInstance {
 	}
 	
 	private int nextEntityId = 1;
+	private int nextKeyId = 1;
 	private HashMap<Integer, World> floors = new HashMap<Integer, World>();
 	private HashMap<Integer, Item> items = new HashMap<Integer, Item>();
 	private EntityPlayer player;
@@ -85,6 +87,10 @@ public class GameInstance {
 		return nextEntityId++;
 	}
 	
+	public int generateKeyId() {
+		return nextKeyId++;
+	}
+	
 	public Item getItem(int id) {
 		return items.get(id);
 	}
@@ -92,10 +98,11 @@ public class GameInstance {
 	private void populateItems() {
 		int numPotions = 10 + random.nextInt(11);
 		items.put(1, Item.goldCoin = new ItemGoldCoin(1));
+		items.put(2, Item.key = new ItemKey(2));
 		
 		Item.potions = new ItemPotion[numPotions];
 		for (int i = 0; i < numPotions; i++) {
-			items.put(2 + i, Item.potions[i] = ItemPotion.generateNewPotion(2 + i, difficulty, random));
+			items.put(3 + i, Item.potions[i] = ItemPotion.generateNewPotion(3 + i, difficulty, random));
 		}
 	}
 }

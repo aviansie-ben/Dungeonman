@@ -33,4 +33,9 @@ public class TileWall extends Tile {
 		g.fillRect(x, y, 32, 32);
 	}
 
+	@Override
+	public boolean canItemAlgorithmPass() {
+		return false;
+	}
+
 }

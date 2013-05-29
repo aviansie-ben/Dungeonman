@@ -30,6 +30,7 @@ public abstract class Tile {
 		return id;
 	}
 	
+	public abstract boolean canItemAlgorithmPass();
 	public abstract void render(Graphics g, int x, int y, TileState state);
 	public abstract Color getColor(TileState state);
 	public abstract boolean onPlayerMove(TileState state, EntityPlayer player);

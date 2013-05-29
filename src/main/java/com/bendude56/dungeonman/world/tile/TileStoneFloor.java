@@ -33,4 +33,9 @@ public class TileStoneFloor extends TileFloor {
 		g.fillRect(x, y, 32, 32);
 	}
 
+	@Override
+	public boolean canItemAlgorithmPass() {
+		return true;
+	}
+
 }

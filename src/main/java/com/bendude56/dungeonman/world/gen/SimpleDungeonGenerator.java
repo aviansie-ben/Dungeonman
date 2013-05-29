@@ -41,6 +41,9 @@ public class SimpleDungeonGenerator extends WorldGenerator {
 		world.setTileAndMetadata(entry, Tile.stairs, new TileMetadataStairs(true));
 		world.setExitLocation(exit);
 		world.setTileAndMetadata(exit, Tile.stairs, new TileMetadataStairs(false));
+		
+		// Generate ALL the keys
+		new KeyGenerator(world, possibleItems, random).generateAllKeys();
 	}
 	
 	public boolean generate(WorldFeature f, WorldLocation l, DoorType door, int orientation, int iteration) {
@@ -122,17 +125,21 @@ public class SimpleDungeonGenerator extends WorldGenerator {
 			GameInstance.createNewGame(0, 300);
 			World w = GameInstance.getActiveInstance().getFloor(1);
 			
-			BufferedImage img = new BufferedImage(w.getWidth(), w.getHeight(), BufferedImage.TYPE_INT_RGB);
-			int[] p = new int[w.getWidth() * w.getHeight()];
-			for (int y = 0; y < w.getHeight(); y++) {
-				for (int x = 0; x < w.getWidth(); x++) {
-					p[(y * w.getWidth()) + x] = w.getTile(x, y).getColor(w.getTileState(x, y)).getRGB();
-				}
-			}
-			img.setRGB(0, 0, w.getWidth(), w.getHeight(), p, 0, w.getWidth());
-			
-			JOptionPane.showMessageDialog(null, null, "Generation Test", JOptionPane.INFORMATION_MESSAGE, new ImageIcon(img.getScaledInstance(w.getWidth() * 2, w.getHeight() * 2, Image.SCALE_AREA_AVERAGING)));
+			showDialog(w);
 		}
+	}
+	
+	public static void showDialog(World w) {
+		BufferedImage img = new BufferedImage(w.getWidth(), w.getHeight(), BufferedImage.TYPE_INT_RGB);
+		int[] p = new int[w.getWidth() * w.getHeight()];
+		for (int y = 0; y < w.getHeight(); y++) {
+			for (int x = 0; x < w.getWidth(); x++) {
+				p[(y * w.getWidth()) + x] = w.getTile(x, y).getColor(w.getTileState(x, y)).getRGB();
+			}
+		}
+		img.setRGB(0, 0, w.getWidth(), w.getHeight(), p, 0, w.getWidth());
+		
+		JOptionPane.showMessageDialog(null, null, "Generation Test", JOptionPane.INFORMATION_MESSAGE, new ImageIcon(img.getScaledInstance(w.getWidth() * 2, w.getHeight() * 2, Image.SCALE_AREA_AVERAGING)));
 	}
 
 }

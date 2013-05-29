@@ -22,10 +22,10 @@ public abstract class WorldFeature {
 			l.setMetadata(new TileMetadataDoor(-1));
 		} else if (door == DoorType.LOCKED) {
 			l.setTile(Tile.door);
-			l.setMetadata(new TileMetadataDoor(1));
+			l.setMetadata(new TileMetadataDoor(l.world.getGameInstance().generateKeyId()));
 		} else if (door == DoorType.SECRET_LOCKED) {
 			l.setTile(Tile.secretDoor);
-			l.setMetadata(new TileMetadataDoor(1));
+			l.setMetadata(new TileMetadataDoor(l.world.getGameInstance().generateKeyId()));
 		}
 	}
 	

@@ -31,7 +31,7 @@ public class EntityDroppedItem extends Entity {
 
 	@Override
 	public void render(Graphics g, int x, int y) {
-		// TODO: Render dropped item
+		g.drawImage(stack.getItem().getDrawImage(stack), x, y, null);
 	}
 
 }
