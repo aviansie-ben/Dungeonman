@@ -5,6 +5,7 @@ import java.awt.Graphics;
 
 import com.bendude56.dungeonman.entity.Entity;
 import com.bendude56.dungeonman.entity.EntityPlayer;
+import com.bendude56.dungeonman.item.ItemStack;
 
 public class TileDoor extends Tile {
 
@@ -22,8 +23,15 @@ public class TileDoor extends Tile {
 		TileMetadataDoor m = (TileMetadataDoor) state.getMetadata();
 		
 		if (m.isLocked()) {
-			// TODO: Implement door locking
-			player.logMessage("It's locked.");
+			ItemStack i = player.getInventory().getKey(m.getKeyId());
+			
+			if (i != null) {
+				player.getInventory().removeItem(i);
+				state.setTileType(Tile.stoneFloor);
+				player.logMessage("You unlock the door!");
+			} else {
+				player.logMessage("It's locked.");
+			}
 		} else {
 			state.setTileType(Tile.stoneFloor);
 			player.logMessage("You open the door!");

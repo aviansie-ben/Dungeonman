@@ -33,6 +33,9 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JScrollPane;
 
+import com.bendude56.dungeonman.GameInstance;
+import com.bendude56.dungeonman.entity.EntityStats;
+
 public class NewGameFrame extends JFrame {
 	
 	private GameFrame parent;
@@ -140,11 +143,18 @@ public class NewGameFrame extends JFrame {
 						"Trying to move into walls is death",
 						"No saving allowed",
 						"Enemies are ridiculously overpowered",
-						"All attacks do 1 damage"
+						"All attacks do 1 damage (Except enemy attacks)"
 					};
 				} else {
 					return;
 				}
+				
+				GameInstance.createNewGame(difficulty, new EntityStats(0, 0, 0, 0, 0, 0, 200));
+				
+				NewGameFrame.this.parent.windowMenu.setEnabled(true);
+				NewGameFrame.this.parent.gamePanel.repaint();
+				
+				NewGameFrame.this.dispose();
 			}
 		});
 		btnOk.setBounds(270, 486, 90, 28);

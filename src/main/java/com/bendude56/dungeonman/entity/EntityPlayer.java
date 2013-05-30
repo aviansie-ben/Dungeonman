@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import java.awt.Image;
 
 import com.bendude56.dungeonman.gfx.ImageUtil;
+import com.bendude56.dungeonman.item.inventory.Inventory;
 import com.bendude56.dungeonman.ui.GameFrame;
 import com.bendude56.dungeonman.world.WorldLocation;
 
@@ -18,10 +19,17 @@ import com.bendude56.dungeonman.world.WorldLocation;
 
 public class EntityPlayer extends EntityAlive {
 	public static final Image humanSprite = ImageUtil.loadImage("/entity/player/human.png");
+	
+	private Inventory inventory;
 
-	public EntityPlayer(WorldLocation l, int maxHp) {
-		super(l, maxHp);
+	public EntityPlayer(WorldLocation l, EntityStats stats) {
+		super(l, stats);
 		this.viewDistance = 10;
+		this.inventory = new Inventory();
+	}
+	
+	public Inventory getInventory() {
+		return inventory;
 	}
 
 	@Override
@@ -30,8 +38,9 @@ public class EntityPlayer extends EntityAlive {
 	}
 
 	@Override
-	public void doAction(ActionType type, Entity e) {
+	public boolean doAction(ActionType type, Entity e) {
 		// TODO: Damage when attacked by monsters
+		return false;
 	}
 	
 	public void logMessage(String message) {
@@ -41,6 +50,13 @@ public class EntityPlayer extends EntityAlive {
 	@Override
 	public void render(Graphics g, int x, int y) {
 		g.drawImage(humanSprite, x, y, null);
+	}
+
+	public boolean doPickup(EntityDroppedItem e) {
+		inventory.addItem(e.getItemStack());
+		e.die();
+		
+		return true;
 	}
 
 }

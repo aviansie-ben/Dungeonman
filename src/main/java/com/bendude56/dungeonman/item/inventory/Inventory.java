@@ -3,19 +3,14 @@ package com.bendude56.dungeonman.item.inventory;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.bendude56.dungeonman.item.ItemMetadataKey;
 import com.bendude56.dungeonman.item.ItemStack;
 
 public class Inventory {
-	private int maxWeight;
 	private ArrayList<ItemStack> items;
 	
-	public Inventory(int maxWeight) {
-		this.maxWeight = maxWeight;
+	public Inventory() {
 		this.items = new ArrayList<ItemStack>();
-	}
-	
-	public int getMaxWeight() {
-		return maxWeight;
 	}
 	
 	public int getCurrentWeight() {
@@ -49,5 +44,15 @@ public class Inventory {
 	
 	public List<ItemStack> getItems() {
 		return items;
+	}
+	
+	public ItemStack getKey(int keyId) {
+		for (ItemStack i : items) {
+			if (i.getMetadata() instanceof ItemMetadataKey && ((ItemMetadataKey)i.getMetadata()).getKeyId() == keyId) {
+				return i;
+			}
+		}
+		
+		return null;
 	}
 }

@@ -6,6 +6,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.bendude56.dungeonman.entity.EntityPlayer;
+import com.bendude56.dungeonman.entity.EntityStats;
 import com.bendude56.dungeonman.world.World;
 import com.bendude56.dungeonman.world.WorldLocation;
 import com.bendude56.dungeonman.world.tile.Tile;
@@ -19,7 +20,7 @@ public class WorldTest {
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		GameInstance.createNewGame(0, 0);
+		GameInstance.createNewGame(0, new EntityStats(0, 0, 0, 0, 0, 0, 0));
 	}
 
 	@Before
@@ -80,7 +81,7 @@ public class WorldTest {
 	public void testEntity() {
 		EntityPlayer p;
 		
-		world.addEntity(p = new EntityPlayer(new WorldLocation(world, 0, 0), 10));
+		world.addEntity(p = new EntityPlayer(new WorldLocation(world, 0, 0), new EntityStats(0, 0, 0, 0, 0, 0, 0)));
 		
 		Assert.assertNotNull(world.getEntity(p.getEntityId()));
 		Assert.assertEquals(p, world.getEntities(0, 0).get(0));

@@ -33,7 +33,7 @@ public abstract class Entity {
 	
 	public abstract void render(Graphics g, int x, int y);
 	public abstract void doTurn();
-	public abstract void doAction(ActionType type, Entity e);
+	public abstract boolean doAction(ActionType type, Entity e);
 	
 	public boolean isVisible() {
 		return world.isTileVisible(getLocation()) && !dead;

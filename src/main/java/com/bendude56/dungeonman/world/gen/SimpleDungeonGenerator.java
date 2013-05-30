@@ -122,7 +122,7 @@ public class SimpleDungeonGenerator extends WorldGenerator {
 	
 	public static void main(String[] args) {
 		while (true) {
-			GameInstance.createNewGame(0, 300);
+			GameInstance.createNewGame(0, null);
 			World w = GameInstance.getActiveInstance().getFloor(1);
 			
 			showDialog(w);

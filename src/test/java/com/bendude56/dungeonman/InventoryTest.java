@@ -9,6 +9,7 @@ import org.junit.Test;
 
 import com.bendude56.dungeonman.entity.Entity;
 import com.bendude56.dungeonman.entity.EntityPlayer;
+import com.bendude56.dungeonman.entity.EntityStats;
 import com.bendude56.dungeonman.item.Item;
 import com.bendude56.dungeonman.item.ItemDamagePotion;
 import com.bendude56.dungeonman.item.ItemHealingPotion;
@@ -24,7 +25,7 @@ public class InventoryTest {
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		GameInstance.createNewGame(0, 0);
+		GameInstance.createNewGame(0, new EntityStats(0, 0, 0, 0, 0, 0, 0));
 		world = GameInstance.getActiveInstance().getFloor(1);
 	}
 
@@ -44,7 +45,7 @@ public class InventoryTest {
 	
 	@Test
 	public void potionEffectTest() {
-		EntityPlayer player = new EntityPlayer(new WorldLocation(world, 0, 0), 100);
+		EntityPlayer player = new EntityPlayer(new WorldLocation(world, 0, 0), new EntityStats(0, 0, 0, 0, 0, 0, 0));
 		player.doDamage(5);
 		
 		Assert.assertEquals(95, player.getHp());
@@ -62,7 +63,7 @@ public class InventoryTest {
 	
 	@Test
 	public void inventoryTest() {
-		Inventory inv = new Inventory(1000);
+		Inventory inv = new Inventory();
 		ItemTest i = new ItemTest(0, 0);
 		
 		Assert.assertEquals(0, inv.getCurrentWeight());

@@ -21,8 +21,14 @@ public class EntityDroppedItem extends Entity {
 	}
 
 	@Override
-	public void doAction(ActionType type, Entity e) {
-		// TODO: React to player pickup
+	public boolean doAction(ActionType type, Entity e) {
+		if (type == ActionType.MOVE && e instanceof EntityPlayer) {
+			((EntityPlayer)e).logMessage("You see a " + stack.getItem().getItemName(stack) + " (x" + stack.getAmount() + ")");
+		} else if (type == ActionType.PICKUP && e instanceof EntityPlayer) {
+			return ((EntityPlayer)e).doPickup(this);
+		}
+		
+		return true;
 	}
 	
 	public ItemStack getItemStack() {

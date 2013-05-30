@@ -1,12 +1,12 @@
 package com.bendude56.dungeonman;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
 import org.junit.Test;
 
+import com.bendude56.dungeonman.entity.EntityStats;
 import com.bendude56.dungeonman.world.World;
 import com.bendude56.dungeonman.world.WorldLocation;
 import com.bendude56.dungeonman.world.gen.KeyGenerator;
@@ -27,7 +27,7 @@ public class KeyGeneratorTest {
 
 	@Test
 	public void test() {
-		GameInstance.createNewGame(0, 300);
+		GameInstance.createNewGame(0, new EntityStats(0, 0, 0, 0, 0, 0, 0));
 		World w = GameInstance.getActiveWorld();
 		
 		w.setRect(0, 0, w.getWidth() - 1, w.getHeight() - 1, Tile.wall);

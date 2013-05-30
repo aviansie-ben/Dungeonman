@@ -1,26 +1,25 @@
 package com.bendude56.dungeonman.ui;
 
 import java.awt.EventQueue;
-import java.awt.KeyEventDispatcher;
-import java.awt.KeyboardFocusManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.WindowEvent;
 import java.lang.reflect.InvocationTargetException;
+import java.util.List;
 import java.util.concurrent.CountDownLatch;
 
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 import com.bendude56.dungeonman.GameInstance;
+import com.bendude56.dungeonman.entity.Entity;
+import com.bendude56.dungeonman.entity.Entity.ActionType;
 import com.bendude56.dungeonman.entity.EntityPlayer;
 import com.bendude56.dungeonman.gfx.GraphicsPanel;
 import com.bendude56.dungeonman.world.World;
@@ -57,7 +56,6 @@ public class GameFrame extends JFrame {
 	
 	public static void main(String[] args) throws InvocationTargetException, InterruptedException {
 		try {
-			GameInstance.createNewGame(0, 300);
 			UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
 		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
 			e.printStackTrace();
@@ -151,7 +149,7 @@ public class GameFrame extends JFrame {
 	
 	private void initWindowMenu() {
 		windowMenu = new JMenu("Window");
-		// windowMenu.setEnabled(false);
+		windowMenu.setEnabled(false);
 		mainMenu.add(windowMenu);
 		
 		windowInventoryButton = new JMenuItem("Inventory");
@@ -193,7 +191,7 @@ public class GameFrame extends JFrame {
 		}
 	}
 	
-	private void mainLoop() {
+	private void mainLoop() throws InterruptedException {
 		KeyListener keyListen = new KeyListener() {
 			@Override
 			public void keyTyped(KeyEvent e) {
@@ -212,6 +210,11 @@ public class GameFrame extends JFrame {
 		};
 		
 		while (true) {
+			if (GameInstance.getActiveInstance() == null || GameInstance.getActiveInstance().getPlayerEntity() == null) {
+				Thread.sleep(500);
+				continue;
+			}
+			
 			World w = GameInstance.getActiveWorld();
 			EntityPlayer p =  GameInstance.getActiveInstance().getPlayerEntity();
 			
@@ -239,13 +242,39 @@ public class GameFrame extends JFrame {
 				newLocation = newLocation.adjustLocation(0, -1);
 			} else if (lastKeyCode == KeyEvent.VK_LEFT) {
 				newLocation = newLocation.adjustLocation(-1, 0);
+			} else if (lastKeyCode == KeyEvent.VK_P){
+				List<Entity> entities = newLocation.world.getEntities(newLocation);
+				boolean done = false;
+				
+				for (Entity e : entities) {
+					if (e.doAction(ActionType.PICKUP, p)) {
+						done = true;
+						break;
+					}
+				}
+				
+				if (!done) {
+					p.logMessage("There is nothing to pick up!");
+				}
 			}
 			
 			TileState state = w.getTileState(newLocation);
 			if (!newLocation.equals(p.getLocation()) && state.getTileType().onPlayerMove(state, p)) {
-				p.setLocation(newLocation);
+				List<Entity> entities = w.getEntities(newLocation);
+				boolean cancelled = false;
+				
+				for (Entity e : entities) {
+					if (!e.doAction(ActionType.MOVE, p)) {
+						cancelled = true;
+					}
+				}
+				
+				if (!cancelled)
+					p.setLocation(newLocation);
 			}
 			state.update();
+			
+			w.doTurn();
 		}
 	}
 }

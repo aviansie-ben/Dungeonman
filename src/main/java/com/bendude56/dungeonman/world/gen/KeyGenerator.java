@@ -10,7 +10,6 @@ import com.bendude56.dungeonman.item.ItemMetadataKey;
 import com.bendude56.dungeonman.item.ItemStack;
 import com.bendude56.dungeonman.world.World;
 import com.bendude56.dungeonman.world.WorldLocation;
-import com.bendude56.dungeonman.world.tile.Tile;
 import com.bendude56.dungeonman.world.tile.TileMetadataDoor;
 
 /**
@@ -79,6 +78,7 @@ public class KeyGenerator {
 			int keyId = ((TileMetadataDoor)door.getMetadata()).getKeyId();
 			
 			world.addEntity(new EntityDroppedItem(key, new ItemStack(Item.key, new ItemMetadataKey(keyId), 1)));
+			itemLocations.remove(key);
 			
 			return keyId;
 		}

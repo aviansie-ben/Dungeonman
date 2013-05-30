@@ -7,9 +7,9 @@ public abstract class EntityAlive extends Entity {
 	private int maxHp = 1;
 	private int hp = 1;
 	
-	public EntityAlive(WorldLocation l, int maxHp) {
+	public EntityAlive(WorldLocation l, EntityStats stats) {
 		super(l);
-		this.maxHp = maxHp;
+		this.maxHp = stats.calculateMaxHp();
 		this.hp = maxHp;
 	}
 	

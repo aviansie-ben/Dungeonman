@@ -5,6 +5,7 @@ import java.util.Random;
 
 import com.bendude56.dungeonman.entity.Entity;
 import com.bendude56.dungeonman.entity.EntityPlayer;
+import com.bendude56.dungeonman.entity.EntityStats;
 import com.bendude56.dungeonman.item.Item;
 import com.bendude56.dungeonman.item.ItemGoldCoin;
 import com.bendude56.dungeonman.item.ItemKey;
@@ -20,13 +21,13 @@ public class GameInstance {
 		return activeInstance;
 	}
 	
-	public static GameInstance createNewGame(int difficulty, int maxHealth) {
+	public static GameInstance createNewGame(int difficulty, EntityStats stats) {
 		activeInstance = new GameInstance();
 		activeInstance.difficulty = difficulty;
 		activeInstance.populateItems();
 		activeInstance.generateFloor(1);
 		
-		activeInstance.player = new EntityPlayer(activeInstance.getFloor(1).getEntryLocation(), maxHealth);
+		activeInstance.player = new EntityPlayer(activeInstance.getFloor(1).getEntryLocation(), stats);
 		activeInstance.getFloor(1).addEntity(activeInstance.player);
 		
 		return activeInstance;

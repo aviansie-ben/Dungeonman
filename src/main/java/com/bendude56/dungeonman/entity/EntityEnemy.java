@@ -15,8 +15,8 @@ public abstract class EntityEnemy extends EntityAlive {
 	private Entity target;
 	private WorldLocation targetLastSeen;
 
-	public EntityEnemy(WorldLocation l, int maxHp, int viewDistance) {
-		super(l, maxHp);
+	public EntityEnemy(WorldLocation l, EntityStats stats, int viewDistance) {
+		super(l, stats);
 		this.viewDistance = viewDistance;
 	}
 	
