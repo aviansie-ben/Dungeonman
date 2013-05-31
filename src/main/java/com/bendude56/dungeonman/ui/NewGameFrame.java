@@ -21,6 +21,8 @@ import java.awt.event.InputMethodListener;
 import java.awt.event.InputMethodEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeEvent;
+import java.util.Random;
+
 import javax.swing.event.CaretListener;
 import javax.swing.event.CaretEvent;
 import javax.swing.event.DocumentEvent;
@@ -35,6 +37,7 @@ import javax.swing.JScrollPane;
 
 import com.bendude56.dungeonman.GameInstance;
 import com.bendude56.dungeonman.entity.EntityStats;
+import com.bendude56.dungeonman.entity.EntityPlayer.PlayerRace;
 
 public class NewGameFrame extends JFrame {
 	
@@ -50,6 +53,9 @@ public class NewGameFrame extends JFrame {
 	private JRadioButton reallyjoelsDadButton;
 	private JTextField textField;
 	private JTable table;
+	
+	private EntityStats stats;
+	private PlayerRace race = PlayerRace.HUMAN;
 
 	/**
 	 * Create the frame.
@@ -149,7 +155,7 @@ public class NewGameFrame extends JFrame {
 					return;
 				}
 				
-				GameInstance.createNewGame(difficulty, new EntityStats(0, 0, 0, 0, 0, 0, 200));
+				GameInstance.createNewGame(difficulty, stats);
 				
 				NewGameFrame.this.parent.windowMenu.setEnabled(true);
 				NewGameFrame.this.parent.gamePanel.repaint();
@@ -255,7 +261,34 @@ public class NewGameFrame extends JFrame {
 		table.setBorder(null);
 		
 		JButton btnReroll = new JButton("Reroll");
+		btnReroll.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				rerollStats();
+			}
+		});
 		btnReroll.setBounds(237, 149, 90, 28);
 		panel_1.add(btnReroll);
+		
+		rerollStats();
+	}
+	
+	public void rerollStats() {
+		Random r = new Random();
+		EntityStats rolled = new EntityStats(3 + r.nextInt(8), 3 + r.nextInt(8), 3 + r.nextInt(8), 3 + r.nextInt(8), 3 + r.nextInt(8), 3 + r.nextInt(8), 0);
+		
+		table.getModel().setValueAt(rolled.getMagic(), 0, 1);
+		table.getModel().setValueAt(rolled.getStrength(), 1, 1);
+		table.getModel().setValueAt(rolled.getDefense(), 2, 1);
+		table.getModel().setValueAt(rolled.getAgility(), 3, 1);
+		table.getModel().setValueAt(rolled.getEndurance(), 4, 1);
+		table.getModel().setValueAt(rolled.getIntelligence(), 5, 1);
+		
+		stats = new EntityStats(race.bonusStats.getMagic() + rolled.getMagic(),
+				race.bonusStats.getStrength() + rolled.getStrength(),
+				race.bonusStats.getDefense() + rolled.getDefense(),
+				race.bonusStats.getAgility() + rolled.getAgility(),
+				race.bonusStats.getEndurance() + rolled.getEndurance(),
+				race.bonusStats.getIntelligence() + rolled.getIntelligence(),
+				race.bonusStats.getBaseMaxHp());
 	}
 }

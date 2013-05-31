@@ -40,4 +40,9 @@ public class TileSecretDoor extends Tile {
 		return false;
 	}
 
+	@Override
+	public boolean isTransparent() {
+		return false;
+	}
+
 }

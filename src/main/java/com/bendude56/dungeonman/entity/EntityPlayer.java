@@ -24,7 +24,7 @@ public class EntityPlayer extends EntityAlive {
 
 	public EntityPlayer(WorldLocation l, EntityStats stats) {
 		super(l, stats);
-		this.viewDistance = 10;
+		this.viewDistance = 5;
 		this.inventory = new Inventory();
 	}
 	
@@ -57,6 +57,18 @@ public class EntityPlayer extends EntityAlive {
 		e.die();
 		
 		return true;
+	}
+	
+	public enum PlayerRace {
+		HUMAN("Human", new EntityStats(5, 5, 5, 5, 5, 5, 200));
+		
+		public final String name;
+		public final EntityStats bonusStats;
+		
+		private PlayerRace(String name, EntityStats bonusStats) {
+			this.name = name;
+			this.bonusStats = bonusStats;
+		}
 	}
 
 }

@@ -31,6 +31,7 @@ public abstract class Tile {
 	}
 	
 	public abstract boolean canItemAlgorithmPass();
+	public abstract boolean isTransparent();
 	public abstract void render(Graphics g, int x, int y, TileState state);
 	public abstract Color getColor(TileState state);
 	public abstract boolean onPlayerMove(TileState state, EntityPlayer player);

@@ -38,4 +38,9 @@ public class TileStoneFloor extends TileFloor {
 		return true;
 	}
 
+	@Override
+	public boolean isTransparent() {
+		return true;
+	}
+
 }

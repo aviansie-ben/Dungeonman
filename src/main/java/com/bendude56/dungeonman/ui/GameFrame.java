@@ -14,16 +14,19 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 import com.bendude56.dungeonman.GameInstance;
+import com.bendude56.dungeonman.entity.AIController;
 import com.bendude56.dungeonman.entity.Entity;
 import com.bendude56.dungeonman.entity.Entity.ActionType;
 import com.bendude56.dungeonman.entity.EntityPlayer;
 import com.bendude56.dungeonman.gfx.GraphicsPanel;
 import com.bendude56.dungeonman.world.World;
 import com.bendude56.dungeonman.world.WorldLocation;
+import com.bendude56.dungeonman.world.tile.Tile;
 import com.bendude56.dungeonman.world.tile.TileState;
 
 public class GameFrame extends JFrame {
@@ -242,7 +245,7 @@ public class GameFrame extends JFrame {
 				newLocation = newLocation.adjustLocation(0, -1);
 			} else if (lastKeyCode == KeyEvent.VK_LEFT) {
 				newLocation = newLocation.adjustLocation(-1, 0);
-			} else if (lastKeyCode == KeyEvent.VK_P){
+			} else if (lastKeyCode == KeyEvent.VK_P) {
 				List<Entity> entities = newLocation.world.getEntities(newLocation);
 				boolean done = false;
 				
@@ -255,6 +258,15 @@ public class GameFrame extends JFrame {
 				
 				if (!done) {
 					p.logMessage("There is nothing to pick up!");
+				}
+			} else if (lastKeyCode == KeyEvent.VK_V) {
+				for (int y = p.getLocation().y + p.getViewDistance(); y >= p.getLocation().y - p.getViewDistance(); y--) {
+					int deltaX = p.getViewDistance() - Math.abs(y - p.getLocation().y);
+					for (int x = p.getLocation().x + deltaX; x >= p.getLocation().x - deltaX; x--) {
+						if (AIController.checkVisibility(p.getLocation(), new WorldLocation(null, x, y))) {
+							p.getLocation().world.setTile(x, y, Tile.stairs);
+						}
+					}
 				}
 			}
 			
