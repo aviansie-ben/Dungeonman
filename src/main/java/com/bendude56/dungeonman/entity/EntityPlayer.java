@@ -24,7 +24,7 @@ public class EntityPlayer extends EntityAlive {
 
 	public EntityPlayer(WorldLocation l, EntityStats stats) {
 		super(l, stats);
-		this.viewDistance = 5;
+		this.viewDistance = 3;
 		this.inventory = new Inventory();
 	}
 	
