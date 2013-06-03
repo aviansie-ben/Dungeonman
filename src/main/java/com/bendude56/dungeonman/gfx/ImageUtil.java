@@ -2,7 +2,9 @@ package com.bendude56.dungeonman.gfx;
 
 import java.awt.Color;
 import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
+import java.awt.image.FilteredImageSource;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
@@ -21,7 +23,6 @@ public class ImageUtil {
 	}
 	
 	public static Image colorPotion(Image original, Color color) {
-		// TODO: Color potions
-		return original;
+		return Toolkit.getDefaultToolkit().createImage(new FilteredImageSource(original.getSource(), new PotionImageFilter(color)));
 	}
 }

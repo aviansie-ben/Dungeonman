@@ -62,7 +62,7 @@ public class SimpleDungeonGenerator extends WorldGenerator {
 			for (WorldLocation possibleLocation : info.possibleMonsters)
 				possibleMonsters.add(possibleLocation);
 			
-			if (iteration < 15) {
+			if (iteration < 7) {
 				generateChildren(f, info, iteration);
 			}
 			

@@ -45,20 +45,20 @@ public class InventoryTest {
 	
 	@Test
 	public void potionEffectTest() {
-		EntityPlayer player = new EntityPlayer(new WorldLocation(world, 0, 0), new EntityStats(0, 0, 0, 0, 0, 0, 0));
+		EntityPlayer player = new EntityPlayer(new WorldLocation(world, 0, 0), new EntityStats(0, 0, 0, 0, 0, 0, 100));
 		player.doDamage(5);
 		
-		Assert.assertEquals(95, player.getHp());
+		Assert.assertEquals(player.getMaxHp() - 5, player.getHp());
 		
 		ItemPotion p = new ItemHealingPotion("", Color.white, 0, 0, 1);
 		p.onConsumed(new ItemStack(p, new ItemMetadata(), 1), player);
 		
-		Assert.assertEquals(96, player.getHp());
+		Assert.assertEquals(player.getMaxHp() - 4, player.getHp());
 		
 		p = new ItemDamagePotion("", Color.white, 0, 0, 1);
 		p.onConsumed(new ItemStack(p, new ItemMetadata(), 1), player);
 		
-		Assert.assertEquals(95, player.getHp());
+		Assert.assertEquals(player.getMaxHp() - 5, player.getHp());
 	}
 	
 	@Test
@@ -92,7 +92,7 @@ public class InventoryTest {
 
 	public class ItemTest extends Item {
 		public ItemTest(int id, int rarity) {
-			super(id, rarity);
+			super(id, rarity, 1);
 		}
 
 		@Override
