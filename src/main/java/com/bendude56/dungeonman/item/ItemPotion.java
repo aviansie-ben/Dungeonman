@@ -19,7 +19,7 @@ public abstract class ItemPotion extends ItemConsumable {
 	private String unidentifiedName;
 	
 	public ItemPotion(String name, String unidentifiedName, Color c, int id, int rarity) {
-		super(id, rarity);
+		super(id, rarity, 1);
 		
 		this.name = name;
 		this.unidentifiedName = unidentifiedName;

@@ -8,7 +8,7 @@ import com.bendude56.dungeonman.entity.EntityPlayer;
 public class ItemGoldCoin extends Item {
 
 	public ItemGoldCoin(int id) {
-		super(id, -1);
+		super(id, -1, 500);
 	}
 
 	@Override

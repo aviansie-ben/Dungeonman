@@ -14,8 +14,8 @@ import com.bendude56.dungeonman.entity.EntityPlayer;
 
 public abstract class ItemConsumable extends Item {
 
-	public ItemConsumable(int id, int rarity) {
-		super(id, rarity);
+	public ItemConsumable(int id, int rarity, int generatorMax) {
+		super(id, rarity, generatorMax);
 	}
 
 	@Override

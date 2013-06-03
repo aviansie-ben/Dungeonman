@@ -21,18 +21,24 @@ public abstract class Item {
 	
 	private final int id;
 	private final int rarity;
+	private final int generatorMax;
 	
-	public int getItemId() {
+	public final int getItemId() {
 		return id;
 	}
 	
-	public int getItemRarity() {
+	public final int getItemRarity() {
 		return rarity;
 	}
 	
-	public Item(int id, int rarity) {
+	public final int getGeneratorMaxStack() {
+		return generatorMax;
+	}
+	
+	public Item(int id, int rarity, int generatorMax) {
 		this.id = id;
 		this.rarity = rarity;
+		this.generatorMax = generatorMax;
 	}
 	
 	public abstract Image getDrawImage(ItemStack stack);

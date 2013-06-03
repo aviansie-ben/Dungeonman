@@ -44,6 +44,7 @@ public class SimpleDungeonGenerator extends WorldGenerator {
 		
 		// Generate ALL the keys
 		new KeyGenerator(world, possibleItems, random).generateAllKeys();
+		new ItemPopulator(possibleItems, random).generateAllItems();
 	}
 	
 	public boolean generate(WorldFeature f, WorldLocation l, DoorType door, int orientation, int iteration) {

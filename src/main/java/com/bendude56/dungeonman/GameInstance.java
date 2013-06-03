@@ -96,6 +96,10 @@ public class GameInstance {
 		return items.get(id);
 	}
 	
+	public HashMap<Integer, Item> getItems() {
+		return items;
+	}
+	
 	private void populateItems() {
 		int numPotions = 10 + random.nextInt(11);
 		items.put(1, Item.goldCoin = new ItemGoldCoin(1));
@@ -104,6 +108,7 @@ public class GameInstance {
 		Item.potions = new ItemPotion[numPotions];
 		for (int i = 0; i < numPotions; i++) {
 			items.put(3 + i, Item.potions[i] = ItemPotion.generateNewPotion(3 + i, difficulty, random));
+			itemIdentified.put(3 + i, false);
 		}
 	}
 }

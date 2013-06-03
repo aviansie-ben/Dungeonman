@@ -41,9 +41,9 @@ public abstract class WorldFeature {
 		NONE, NORMAL, SECRET, LOCKED, SECRET_LOCKED;
 
 		public static DoorType getRandomType(Random random) {
-			boolean locked = (random.nextInt(4) == 0);
+			boolean locked = (random.nextInt(6) == 0);
 			
-			if (random.nextInt(5) == 0) {
+			if (random.nextInt(6) == 0) {
 				return (locked) ? DoorType.SECRET_LOCKED : DoorType.SECRET;
 			} else {
 				return (locked) ? DoorType.LOCKED : DoorType.NORMAL;

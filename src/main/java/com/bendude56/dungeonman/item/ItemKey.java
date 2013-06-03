@@ -19,7 +19,7 @@ public class ItemKey extends Item {
 	public static final Image keySprite = ImageUtil.loadImage("/entity/item/key.png");
 
 	public ItemKey(int id) {
-		super(id, -1);
+		super(id, -1, 0);
 	}
 
 	@Override
