@@ -65,13 +65,20 @@ public class EntityPlayer extends EntityAlive {
 	}
 	
 	public void doSearch() {
+		boolean done = false;
+		
 		for (int y = getLocation().y + getSearchDistance(); y >= getLocation().y - getSearchDistance(); y--) {
 			int deltaX = getSearchDistance() - Math.abs(y - getLocation().y);
 			for (int x = getLocation().x + deltaX; x >= getLocation().x - deltaX; x--) {
 				if (new WorldLocation(getLocation().world, x, y).getTile() instanceof TileSecretDoor) {
 					logMessage("A wall about " + (int)Math.ceil(Math.sqrt(Math.pow(y - getLocation().y, 2) + Math.pow(x - getLocation().x, 2))) + " tiles away seems off");
+					done = true;
 				}
 			}
+		}
+		
+		if (!done) {
+			logMessage("You don't find anything of interest");
 		}
 	}
 
@@ -93,6 +100,8 @@ public class EntityPlayer extends EntityAlive {
 	public boolean doPickup(EntityDroppedItem e) {
 		inventory.addItem(e.getItemStack());
 		e.die();
+		
+		logMessage("You pick up a " + e.getItemStack().getItem().getItemName(e.getItemStack()) + " (x" + e.getItemStack().getAmount() + ")");
 		
 		return true;
 	}

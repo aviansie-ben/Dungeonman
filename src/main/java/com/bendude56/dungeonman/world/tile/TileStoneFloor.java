@@ -43,4 +43,9 @@ public class TileStoneFloor extends TileFloor {
 		return true;
 	}
 
+	@Override
+	public boolean onPlayerClimb(TileState state, EntityPlayer player) {
+		return false;
+	}
+
 }

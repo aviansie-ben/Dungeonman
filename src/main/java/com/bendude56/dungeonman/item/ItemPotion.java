@@ -48,10 +48,10 @@ public abstract class ItemPotion extends ItemConsumable {
 		
 		if (type == 0) {
 			// Healing potion
-			return new ItemHealingPotion(adjective + " " + colorNames[color] + " Potion", colors[color], id, 100, random.nextInt(96) + 5);
+			return new ItemHealingPotion(adjective + " " + colorNames[color] + " Potion", colors[color], id, 10, random.nextInt(96) + 5);
 		} else if (type == 1) {
 			// Damage potion
-			return new ItemDamagePotion(adjective + " " + colorNames[color] + " Potion", colors[color], id, 100, random.nextInt(96) + 5);
+			return new ItemDamagePotion(adjective + " " + colorNames[color] + " Potion", colors[color], id, 10, random.nextInt(96) + 5);
 		} else {
 			// Should never happen
 			return null;

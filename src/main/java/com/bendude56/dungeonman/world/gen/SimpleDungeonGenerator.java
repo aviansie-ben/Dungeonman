@@ -32,6 +32,11 @@ public class SimpleDungeonGenerator extends WorldGenerator {
 		generate(new WorldFeatureRoom(4, 4), new WorldLocation(world, world.getWidth() / 2, world.getHeight() / 2), DoorType.NONE, -1, 0);
 		
 		// Select locations for entry and exit stairs
+		if (possibleStairs.size() < 2) {
+			generateLevel(difficulty);
+			return;
+		}
+		
 		WorldLocation entry = possibleStairs.get(random.nextInt(possibleStairs.size()));
 		possibleStairs.remove(entry);
 		WorldLocation exit = possibleStairs.get(random.nextInt(possibleStairs.size()));

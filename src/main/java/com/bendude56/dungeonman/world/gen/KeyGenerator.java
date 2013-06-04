@@ -74,13 +74,21 @@ public class KeyGenerator {
 			return -1;
 		} else {
 			// Select a location for the key
-			WorldLocation key = itemLocations.get(random.nextInt(itemLocations.size()));
-			int keyId = ((TileMetadataDoor)door.getMetadata()).getKeyId();
-			
-			world.addEntity(new EntityDroppedItem(key, new ItemStack(Item.key, new ItemMetadataKey(keyId), 1)));
-			itemLocations.remove(key);
-			
-			return keyId;
+			try {
+				int k = random.nextInt(itemLocations.size());
+				
+				WorldLocation key = itemLocations.get(k);
+				int keyId = ((TileMetadataDoor)door.getMetadata()).getKeyId();
+				
+				world.addEntity(new EntityDroppedItem(key, new ItemStack(Item.key, new ItemMetadataKey(keyId), 1)));
+				itemLocations.remove(k);
+				
+				return keyId;
+			} catch (IllegalArgumentException e) {
+				// If there are no possible locations for the key, just leave the door unlocked
+				door.setMetadata(new TileMetadataDoor(-1));
+				return Integer.MAX_VALUE;
+			}
 		}
 	}
 	

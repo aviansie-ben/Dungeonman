@@ -60,4 +60,9 @@ public class TileDoor extends Tile {
 		return false;
 	}
 
+	@Override
+	public boolean onPlayerClimb(TileState state, EntityPlayer player) {
+		return false;
+	}
+
 }

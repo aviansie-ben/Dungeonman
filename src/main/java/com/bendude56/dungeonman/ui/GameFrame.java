@@ -55,6 +55,7 @@ public class GameFrame extends JFrame {
 	public CountDownLatch keyLatch;
 	
 	public TextLogFrame activeLog;
+	public InventoryFrame activeInventory;
 	public String loggedMessages = "";
 	
 	public static void main(String[] args) throws InvocationTargetException, InterruptedException {
@@ -164,6 +165,26 @@ public class GameFrame extends JFrame {
 		windowTextLogButton = new JMenuItem("Text Log");
 		windowMenu.add(windowTextLogButton);
 		
+		windowInventoryButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				EventQueue.invokeLater(new Runnable() {
+					public void run() {
+						try {
+							if (activeInventory == null) {
+								activeInventory = new InventoryFrame();
+								activeInventory.setVisible(true);
+							} else {
+								activeInventory.requestFocus();
+							}
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					}
+				});
+			}
+		});
+		
 		windowTextLogButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -252,15 +273,27 @@ public class GameFrame extends JFrame {
 				for (Entity e : entities) {
 					if (e.doAction(ActionType.PICKUP, p)) {
 						done = true;
-						break;
+						continue;
 					}
 				}
 				
 				if (!done) {
 					p.logMessage("There is nothing to pick up!");
+					continue;
 				}
 			} else if (lastKeyCode == KeyEvent.VK_S) {
 				p.doSearch();
+			} else if (lastKeyCode == KeyEvent.VK_C) {
+				TileState state = w.getTileState(newLocation);
+				
+				if (!state.getTileType().onPlayerClimb(state, p)) {
+					p.logMessage("There is nothing to climb!");
+					continue;
+				} else {
+					newLocation = p.getLocation();
+				}
+			} else {
+				continue;
 			}
 			
 			TileState state = w.getTileState(newLocation);
@@ -279,7 +312,11 @@ public class GameFrame extends JFrame {
 			}
 			state.update();
 			
+			w = p.getWorld();
 			w.doTurn();
+			
+			if (activeInventory != null)
+				activeInventory.doUpdate();
 		}
 	}
 }

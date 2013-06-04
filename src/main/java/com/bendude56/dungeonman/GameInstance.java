@@ -35,7 +35,7 @@ public class GameInstance {
 	}
 	
 	public static World getActiveWorld() {
-		return activeInstance.getFloor(activeInstance.getCurrentFloor());
+		return activeInstance.getPlayerEntity().getWorld();
 	}
 	
 	private int nextEntityId = 1;
@@ -63,6 +63,9 @@ public class GameInstance {
 	}
 	
 	public void generateFloor(int floor) {
+		if (isFloorGenerated(floor))
+			return;
+		
 		floors.put(floor, new World(200, 200, floor));
 		new SimpleDungeonGenerator(floors.get(floor)).generateLevel(difficulty);
 	}

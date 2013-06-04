@@ -4,16 +4,19 @@ import java.awt.Image;
 
 import com.bendude56.dungeonman.entity.Entity;
 import com.bendude56.dungeonman.entity.EntityPlayer;
+import com.bendude56.dungeonman.gfx.ImageUtil;
 
 public class ItemGoldCoin extends Item {
+	private static final Image fewCoinSprite = ImageUtil.loadImage("/entity/item/coin1.png");
+	private static final Image manyCoinSprite = ImageUtil.loadImage("/entity/item/coin2.png");
 
 	public ItemGoldCoin(int id) {
-		super(id, -1, 500);
+		super(id, 500, 500);
 	}
 
 	@Override
 	public Image getDrawImage(ItemStack stack) {
-		return null;
+		return (stack.getAmount() > 100) ? manyCoinSprite : fewCoinSprite;
 	}
 
 	@Override
