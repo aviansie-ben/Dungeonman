@@ -60,14 +60,22 @@ public class GraphicsPanel extends JPanel {
 						if (x >= 0 && x < GameInstance.getActiveWorld().getWidth()) {
 							TileState state = GameInstance.getActiveWorld().getTileState(x, y);
 							
-							state.getTileType().render(g, x * 33 - viewpointX, y * 33 - viewpointY, state);
+							if (GameInstance.getActiveWorld().isTileKnown(x, y)) {
+								state.getTileType().render(g, x * 33 - viewpointX, y * 33 - viewpointY, state);
+								
+								if (!GameInstance.getActiveWorld().isTileVisible(x, y)) {
+									g.setColor(new Color(0, 0, 0, 200));
+									g.fillRect(x * 33 - viewpointX, y * 33 - viewpointY, 32, 32);
+								}
+							}
 						}
 					}
 				}
 			}
 			
 			for (Entity e : GameInstance.getActiveWorld().getEntities(viewpointX / 33, viewpointY / 33, (viewpointX + img.getWidth(null)) / 33, (viewpointY + img.getHeight(null)) / 33)) {
-				e.render(g, e.getLocation().x * 33 - viewpointX, e.getLocation().y * 33 - viewpointY);
+				if (e.getLocation().world.isTileVisible(e.getLocation()))
+						e.render(g, e.getLocation().x * 33 - viewpointX, e.getLocation().y * 33 - viewpointY);
 			}
 		}
 	}

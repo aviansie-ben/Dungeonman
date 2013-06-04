@@ -2,11 +2,14 @@ package com.bendude56.dungeonman.entity;
 
 import java.awt.Graphics;
 import java.awt.Image;
+import java.util.Random;
 
 import com.bendude56.dungeonman.gfx.ImageUtil;
 import com.bendude56.dungeonman.item.inventory.Inventory;
 import com.bendude56.dungeonman.ui.GameFrame;
 import com.bendude56.dungeonman.world.WorldLocation;
+import com.bendude56.dungeonman.world.tile.Tile;
+import com.bendude56.dungeonman.world.tile.TileSecretDoor;
 
 /**
  * Benjamin C. Thomas
@@ -24,7 +27,7 @@ public class EntityPlayer extends EntityAlive {
 
 	public EntityPlayer(WorldLocation l, EntityStats stats) {
 		super(l, stats);
-		this.viewDistance = 3;
+		this.viewDistance = 5;
 		this.inventory = new Inventory();
 	}
 	
@@ -34,7 +37,42 @@ public class EntityPlayer extends EntityAlive {
 
 	@Override
 	public void doTurn() {
-		// Do nothing (Player actions are handled elsewhere)
+		// Update world visibility
+		getLocation().world.clearTileVisibility();
+		
+		for (int y = getLocation().y + getViewDistance(); y >= getLocation().y - getViewDistance(); y--) {
+			int deltaX = getViewDistance() - Math.abs(y - getLocation().y);
+			for (int x = getLocation().x + deltaX; x >= getLocation().x - deltaX; x--) {
+				if (AIController.checkVisibility(getLocation(), new WorldLocation(null, x, y))) {
+					getLocation().world.setTileVisible(x, y, true);
+				}
+				
+				if (new WorldLocation(getLocation().world, x, y).getTile() instanceof TileSecretDoor) {
+					int chance = 30 - getStats().getIntelligence();
+					
+					if (chance <= 0 || new Random().nextInt(chance) == 0) {
+						logMessage("Something about one of the walls nearby seems off to you");
+					}
+				}
+			}
+		}
+	}
+	
+	public int getSearchDistance() {
+		int d = 3;
+		
+		return d;
+	}
+	
+	public void doSearch() {
+		for (int y = getLocation().y + getSearchDistance(); y >= getLocation().y - getSearchDistance(); y--) {
+			int deltaX = getSearchDistance() - Math.abs(y - getLocation().y);
+			for (int x = getLocation().x + deltaX; x >= getLocation().x - deltaX; x--) {
+				if (new WorldLocation(getLocation().world, x, y).getTile() instanceof TileSecretDoor) {
+					logMessage("A wall about " + (int)Math.ceil(Math.sqrt(Math.pow(y - getLocation().y, 2) + Math.pow(x - getLocation().x, 2))) + " tiles away seems off");
+				}
+			}
+		}
 	}
 
 	@Override

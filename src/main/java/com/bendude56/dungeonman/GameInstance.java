@@ -29,6 +29,7 @@ public class GameInstance {
 		
 		activeInstance.player = new EntityPlayer(activeInstance.getFloor(1).getEntryLocation(), stats);
 		activeInstance.getFloor(1).addEntity(activeInstance.player);
+		activeInstance.getFloor(1).doTurn();
 		
 		return activeInstance;
 	}

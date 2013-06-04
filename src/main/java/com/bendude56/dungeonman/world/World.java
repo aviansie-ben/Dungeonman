@@ -35,6 +35,9 @@ public class World {
 		this.entities = new HashMap<Integer, Entity>();
 		this.game = GameInstance.getActiveInstance();
 		
+		this.tileKnown = new boolean[width][height];
+		this.tileVisible = new boolean[width][height];
+		
 		setRect(0, 0, width - 1, height - 1, Tile.wall);
 	}
 	
@@ -212,6 +215,27 @@ public class World {
 		}
 		
 		return tileVisible[x][y];
+	}
+	
+	public void setTileVisible(WorldLocation l, boolean visible) {
+		setTileVisible(l.x, l.y, visible);
+	}
+	
+	public void setTileVisible(int x, int y, boolean visible) {
+		if (x < 0 || x >= width || y < 0 || y >= height) {
+			throw new IllegalArgumentException("Location is out of bounds!");
+		}
+		
+		tileVisible[x][y] = visible;
+		tileKnown[x][y] = true;
+	}
+	
+	public void clearTileVisibility() {
+		for (int x = 0; x < width; x++) {
+			for (int y = 0; y < height; y++) {
+				tileVisible[x][y] = false;
+			}
+		}
 	}
 	
 	public int getFloor() {

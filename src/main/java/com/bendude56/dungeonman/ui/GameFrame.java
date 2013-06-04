@@ -259,18 +259,8 @@ public class GameFrame extends JFrame {
 				if (!done) {
 					p.logMessage("There is nothing to pick up!");
 				}
-			} else if (lastKeyCode == KeyEvent.VK_V) {
-				if (AIController.checkVisibility(p.getLocation(), p.getLocation().adjustLocation(2, -3))) {
-					JOptionPane.showMessageDialog(null, "VISIBLE");
-				}
-				/*for (int y = p.getLocation().y + p.getViewDistance(); y >= p.getLocation().y - p.getViewDistance(); y--) {
-					int deltaX = p.getViewDistance() - Math.abs(y - p.getLocation().y);
-					for (int x = p.getLocation().x + deltaX; x >= p.getLocation().x - deltaX; x--) {
-						if (AIController.checkVisibility(p.getLocation(), new WorldLocation(null, x, y))) {
-							p.getLocation().world.setTile(x, y, Tile.stairs);
-						}
-					}
-				}*/
+			} else if (lastKeyCode == KeyEvent.VK_S) {
+				p.doSearch();
 			}
 			
 			TileState state = w.getTileState(newLocation);
