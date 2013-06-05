@@ -9,6 +9,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 import com.bendude56.dungeonman.GameInstance;
+import com.bendude56.dungeonman.entity.EntitySoldier;
 import com.bendude56.dungeonman.world.World;
 import com.bendude56.dungeonman.world.WorldLocation;
 import com.bendude56.dungeonman.world.gen.WorldFeature.DoorType;
@@ -47,9 +48,15 @@ public class SimpleDungeonGenerator extends WorldGenerator {
 		world.setExitLocation(exit);
 		world.setTileAndMetadata(exit, Tile.stairs, new TileMetadataStairs(false));
 		
-		// Generate ALL the keys
+		// Generate ALL the items
 		new KeyGenerator(world, possibleItems, random).generateAllKeys();
 		new ItemPopulator(possibleItems, random).generateAllItems();
+		
+		// Add enemies
+		for (WorldLocation l : possibleMonsters) {
+			if (random.nextInt(2) == 0)
+				world.addEntity(new EntitySoldier(l));
+		}
 	}
 	
 	public boolean generate(WorldFeature f, WorldLocation l, DoorType door, int orientation, int iteration) {

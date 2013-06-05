@@ -20,8 +20,7 @@ public abstract class EntityAlive extends Entity {
 	}
 	
 	public final boolean canSee(Entity e) {
-		// TODO: Implement line of sight
-		return true;
+		return AIController.getDistance(getLocation(), e.getLocation()) <= viewDistance && AIController.checkVisibility(getLocation(), e.getLocation());
 	}
 	
 	public int getViewDistance() {

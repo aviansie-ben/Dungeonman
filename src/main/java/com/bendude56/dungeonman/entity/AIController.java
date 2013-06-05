@@ -1,13 +1,21 @@
 package com.bendude56.dungeonman.entity;
 
+import java.util.Random;
+
 import javax.swing.JOptionPane;
 
 import com.bendude56.dungeonman.world.WorldLocation;
 import com.bendude56.dungeonman.world.tile.TileDoor;
 
 public class AIController {
-	public static int calculateAttackPower(EntityAlive attacker, EntityAlive atackee) {
-		return atackee.getStats().calculateIncomingDamage(attacker.getStats().calculateOutgoingDamage(10));
+	public static int calculateAttackPower(EntityAlive attacker, EntityAlive atackee, int d) {
+		int baseDamage = atackee.getStats().calculateIncomingDamage(attacker.getStats().calculateOutgoingDamage(d));
+		int deviation = atackee.getStats().calculateIncomingDeviation(baseDamage, attacker.getStats().calculateOutgoingDeviation(baseDamage));
+		
+		if (deviation > 0)
+			baseDamage += new Random().nextInt(deviation);
+		
+		return Math.max(0, baseDamage);
 	}
 	
 	public static boolean checkVisibility(WorldLocation l1, WorldLocation l2) {
@@ -112,12 +120,30 @@ public class AIController {
 		
 		return true;
 	}
+	
+	public static int getDistance(WorldLocation l1, WorldLocation l2) {
+		return (int)Math.ceil(Math.sqrt(Math.pow(l1.x - l2.x, 2) + Math.pow(l1.y - l2.y, 2)));
+	}
 
 	public static void checkVisibility(EntityPlayer p) {
 		if (checkVisibility(p.getLocation(), p.getLocation().adjustLocation(1, -2))) {
 			JOptionPane.showMessageDialog(null, "YES");
 		} else {
 			JOptionPane.showMessageDialog(null, "NO");
+		}
+	}
+	
+	public static void moveTowards(EntityEnemy moving, WorldLocation target) {
+		// TODO: Implement pathfinding
+		
+		if (moving.getLocation().x > target.x) {
+			moving.doMove(moving.getLocation().adjustLocation(-1, 0));
+		} else if (moving.getLocation().x < target.x) {
+			moving.doMove(target = moving.getLocation().adjustLocation(1, 0));
+		} else if (moving.getLocation().y > target.y) {
+			moving.doMove(target = moving.getLocation().adjustLocation(0, 1));
+		} else if (moving.getLocation().y < target.y) {
+			moving.doMove(target = moving.getLocation().adjustLocation(0, -1));
 		}
 	}
 }

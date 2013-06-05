@@ -98,11 +98,19 @@ public class EntityStats {
 	}
 	
 	public int calculateOutgoingDamage(int damage) {
-		return damage + (damage / 30) * this.strength;
+		return damage + (int)(((double)damage / 30) * this.strength);
 	}
 	
 	public int calculateIncomingDamage(int damage) {
-		return Math.max(damage - (damage / 40) * this.defense, 0);
+		return Math.max((int)(damage - ((double)damage / 40) * this.defense), 0);
+	}
+	
+	public int calculateOutgoingDeviation(int damage) {
+		return (int)(((double)damage / 10) * this.strength);
+	}
+	
+	public int calculateIncomingDeviation(int damage, int deviation) {
+		return deviation - (int)(((double)damage / 15) * this.defense);
 	}
 	
 }

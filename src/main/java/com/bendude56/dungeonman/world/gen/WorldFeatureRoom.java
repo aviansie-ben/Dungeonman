@@ -105,6 +105,7 @@ public class WorldFeatureRoom extends WorldFeature {
 			}
 			
 			info.possibleStairs.add(l1.adjustLocation(random.nextInt(width + 1), -random.nextInt(height + 1), orientation));
+			info.possibleMonsters.add(l1.adjustLocation(random.nextInt(width + 1), -random.nextInt(height + 1), orientation));
 			
 			for (int i = 0; i < numItems; i++) {
 				WorldLocation itemLocation = l1.adjustLocation(random.nextInt(width + 1), -random.nextInt(height + 1), orientation);

@@ -5,6 +5,7 @@ import java.awt.Image;
 import java.util.Random;
 
 import com.bendude56.dungeonman.DebugCheats;
+import com.bendude56.dungeonman.entity.Entity.ActionType;
 import com.bendude56.dungeonman.gfx.ImageUtil;
 import com.bendude56.dungeonman.item.inventory.Inventory;
 import com.bendude56.dungeonman.ui.GameFrame;
@@ -71,7 +72,7 @@ public class EntityPlayer extends EntityAlive {
 			int deltaX = getSearchDistance() - Math.abs(y - getLocation().y);
 			for (int x = getLocation().x + deltaX; x >= getLocation().x - deltaX; x--) {
 				if (new WorldLocation(getLocation().world, x, y).getTile() instanceof TileSecretDoor) {
-					logMessage("A wall about " + (int)Math.ceil(Math.sqrt(Math.pow(y - getLocation().y, 2) + Math.pow(x - getLocation().x, 2))) + " tiles away seems off");
+					logMessage("A wall about " + AIController.getDistance(getLocation(), new WorldLocation(getWorld(), x, y)) + " tiles away seems off");
 					done = true;
 				}
 			}
@@ -84,7 +85,18 @@ public class EntityPlayer extends EntityAlive {
 
 	@Override
 	public boolean doAction(ActionType type, Entity e) {
-		// TODO: Damage when attacked by monsters
+		if (type == ActionType.MOVE && e instanceof EntityEnemy) {
+			EntityEnemy enemy = (EntityEnemy)e;
+			int damage = AIController.calculateAttackPower(enemy, this, 10);
+			
+			logMessage("The " + enemy.getName() + " hits you for " + damage + " damage");
+			this.doDamage(damage);
+			
+			if (isDead()) {
+				logMessage("You are DEAD!!");
+			}
+		}
+		
 		return false;
 	}
 	
