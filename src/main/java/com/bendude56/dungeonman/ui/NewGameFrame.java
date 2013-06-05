@@ -1,37 +1,24 @@
 package com.bendude56.dungeonman.ui;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.ButtonGroup;
 import javax.swing.border.TitledBorder;
-import javax.swing.BoxLayout;
-import java.awt.GridLayout;
 import javax.swing.JRadioButton;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
-import java.awt.event.InputMethodListener;
-import java.awt.event.InputMethodEvent;
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeEvent;
 import java.util.Random;
 
-import javax.swing.event.CaretListener;
-import javax.swing.event.CaretEvent;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JTable;
-import javax.swing.border.BevelBorder;
-import javax.swing.border.EtchedBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JScrollPane;
 
@@ -40,7 +27,8 @@ import com.bendude56.dungeonman.entity.EntityStats;
 import com.bendude56.dungeonman.entity.EntityPlayer.PlayerRace;
 
 public class NewGameFrame extends JFrame {
-	
+	private static final long	serialVersionUID	= 0L;
+
 	private GameFrame parent;
 
 	private JPanel	contentPane;
@@ -119,38 +107,38 @@ public class NewGameFrame extends JFrame {
 		btnOk.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int difficulty = 0;
-				String difficultyName;
-				String[] rules;
+				// String difficultyName;
+				// String[] rules;
 				
 				if (veryEasyButton.isSelected()) {
 					difficulty = 0;
-					difficultyName = "VERY EASY";
+					/*difficultyName = "VERY EASY";
 					rules = new String[] {
 						"Potions have only positive effects",
 						
-					};
+					};*/
 				} else if (easyButton.isSelected()) {
 					difficulty = 1;
-					difficultyName = "EASY";
+					// difficultyName = "EASY";
 				} else if (mediumButton.isSelected()) {
 					difficulty = 2;
-					difficultyName = "MEDIUM";
+					// difficultyName = "MEDIUM";
 				} else if (hardButton.isSelected()) {
 					difficulty = 3;
-					difficultyName = "HARD";
+					// difficultyName = "HARD";
 				} else if (veryHardButton.isSelected()) {
 					difficulty = 4;
-					difficultyName = "VERY HARD";
+					// difficultyName = "VERY HARD";
 				} else if (reallyjoelsDadButton.isSelected()) {
 					difficulty = 5;
-					difficultyName = "REALLYJOEL'S DAD";
+					/*difficultyName = "REALLYJOEL'S DAD";
 					rules = new String[] {
 						"All healing items kill you",
 						"Trying to move into walls is death",
 						"No saving allowed",
 						"Enemies are ridiculously overpowered",
 						"All attacks do 1 damage (Except enemy attacks)"
-					};
+					};*/
 				} else {
 					return;
 				}
@@ -209,8 +197,8 @@ public class NewGameFrame extends JFrame {
 		lblGender.setBounds(28, 61, 53, 16);
 		panel.add(lblGender);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Male", "Female"}));
+		JComboBox<String> comboBox = new JComboBox<String>();
+		comboBox.setModel(new DefaultComboBoxModel<String>(new String[] {"Male", "Female"}));
 		comboBox.setBounds(93, 56, 75, 26);
 		panel.add(comboBox);
 		
@@ -218,8 +206,8 @@ public class NewGameFrame extends JFrame {
 		lblRace.setBounds(28, 89, 53, 16);
 		panel.add(lblRace);
 		
-		JComboBox comboBox_1 = new JComboBox();
-		comboBox_1.setModel(new DefaultComboBoxModel(new String[] {"Human"}));
+		JComboBox<String> comboBox_1 = new JComboBox<String>();
+		comboBox_1.setModel(new DefaultComboBoxModel<String>(new String[] {"Human"}));
 		comboBox_1.setBounds(93, 84, 119, 26);
 		panel.add(comboBox_1);
 		
@@ -248,10 +236,11 @@ public class NewGameFrame extends JFrame {
 				"Stat", "Rolled", "Bonus"
 			}
 		) {
-			Class[] columnTypes = new Class[] {
+			private static final long	serialVersionUID	= 0L;
+			Class<?>[] columnTypes = new Class<?>[] {
 				String.class, Integer.class, Integer.class
 			};
-			public Class getColumnClass(int columnIndex) {
+			public Class<?> getColumnClass(int columnIndex) {
 				return columnTypes[columnIndex];
 			}
 		});

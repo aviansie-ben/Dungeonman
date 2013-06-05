@@ -1,7 +1,6 @@
 package com.bendude56.dungeonman.entity;
 
 import java.awt.Graphics;
-import java.awt.Image;
 
 import com.bendude56.dungeonman.world.World;
 import com.bendude56.dungeonman.world.WorldLocation;

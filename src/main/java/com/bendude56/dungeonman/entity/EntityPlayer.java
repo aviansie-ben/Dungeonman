@@ -4,11 +4,11 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.util.Random;
 
+import com.bendude56.dungeonman.DebugCheats;
 import com.bendude56.dungeonman.gfx.ImageUtil;
 import com.bendude56.dungeonman.item.inventory.Inventory;
 import com.bendude56.dungeonman.ui.GameFrame;
 import com.bendude56.dungeonman.world.WorldLocation;
-import com.bendude56.dungeonman.world.tile.Tile;
 import com.bendude56.dungeonman.world.tile.TileSecretDoor;
 
 /**
@@ -95,6 +95,12 @@ public class EntityPlayer extends EntityAlive {
 	@Override
 	public void render(Graphics g, int x, int y) {
 		g.drawImage(humanSprite, x, y, null);
+	}
+
+	@Override
+	public void doDamage(int damage) {
+		if (!DebugCheats.noDamage || damage < 0)
+			super.doDamage(damage);
 	}
 
 	public boolean doPickup(EntityDroppedItem e) {

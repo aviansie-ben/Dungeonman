@@ -10,23 +10,22 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 
+import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
+import com.bendude56.dungeonman.DebugCheats;
 import com.bendude56.dungeonman.GameInstance;
-import com.bendude56.dungeonman.entity.AIController;
 import com.bendude56.dungeonman.entity.Entity;
 import com.bendude56.dungeonman.entity.Entity.ActionType;
 import com.bendude56.dungeonman.entity.EntityPlayer;
 import com.bendude56.dungeonman.gfx.GraphicsPanel;
 import com.bendude56.dungeonman.world.World;
 import com.bendude56.dungeonman.world.WorldLocation;
-import com.bendude56.dungeonman.world.tile.Tile;
 import com.bendude56.dungeonman.world.tile.TileState;
 
 public class GameFrame extends JFrame {
@@ -48,6 +47,11 @@ public class GameFrame extends JFrame {
 	public JMenuItem windowStatsButton;
 	public JMenuItem windowTextLogButton;
 	
+	public JMenu debugMenu;
+	public JMenuItem debugXRayButton;
+	public JMenuItem debugNoDamageButton;
+	public JMenuItem debugIdentifyOverrideButton;
+	
 	public GraphicsPanel gamePanel;
 	
 	public int lastKeyCode;
@@ -56,6 +60,7 @@ public class GameFrame extends JFrame {
 	
 	public TextLogFrame activeLog;
 	public InventoryFrame activeInventory;
+	public StatsFrame activeStats;
 	public String loggedMessages = "";
 	
 	public static void main(String[] args) throws InvocationTargetException, InterruptedException {
@@ -100,6 +105,7 @@ public class GameFrame extends JFrame {
 		
 		initFileMenu();
 		initWindowMenu();
+		initDebugMenu();
 	}
 	
 	private void initFileMenu() {
@@ -185,6 +191,26 @@ public class GameFrame extends JFrame {
 			}
 		});
 		
+		windowStatsButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				EventQueue.invokeLater(new Runnable() {
+					public void run() {
+						try {
+							if (activeStats == null) {
+								activeStats = new StatsFrame();
+								activeStats.setVisible(true);
+							} else {
+								activeStats.requestFocus();
+							}
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					}
+				});
+			}
+		});
+		
 		windowTextLogButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -203,6 +229,49 @@ public class GameFrame extends JFrame {
 						}
 					}
 				});
+			}
+		});
+	}
+	
+	private void initDebugMenu() {
+		debugMenu = new JMenu("Debug");
+		mainMenu.add(debugMenu);
+		
+		debugXRayButton = new JCheckBoxMenuItem("X-Ray Vision");
+		debugMenu.add(debugXRayButton);
+		
+		debugNoDamageButton = new JCheckBoxMenuItem("No Damage");
+		debugMenu.add(debugNoDamageButton);
+		
+		debugIdentifyOverrideButton = new JCheckBoxMenuItem("Identify Override");
+		debugMenu.add(debugIdentifyOverrideButton);
+		
+		debugXRayButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				DebugCheats.xRay = debugXRayButton.isSelected();
+				
+				if (GameInstance.getActiveInstance() != null) {
+					gamePanel.drawGameWorld();
+					gamePanel.repaint();
+				}
+			}
+		});
+		
+		debugNoDamageButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				DebugCheats.noDamage = debugNoDamageButton.isSelected();
+			}
+		});
+		
+		debugIdentifyOverrideButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				DebugCheats.identifyOverride = debugIdentifyOverrideButton.isSelected();
+				
+				if (activeInventory != null)
+					activeInventory.doUpdate();
 			}
 		});
 	}
@@ -312,11 +381,17 @@ public class GameFrame extends JFrame {
 			}
 			state.update();
 			
-			w = p.getWorld();
-			w.doTurn();
-			
-			if (activeInventory != null)
-				activeInventory.doUpdate();
+			doTurn();
 		}
+	}
+	
+	public void doTurn() {
+		GameInstance.getActiveWorld().doTurn();
+		
+		if (activeInventory != null)
+			activeInventory.doUpdate();
+		
+		if (activeStats != null)
+			activeStats.doUpdate();
 	}
 }

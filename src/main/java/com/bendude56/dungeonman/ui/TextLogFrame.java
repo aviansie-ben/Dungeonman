@@ -1,8 +1,6 @@
 package com.bendude56.dungeonman.ui;
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -13,7 +11,8 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 public class TextLogFrame extends JFrame {
-
+	private static final long	serialVersionUID	= 0L;
+	
 	private JPanel	contentPane;
 	public JTextArea logTextBox;
 

@@ -1,17 +1,13 @@
 package com.bendude56.dungeonman.ui;
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JSplitPane;
-import javax.swing.BoxLayout;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
 import javax.swing.JButton;
-import java.awt.GridLayout;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -24,6 +20,7 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.event.ListSelectionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.FlowLayout;
 
 /**
  * Benjamin C. Thomas
@@ -62,13 +59,12 @@ public class InventoryFrame extends JFrame {
 		setContentPane(contentPane);
 		
 		JSplitPane splitPane = new JSplitPane();
-		splitPane.setResizeWeight(0.9);
+		splitPane.setResizeWeight(1.0);
 		splitPane.setOrientation(JSplitPane.VERTICAL_SPLIT);
 		contentPane.add(splitPane, BorderLayout.CENTER);
 		
 		JPanel panel = new JPanel();
 		splitPane.setRightComponent(panel);
-		panel.setLayout(new GridLayout(0, 2, 0, 0));
 		
 		useButton = new JButton("Use");
 		useButton.addActionListener(new ActionListener() {
@@ -81,9 +77,12 @@ public class InventoryFrame extends JFrame {
 					} else {
 						i.setAmount(i.getAmount() - 1);
 					}
+					
+					GameFrame.activeFrame.doTurn();
 				}
 			}
 		});
+		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		useButton.setEnabled(false);
 		panel.add(useButton);
 		

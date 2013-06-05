@@ -75,7 +75,7 @@ public class GameInstance {
 	}
 	
 	public boolean isItemIdentified(Item item) {
-		return itemIdentified.get(item.getItemId());
+		return DebugCheats.identifyOverride || itemIdentified.get(item.getItemId());
 	}
 	
 	public void setItemIdentified(Item item, boolean identified) {

@@ -16,6 +16,9 @@ public class ItemDamagePotion extends ItemPotion {
 
 	@Override
 	public void onConsumed(ItemStack stack, EntityPlayer p) {
+		p.logMessage("You drink the " + getItemName(stack));
+		p.logMessage("Urk... You take " + damageAmount + " damage");
+		
 		p.doDamage(damageAmount);
 	}
 

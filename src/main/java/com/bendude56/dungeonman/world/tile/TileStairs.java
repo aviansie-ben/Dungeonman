@@ -56,7 +56,7 @@ public class TileStairs extends TileFloor {
 				player.logMessage("You can't leave! That would defeat the entire purpose of the game!");
 			} else {
 				GameInstance.getActiveInstance().generateFloor(player.getLocation().world.getFloor() - 1);
-				GameInstance.getActiveInstance().teleport(player, GameInstance.getActiveInstance().getFloor(player.getLocation().world.getFloor() - 1).getEntryLocation());
+				GameInstance.getActiveInstance().teleport(player, GameInstance.getActiveInstance().getFloor(player.getLocation().world.getFloor() - 1).getExitLocation());
 			}
 		} else {
 			GameInstance.getActiveInstance().generateFloor(player.getLocation().world.getFloor() + 1);

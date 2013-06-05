@@ -16,6 +16,9 @@ public class ItemHealingPotion extends ItemPotion {
 
 	@Override
 	public void onConsumed(ItemStack stack, EntityPlayer p) {
+		p.logMessage("You drink the " + getItemName(stack));
+		p.logMessage("You regain " + healingAmount + "hp");
+		
 		p.doDamage(-healingAmount);
 	}
 

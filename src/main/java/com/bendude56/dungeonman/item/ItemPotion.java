@@ -38,7 +38,7 @@ public abstract class ItemPotion extends ItemConsumable {
 
 	@Override
 	public int getMaxStack(ItemStack stack) {
-		return 1;
+		return 10;
 	}
 	
 	public static ItemPotion generateNewPotion(int id, int difficulty, Random random) {
