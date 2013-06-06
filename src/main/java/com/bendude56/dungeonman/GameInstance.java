@@ -34,6 +34,10 @@ public class GameInstance {
 		return activeInstance;
 	}
 	
+	public static void endGame() {
+		activeInstance = null;
+	}
+	
 	public static World getActiveWorld() {
 		return activeInstance.getPlayerEntity().getWorld();
 	}
@@ -102,6 +106,10 @@ public class GameInstance {
 	
 	public HashMap<Integer, Item> getItems() {
 		return items;
+	}
+	
+	public int getDifficulty() {
+		return difficulty;
 	}
 	
 	private void populateItems() {

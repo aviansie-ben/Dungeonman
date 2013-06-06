@@ -87,7 +87,7 @@ public class EntityStats {
 	}
 	
 	public int calculateMaxHp() {
-		return this.baseMaxHp + this.endurance * 25 + this.strength * 5;
+		return this.baseMaxHp + this.endurance * 5 + this.strength * 3;
 	}
 	
 	public int calculateDodgeChance() {

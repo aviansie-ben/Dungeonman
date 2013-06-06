@@ -16,7 +16,7 @@ import com.bendude56.dungeonman.world.WorldLocation;
 public class EntitySoldier extends EntityEnemy {
 
 	public EntitySoldier(WorldLocation l) {
-		super(l, new EntityStats(0, 0, 0, 0, 0, 0, 50), "Soldier", 3, 10);
+		super(l, new EntityStats(0, 10, 8, 5, 9, 3, 50), "Soldier", 3, 10);
 	}
 
 	@Override

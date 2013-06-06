@@ -15,6 +15,7 @@ public abstract class Tile {
 	public static TileStairs stairs = new TileStairs();
 	public static TileDoor door = new TileDoor();
 	public static TileSecretDoor secretDoor = new TileSecretDoor();
+	public static TileGravestone gravestone = new TileGravestone();
 	
 	private int id;
 	

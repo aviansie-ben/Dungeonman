@@ -15,6 +15,7 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
@@ -315,6 +316,25 @@ public class GameFrame extends JFrame {
 			gamePanel.centerY = p.getLocation().y;
 			gamePanel.drawGameWorld();
 			gamePanel.repaint();
+			
+			if (p.isDead()) {
+				JOptionPane.showMessageDialog(this, "You have died.");
+				loggedMessages = "";
+				
+				if (activeLog != null)
+					activeLog.dispose();
+				
+				if (activeInventory != null)
+					activeInventory.dispose();
+				
+				if (activeStats != null)
+					activeStats.dispose();
+				
+				windowMenu.setEnabled(false);
+				
+				GameInstance.endGame();
+				continue;
+			}
 			
 			keyLatch = new CountDownLatch(1);
 			this.addKeyListener(keyListen);

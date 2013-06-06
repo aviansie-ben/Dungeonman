@@ -8,9 +8,9 @@ import com.bendude56.dungeonman.world.WorldLocation;
 import com.bendude56.dungeonman.world.tile.TileDoor;
 
 public class AIController {
-	public static int calculateAttackPower(EntityAlive attacker, EntityAlive atackee, int d) {
-		int baseDamage = atackee.getStats().calculateIncomingDamage(attacker.getStats().calculateOutgoingDamage(d));
-		int deviation = atackee.getStats().calculateIncomingDeviation(baseDamage, attacker.getStats().calculateOutgoingDeviation(baseDamage));
+	public static int calculateAttackPower(EntityAlive attacker, EntityAlive atackee) {
+		int baseDamage = atackee.calculateIncomingDamage(attacker.calculateOutgoingDamage());
+		int deviation = atackee.calculateIncomingDeviation(baseDamage, attacker.calculateOutgoingDeviation(baseDamage));
 		
 		if (deviation > 0)
 			baseDamage += new Random().nextInt(deviation);

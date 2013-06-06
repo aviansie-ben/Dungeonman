@@ -61,7 +61,7 @@ public abstract class EntityEnemy extends EntityAlive {
 	public boolean doAction(ActionType type, Entity e) {
 		if (type == ActionType.MOVE && e instanceof EntityPlayer) {
 			EntityPlayer p = (EntityPlayer)e;
-			int damage = AIController.calculateAttackPower(p, this, 10);
+			int damage = AIController.calculateAttackPower(p, this);
 			
 			p.logMessage("You hit the " + name + " for " + damage + " damage");
 			this.doDamage(damage);

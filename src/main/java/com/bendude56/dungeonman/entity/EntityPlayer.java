@@ -5,11 +5,12 @@ import java.awt.Image;
 import java.util.Random;
 
 import com.bendude56.dungeonman.DebugCheats;
-import com.bendude56.dungeonman.entity.Entity.ActionType;
+import com.bendude56.dungeonman.GameInstance;
 import com.bendude56.dungeonman.gfx.ImageUtil;
 import com.bendude56.dungeonman.item.inventory.Inventory;
 import com.bendude56.dungeonman.ui.GameFrame;
 import com.bendude56.dungeonman.world.WorldLocation;
+import com.bendude56.dungeonman.world.tile.Tile;
 import com.bendude56.dungeonman.world.tile.TileSecretDoor;
 
 /**
@@ -87,7 +88,7 @@ public class EntityPlayer extends EntityAlive {
 	public boolean doAction(ActionType type, Entity e) {
 		if (type == ActionType.MOVE && e instanceof EntityEnemy) {
 			EntityEnemy enemy = (EntityEnemy)e;
-			int damage = AIController.calculateAttackPower(enemy, this, 10);
+			int damage = AIController.calculateAttackPower(enemy, this);
 			
 			logMessage("The " + enemy.getName() + " hits you for " + damage + " damage");
 			this.doDamage(damage);
@@ -100,6 +101,24 @@ public class EntityPlayer extends EntityAlive {
 		return false;
 	}
 	
+	@Override
+	public int calculateOutgoingDamage() {
+		if (GameInstance.getActiveInstance().getDifficulty() >= 5) {
+			return 1;
+		} else {
+			return super.calculateOutgoingDamage();
+		}
+	}
+
+	@Override
+	public int calculateOutgoingDeviation(int damage) {
+		if (GameInstance.getActiveInstance().getDifficulty() >= 5) {
+			return 0;
+		} else {
+			return super.calculateOutgoingDeviation(damage);
+		}
+	}
+
 	public void logMessage(String message) {
 		GameFrame.activeFrame.logMessage(message);
 	}
@@ -113,6 +132,10 @@ public class EntityPlayer extends EntityAlive {
 	public void doDamage(int damage) {
 		if (!DebugCheats.noDamage || damage < 0)
 			super.doDamage(damage);
+		
+		if (isDead()) {
+			getLocation().setTile(Tile.gravestone);
+		}
 	}
 
 	public boolean doPickup(EntityDroppedItem e) {

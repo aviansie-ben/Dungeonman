@@ -1,5 +1,6 @@
 package com.bendude56.dungeonman.entity;
 
+import com.bendude56.dungeonman.GameInstance;
 import com.bendude56.dungeonman.world.WorldLocation;
 
 public abstract class EntityAlive extends Entity {
@@ -49,5 +50,24 @@ public abstract class EntityAlive extends Entity {
 		} else if (hp <= 0) {
 			die();
 		}
+	}
+	
+	public int calculateOutgoingDamage() {
+		return stats.calculateOutgoingDamage(10);
+	}
+	
+	public int calculateOutgoingDeviation(int damage) {
+		return stats.calculateOutgoingDeviation(damage);
+	}
+	
+	public int calculateIncomingDamage(int damage) {
+		if (!(this instanceof EntityPlayer) && GameInstance.getActiveInstance().getDifficulty() >= 5)
+			return damage;
+		else
+			return stats.calculateIncomingDamage(damage);
+	}
+	
+	public int calculateIncomingDeviation(int damage, int deviation) {
+		return stats.calculateIncomingDeviation(damage, deviation);
 	}
 }

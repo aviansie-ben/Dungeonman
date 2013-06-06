@@ -17,35 +17,4 @@ public class TileStoneFloor extends TileFloor {
 		return Color.lightGray;
 	}
 
-	@Override
-	public boolean onPlayerMove(TileState state, EntityPlayer player) {
-		return true;
-	}
-
-	@Override
-	public boolean onEntityMove(TileState state, Entity e) {
-		return true;
-	}
-	
-	@Override
-	public void render(Graphics g, int x, int y, TileState state) {
-		g.setColor(getColor(state));
-		g.fillRect(x, y, 32, 32);
-	}
-
-	@Override
-	public boolean canItemAlgorithmPass() {
-		return true;
-	}
-
-	@Override
-	public boolean isTransparent() {
-		return true;
-	}
-
-	@Override
-	public boolean onPlayerClimb(TileState state, EntityPlayer player) {
-		return false;
-	}
-
 }
