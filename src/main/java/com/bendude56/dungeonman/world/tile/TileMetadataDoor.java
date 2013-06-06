@@ -16,10 +16,17 @@ public class TileMetadataDoor extends TileMetadata {
 		this.keyId = keyId;
 	}
 	
+	/**
+	 * Gets a boolean value representing whether or not this door is locked.
+	 */
 	public boolean isLocked() {
 		return keyId > 0;
 	}
 	
+	/**
+	 * Gets the identifier of the key needed to open this door. Calling this on
+	 * a door which is not locked will return a keyId <= 0.
+	 */
 	public int getKeyId() {
 		return keyId;
 	}

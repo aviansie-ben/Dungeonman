@@ -10,6 +10,11 @@ package com.bendude56.dungeonman.world.tile;
  */
 
 public class TileMetadata {
+	
+	/**
+	 * Makes an exact copy of this metadata. Modifying this copy MUST NOT
+	 * affect the original.
+	 */
 	public TileMetadata clone() {
 		return new TileMetadata();
 	}

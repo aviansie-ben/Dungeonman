@@ -50,18 +50,35 @@ public class World {
 		setRect(0, 0, width - 1, height - 1, Tile.wall);
 	}
 	
+	/**
+	 * Gets the width of this world.
+	 */
 	public int getWidth() {
 		return width;
 	}
 	
+	/**
+	 * Gets the height of this world.
+	 */
 	public int getHeight() {
 		return height;
 	}
 	
+	/**
+	 * Gets the tile at the specified location.
+	 * 
+	 * @param l The location at which to get the tile.
+	 */
 	public Tile getTile(WorldLocation l) {
 		return getTile(l.x, l.y);
 	}
 	
+	/**
+	 * Gets the tile at the specified location.
+	 * 
+	 * @param x The x coordinate at which to get the tile.
+	 * @param y The y coordinate at which to get the tile.
+	 */
 	public Tile getTile(int x, int y) {
 		if (x < 0 || x >= width || y < 0 || y >= height) {
 			throw new IllegalArgumentException("Location is out of bounds!");
@@ -70,10 +87,21 @@ public class World {
 		return tiles[x][y];
 	}
 	
+	/**
+	 * Sets the tile at the specified location.
+	 * 
+	 * @param l The location at which to set the tile.
+	 */
 	public void setTile(WorldLocation l, Tile tile) {
 		setTile(l.x, l.y, tile);
 	}
 	
+	/**
+	 * Sets the tile at the specified location.
+	 * 
+	 * @param x The x coordinate at which to set the tile.
+	 * @param y The y coordinate at which to set the tile.
+	 */
 	public void setTile(int x, int y, Tile tile) {
 		if (x < 0 || x >= width || y < 0 || y >= height) {
 			throw new IllegalArgumentException("Location is out of bounds!");
@@ -83,43 +111,95 @@ public class World {
 		tileMeta[x][y] = new TileMetadata();
 	}
 	
+	/**
+	 * Sets the tile and metadata at the specified location.
+	 * 
+	 * @param l The location at which to set the tile and metadata.
+	 */
 	public void setTileAndMetadata(WorldLocation l, Tile tile, TileMetadata m) {
 		setTileAndMetadata(l.x, l.y, tile, m);
 	}
 	
+	/**
+	 * Sets the tile and metadata at the specified location.
+	 * 
+	 * @param x The x coordinate at which to set the tile and metadata.
+	 * @param y The y coordinate at which to set the tile and metadata.
+	 */
 	public void setTileAndMetadata(int x, int y, Tile tile, TileMetadata m) {
 		setTile(x, y, tile);
 		setMetadata(x, y, m);
 	}
 	
+	/**
+	 * Gets the metadata present at the given location.
+	 * 
+	 * @param l The location to get the metadata from.
+	 */
 	public TileMetadata getMetadata(WorldLocation l) {
 		return getMetadata(l.x, l.y);
 	}
 	
+	/**
+	 * Gets the metadata present at the given location.
+	 * 
+	 * @param x The x coordinate to get the metadata from.
+	 * @param y The y coordinate to get the metadata from.
+	 */
 	public TileMetadata getMetadata(int x, int y) {
 		return tileMeta[x][y];
 	}
 	
+	/**
+	 * Sets the metadata at the given location.
+	 * 
+	 * @param l The location at which to set the metadata.
+	 */
 	public void setMetadata(WorldLocation l, TileMetadata m) {
 		setMetadata(l.x, l.y, m);
 	}
 	
+	/**
+	 * Sets the metadata at the given location.
+	 * 
+	 * @param x The x coordinate at which to set the metadata.
+	 * @param y The y coordinate at which to set the metadata.
+	 */
 	public void setMetadata(int x, int y, TileMetadata m) {
 		tileMeta[x][y] = m;
 	}
 	
+	/**
+	 * Gets a snapshot of the tile state at the specified location.
+	 * 
+	 * @param x The x coordinate to get the state from.
+	 * @param y The y coordinate to get the state from.
+	 */
 	public TileState getTileState(int x, int y) {
 		return getTileState(new WorldLocation(this, x, y));
 	}
 	
+	/**
+	 * Gets a snapshot of the tile state at the specified location.
+	 * 
+	 * @param l The location to get the state from
+	 */
 	public TileState getTileState(WorldLocation l) {
 		return new TileState(l);
 	}
 	
+	/**
+	 * Sets a rectangular area to a specific tile. This will also clear any
+	 * metadata present within the given rectangle.
+	 */
 	public void setRect(WorldLocation l1, WorldLocation l2, Tile tile) {
 		setRect(l1.x, l1.y, l2.x, l2.y, tile);
 	}
 	
+	/**
+	 * Sets a rectangular area to a specific tile. This will also clear any
+	 * metadata present within the given rectangle.
+	 */
 	public void setRect(int x1, int y1, int x2, int y2, Tile tile) {
 		int temp;
 		
@@ -149,10 +229,20 @@ public class World {
 		}
 	}
 	
+	/**
+	 * Checks whether a rectangular area is available for world generation. A
+	 * location is defined as being available if and only if it is composed
+	 * solely of wall tiles.
+	 */
 	public boolean isAvailable(WorldLocation l1, WorldLocation l2) {
 		return isAvailable(l1.x, l1.y, l2.x, l2.y);
 	}
 	
+	/**
+	 * Checks whether a rectangular area is available for world generation. A
+	 * location is defined as being available if and only if it is composed
+	 * solely of wall tiles.
+	 */
 	public boolean isAvailable(int x1, int y1, int x2, int y2) {
 		int temp;
 		
@@ -184,10 +274,17 @@ public class World {
 		return true;
 	}
 	
+	/**
+	 * Gets the location of the entry stairway into this world.
+	 */
 	public WorldLocation getEntryLocation() {
 		return new WorldLocation(this, entryX, entryY);
 	}
 	
+	/**
+	 * Gets the location of the exit stairway from this world.
+	 * @return
+	 */
 	public WorldLocation getExitLocation() {
 		return new WorldLocation(this, exitX, exitY);
 	}

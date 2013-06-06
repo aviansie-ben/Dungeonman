@@ -36,6 +36,12 @@ public class TileMetadataStairs extends TileMetadata {
 		return true;
 	}
 	
+	/**
+	 * Gets a boolean value representing whether the stairs on the specified
+	 * tile are going up or down.
+	 * 
+	 * @return True if the stairs are going up, false if they are going down.
+	 */
 	public boolean isGoingUp() {
 		return isGoingUp;
 	}

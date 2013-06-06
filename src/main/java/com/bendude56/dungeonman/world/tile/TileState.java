@@ -26,22 +26,42 @@ public class TileState {
 		tileType = l.getTile();
 	}
 	
+	/**
+	 * Gets the metadata that was present at the specified location when this
+	 * state was taken.
+	 */
 	public TileMetadata getMetadata() {
 		return metadata;
 	}
 
+	/**
+	 * Sets the metadata on the specified tile. This change will not be applied
+	 * until {@link #update()} is called.
+	 */
 	public void setMetadata(TileMetadata metadata) {
 		this.metadata = metadata;
 	}
 
+	/**
+	 * Gets the tile type that was present at the specified location when this
+	 * state was taken.
+	 */
 	public Tile getTileType() {
 		return tileType;
 	}
 
+	/**
+	 * Sets the type of tile at the specified location. This change will not be
+	 * applied until {@link #update()} is called.
+	 */
 	public void setTileType(Tile tileType) {
 		this.tileType = tileType;
 	}
 
+	/**
+	 * Applies any changes that have been made to this tile state snapshot to
+	 * the live world.
+	 */
 	public void update() {
 		w.setTile(x, y, tileType);
 		w.setMetadata(x, y, metadata);
