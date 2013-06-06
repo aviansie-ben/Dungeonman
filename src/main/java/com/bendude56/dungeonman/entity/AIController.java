@@ -7,6 +7,15 @@ import javax.swing.JOptionPane;
 import com.bendude56.dungeonman.world.WorldLocation;
 import com.bendude56.dungeonman.world.tile.TileDoor;
 
+/**
+ * Benjamin C. Thomas
+ * Computer Science 30
+ * 2012/13 Semester 2
+ * Centennial High School
+ *
+ * @author Benjamin C. Thomas
+ */
+
 public class AIController {
 	public static int calculateAttackPower(EntityAlive attacker, EntityAlive atackee) {
 		int baseDamage = atackee.calculateIncomingDamage(attacker.calculateOutgoingDamage());

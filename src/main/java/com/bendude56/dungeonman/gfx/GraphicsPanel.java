@@ -14,6 +14,15 @@ import com.bendude56.dungeonman.GameInstance;
 import com.bendude56.dungeonman.entity.Entity;
 import com.bendude56.dungeonman.world.tile.TileState;
 
+/**
+ * Benjamin C. Thomas
+ * Computer Science 30
+ * 2012/13 Semester 2
+ * Centennial High School
+ *
+ * @author Benjamin C. Thomas
+ */
+
 public class GraphicsPanel extends JPanel {
 	private static final long	serialVersionUID	= 0L;
 	

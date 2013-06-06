@@ -7,6 +7,15 @@ import com.bendude56.dungeonman.world.WorldLocation;
 import com.bendude56.dungeonman.world.tile.Tile;
 import com.bendude56.dungeonman.world.tile.TileMetadataDoor;
 
+/**
+ * Benjamin C. Thomas
+ * Computer Science 30
+ * 2012/13 Semester 2
+ * Centennial High School
+ *
+ * @author Benjamin C. Thomas
+ */
+
 public abstract class WorldFeature {
 	public abstract boolean checkLocation(WorldLocation l, int orientation);
 	public abstract WorldFeatureInfo generateAt(DoorType door, WorldLocation l, int orientation, Random random);

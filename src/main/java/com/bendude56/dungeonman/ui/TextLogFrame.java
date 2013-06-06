@@ -10,6 +10,15 @@ import javax.swing.ScrollPaneConstants;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
+/**
+ * Benjamin C. Thomas
+ * Computer Science 30
+ * 2012/13 Semester 2
+ * Centennial High School
+ *
+ * @author Benjamin C. Thomas
+ */
+
 public class TextLogFrame extends JFrame {
 	private static final long	serialVersionUID	= 0L;
 	

@@ -14,6 +14,15 @@ import com.bendude56.dungeonman.world.World;
 import com.bendude56.dungeonman.world.WorldLocation;
 import com.bendude56.dungeonman.world.gen.SimpleDungeonGenerator;
 
+/**
+ * Benjamin C. Thomas
+ * Computer Science 30
+ * 2012/13 Semester 2
+ * Centennial High School
+ *
+ * @author Benjamin C. Thomas
+ */
+
 public class GameInstance {
 	private static GameInstance activeInstance;
 	

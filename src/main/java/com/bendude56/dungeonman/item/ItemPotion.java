@@ -7,6 +7,15 @@ import java.util.Random;
 import com.bendude56.dungeonman.GameInstance;
 import com.bendude56.dungeonman.gfx.ImageUtil;
 
+/**
+ * Benjamin C. Thomas
+ * Computer Science 30
+ * 2012/13 Semester 2
+ * Centennial High School
+ *
+ * @author Benjamin C. Thomas
+ */
+
 public abstract class ItemPotion extends ItemConsumable {
 	public static final Image potionSprite = ImageUtil.loadImage("/entity/item/potion.png");
 	

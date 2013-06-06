@@ -5,6 +5,15 @@ import java.util.Random;
 import com.bendude56.dungeonman.world.WorldLocation;
 import com.bendude56.dungeonman.world.tile.Tile;
 
+/**
+ * Benjamin C. Thomas
+ * Computer Science 30
+ * 2012/13 Semester 2
+ * Centennial High School
+ *
+ * @author Benjamin C. Thomas
+ */
+
 public class WorldFeatureCorridor extends WorldFeature {
 	public int corridorLength;
 	

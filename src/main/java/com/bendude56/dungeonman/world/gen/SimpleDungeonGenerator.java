@@ -17,6 +17,15 @@ import com.bendude56.dungeonman.world.gen.WorldFeature.WorldFeatureInfo;
 import com.bendude56.dungeonman.world.tile.Tile;
 import com.bendude56.dungeonman.world.tile.TileMetadataStairs;
 
+/**
+ * Benjamin C. Thomas
+ * Computer Science 30
+ * 2012/13 Semester 2
+ * Centennial High School
+ *
+ * @author Benjamin C. Thomas
+ */
+
 public class SimpleDungeonGenerator extends WorldGenerator {
 	
 	private ArrayList<WorldLocation> possibleStairs = new ArrayList<WorldLocation>();

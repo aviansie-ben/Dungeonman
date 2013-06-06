@@ -1,5 +1,14 @@
 package com.bendude56.dungeonman.world.tile;
 
+/**
+ * Benjamin C. Thomas
+ * Computer Science 30
+ * 2012/13 Semester 2
+ * Centennial High School
+ *
+ * @author Benjamin C. Thomas
+ */
+
 public class TileMetadataDoor extends TileMetadata {
 	private final int keyId;
 	

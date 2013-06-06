@@ -6,6 +6,15 @@ import java.util.List;
 import com.bendude56.dungeonman.item.ItemMetadataKey;
 import com.bendude56.dungeonman.item.ItemStack;
 
+/**
+ * Benjamin C. Thomas
+ * Computer Science 30
+ * 2012/13 Semester 2
+ * Centennial High School
+ *
+ * @author Benjamin C. Thomas
+ */
+
 public class Inventory {
 	private ArrayList<ItemStack> items;
 	

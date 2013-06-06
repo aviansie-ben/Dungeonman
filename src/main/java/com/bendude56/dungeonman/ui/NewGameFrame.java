@@ -26,6 +26,15 @@ import com.bendude56.dungeonman.GameInstance;
 import com.bendude56.dungeonman.entity.EntityStats;
 import com.bendude56.dungeonman.entity.EntityPlayer.PlayerRace;
 
+/**
+ * Benjamin C. Thomas
+ * Computer Science 30
+ * 2012/13 Semester 2
+ * Centennial High School
+ *
+ * @author Benjamin C. Thomas
+ */
+
 public class NewGameFrame extends JFrame {
 	private static final long	serialVersionUID	= 0L;
 

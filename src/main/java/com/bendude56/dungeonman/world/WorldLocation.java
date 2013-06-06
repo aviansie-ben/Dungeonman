@@ -3,6 +3,15 @@ package com.bendude56.dungeonman.world;
 import com.bendude56.dungeonman.world.tile.Tile;
 import com.bendude56.dungeonman.world.tile.TileMetadata;
 
+/**
+ * Benjamin C. Thomas
+ * Computer Science 30
+ * 2012/13 Semester 2
+ * Centennial High School
+ *
+ * @author Benjamin C. Thomas
+ */
+
 public class WorldLocation {
 	public World world;
 	public int x, y;
