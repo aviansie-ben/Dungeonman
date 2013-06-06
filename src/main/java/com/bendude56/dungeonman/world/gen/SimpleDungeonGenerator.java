@@ -68,6 +68,19 @@ public class SimpleDungeonGenerator extends WorldGenerator {
 		}
 	}
 	
+	/**
+	 * Creates the specified {@link WorldFeature} with the specified location,
+	 * orientation and door type.
+	 * 
+	 * @param f The feature to be added.
+	 * @param l The location at which to generate the feature.
+	 * @param door The type of door that should be generated on this feature.
+	 * @param orientation The orientation of this feature.
+	 * @param iteration The iteration of the algorithm represented by this
+	 *        feature.
+	 * 
+	 * @return True if the generation was successful, false otherwise.
+	 */
 	public boolean generate(WorldFeature f, WorldLocation l, DoorType door, int orientation, int iteration) {
 		WorldFeatureInfo info;
 		
@@ -93,6 +106,14 @@ public class SimpleDungeonGenerator extends WorldGenerator {
 		}
 	}
 	
+	/**
+	 * Generates children of the specified {@link WorldFeature}.
+	 * 
+	 * @param f The feature to which the children should be generated off of.
+	 * @param info The feature information (provided by the feature's
+	 *        generation function)
+	 * @param iteration The iteration represented by the specified feature.
+	 */
 	@SuppressWarnings("unchecked")
 	public void generateChildren(WorldFeature f, WorldFeatureInfo info, int iteration) {
 		int numRooms, numCorridors;
@@ -129,6 +150,20 @@ public class SimpleDungeonGenerator extends WorldGenerator {
 		}
 	}
 	
+	/**
+	 * Attempts to generate a feature based off of a list of possible locations
+	 * and orientations. If generation is impossible, this function will simply
+	 * fail to perform any action.
+	 * 
+	 * @param f The feature that should be generated.
+	 * @param locations A list of possible locations at which to generate the
+	 *        requested feature.
+	 * @param orientations A list of possible orientations corresponding to the
+	 *        locations.
+	 * @param door The type of door that should be generated on the specified
+	 *        world feature.
+	 * @param iteration The iteration represented by the last generated feature
+	 */
 	public void tryGenerate(WorldFeature f, List<WorldLocation> locations, List<Integer> orientations, DoorType door, int iteration) {
 		while (locations.size() > 0) {
 			int location = random.nextInt(locations.size());

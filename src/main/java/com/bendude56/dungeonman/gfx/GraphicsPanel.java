@@ -52,6 +52,9 @@ public class GraphicsPanel extends JPanel {
 		});
 	}
 	
+	/**
+	 * Draws the active game world and any tiles or entities visible within it.
+	 */
 	public void drawGameWorld() {
 		int viewpointX = (centerX * 33) + 16 - getWidth() / 2;
 		int viewpointY = (centerY * 33) + 16 - getHeight() / 2;

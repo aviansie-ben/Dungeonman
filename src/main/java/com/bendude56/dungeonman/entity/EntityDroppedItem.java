@@ -40,6 +40,12 @@ public class EntityDroppedItem extends Entity {
 		return true;
 	}
 	
+	/**
+	 * Gets the item that is represented by this entity.
+	 * 
+	 * @return An {@link ItemStack} representing the item which was dropped to
+	 *         create this entity.
+	 */
 	public ItemStack getItemStack() {
 		return stack;
 	}

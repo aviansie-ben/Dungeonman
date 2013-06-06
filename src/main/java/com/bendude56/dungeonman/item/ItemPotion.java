@@ -49,7 +49,23 @@ public abstract class ItemPotion extends ItemConsumable {
 	public int getMaxStack(ItemStack stack) {
 		return 10;
 	}
+
+	@Override
+	public int getWeight(ItemStack stack) {
+		return 200;
+	}
 	
+	/**
+	 * Generates a random new potion, with a random appearance and effect on
+	 * the player.
+	 * 
+	 * @param id The unique identifier that the potion should be given.
+	 * @param difficulty The difficulty in which the game is running.
+	 * @param random A randomizer that can be used to randomize the new
+	 *        potion's properties.
+	 * 
+	 * @return The {@link ItemPotion} which has been generated.
+	 */
 	public static ItemPotion generateNewPotion(int id, int difficulty, Random random) {
 		String adjective = adjectives[random.nextInt(adjectives.length)];
 		int color = random.nextInt(colors.length);
@@ -66,10 +82,4 @@ public abstract class ItemPotion extends ItemConsumable {
 			return null;
 		}
 	}
-
-	@Override
-	public int getWeight(ItemStack stack) {
-		return 200;
-	}
-
 }

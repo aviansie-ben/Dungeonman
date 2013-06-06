@@ -16,6 +16,9 @@ public class ItemMetadataKey extends ItemMetadata {
 		this.keyId = keyId;
 	}
 	
+	/**
+	 * Gets the unique identifier of the key represented by this metadata.
+	 */
 	public int getKeyId() {
 		return keyId;
 	}

@@ -33,10 +33,16 @@ public abstract class ItemConsumable extends Item {
 		}
 	}
 	
+	@Override
 	public boolean onPickedUp(ItemStack stack, EntityPlayer p) {
 		return true;
 	}
 	
+	/**
+	 * Executed when this item is consumed by the player.
+	 * 
+	 * @param p The player who has consumed the item.
+	 */
 	public abstract void onConsumed(ItemStack stack, EntityPlayer p);
 
 }

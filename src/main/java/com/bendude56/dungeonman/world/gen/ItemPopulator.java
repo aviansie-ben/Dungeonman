@@ -30,6 +30,9 @@ public class ItemPopulator {
 		this.random = random;
 	}
 	
+	/**
+	 * Generates items at random locations on the specified world.
+	 */
 	public void generateAllItems() {
 		for (WorldLocation l : possibleLocations) {
 			if (random.nextInt(3) == 0) {
@@ -38,7 +41,7 @@ public class ItemPopulator {
 		}
 	}
 	
-	public ItemStack selectItem() {
+	private ItemStack selectItem() {
 		ArrayList<Item> items = new ArrayList<Item>();
 		
 		for (Entry<Integer, Item> item : GameInstance.getActiveInstance().getItems().entrySet()) {

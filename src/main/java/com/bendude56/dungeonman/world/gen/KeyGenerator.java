@@ -40,6 +40,10 @@ public class KeyGenerator {
 		this.random = random;
 	}
 	
+	/**
+	 * Follows paths and generates keys for any locked doors where a player
+	 * would be able to reach them.
+	 */
 	public void generateAllKeys() {
 		int key = -1;
 		

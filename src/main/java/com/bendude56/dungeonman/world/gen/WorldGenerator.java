@@ -22,5 +22,11 @@ public abstract class WorldGenerator {
 		this.random = new Random();
 	}
 	
+	/**
+	 * Generates the specified world with the proper difficulty level.
+	 * 
+	 * @param difficulty The difficulty level of the game which is generating
+	 *        this world.
+	 */
 	public abstract void generateLevel(int difficulty);
 }

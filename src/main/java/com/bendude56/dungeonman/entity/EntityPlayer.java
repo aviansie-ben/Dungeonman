@@ -33,6 +33,9 @@ public class EntityPlayer extends EntityAlive {
 		this.inventory = new Inventory();
 	}
 	
+	/**
+	 * Gets the player's inventory.
+	 */
 	public Inventory getInventory() {
 		return inventory;
 	}
@@ -60,12 +63,20 @@ public class EntityPlayer extends EntityAlive {
 		}
 	}
 	
+	/**
+	 * Gets the distance that this player can detect hidden doors from when
+	 * searching.
+	 */
 	public int getSearchDistance() {
 		int d = 3;
 		
 		return d;
 	}
 	
+	/**
+	 * Causes the player to perform a search, and note any results in the text
+	 * log.
+	 */
 	public void doSearch() {
 		boolean done = false;
 		
@@ -138,6 +149,14 @@ public class EntityPlayer extends EntityAlive {
 		}
 	}
 
+	/**
+	 * Causes the player to pick up the specified dropped item and add it to
+	 * their inventory.
+	 * 
+	 * @param e The dropped item to be picked up.
+	 * 
+	 * @return True if the item was picked up successfully, otherwise false.
+	 */
 	public boolean doPickup(EntityDroppedItem e) {
 		inventory.addItem(e.getItemStack());
 		e.die();

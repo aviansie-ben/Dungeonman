@@ -24,18 +24,36 @@ public abstract class EntityEnemy extends EntityAlive {
 		this.name = name;
 	}
 	
+	/**
+	 * Gets the entity that this entity is currently targetting. This value
+	 * shouldn't be used for pathfinding. Use {@link #getTargetLastSeen()}
+	 * instead when working with pathfinding.
+	 */
 	public Entity getTarget() {
 		return target;
 	}
 	
+	/**
+	 * Gets the location at which the target of this entity was last seen by
+	 * this entity. This is the location towards which this entity will head.
+	 */
 	public WorldLocation getTargetLastSeen() {
 		return targetLastSeen;
 	}
 	
+	/**
+	 * Gets an integer representing the base amount of damage done by this
+	 * entity.
+	 */
 	public int getDamagePower() {
 		return damagePower;
 	}
 	
+	/**
+	 * Sets the target towards which this entity should head.
+	 * 
+	 * @param e The new entity to target. MUST be in sight of this entity.
+	 */
 	public void setTarget(Entity e) {
 		if (e != null && !canSee(e)) {
 			throw new IllegalArgumentException("Cannot target an entity that is out of sight!");
@@ -72,8 +90,8 @@ public abstract class EntityEnemy extends EntityAlive {
 		}
 		return false;
 	}
-
-	public void targetCheck() {
+	
+	private void targetCheck() {
 		for (Entity e : getWorld().getEntities(getLocation().x - viewDistance, getLocation().y - viewDistance,
 				getLocation().x + viewDistance, getLocation().y + viewDistance)) {
 			if (e instanceof EntityPlayer && canSee(e) && target == null) {
@@ -82,6 +100,12 @@ public abstract class EntityEnemy extends EntityAlive {
 		}
 	}
 	
+	/**
+	 * Attempts to move this entity to the designated location, firing any
+	 * events along the way.
+	 * 
+	 * @param l The location to which this entity should move.
+	 */
 	public void doMove(WorldLocation l) {
 		if (!l.getTile().onEntityMove(l.world.getTileState(l), this)) {
 			return;
@@ -96,6 +120,9 @@ public abstract class EntityEnemy extends EntityAlive {
 		setLocation(l);
 	}
 
+	/**
+	 * Gets the name that should be displayed for this entity in the text log.
+	 */
 	public String getName() {
 		return name;
 	}
