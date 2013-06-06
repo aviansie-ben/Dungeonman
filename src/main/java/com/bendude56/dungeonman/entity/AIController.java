@@ -128,18 +128,19 @@ public class AIController {
 						}
 					}
 					
-					
-					l = new WorldLocation(l1.world, (int)(x / 32), (int)(y / 32) - 1);
-					if (!l1.world.getTile(l).isTransparent()) {
-						if (!(l1.world.getTile(l) instanceof TileDoor && (l1.equals(l) || l2.equals(l))))
-							return false;
-					}
-					
-					if (x % 32 == 0) {
-						l = new WorldLocation(l1.world, (int)(x / 32) - 1, (int)(y / 32) - 1);
+					if (y % 32 == 0) {
+						l = new WorldLocation(l1.world, (int)(x / 32), (int)(y / 32) - 1);
 						if (!l1.world.getTile(l).isTransparent()) {
 							if (!(l1.world.getTile(l) instanceof TileDoor && (l1.equals(l) || l2.equals(l))))
 								return false;
+						}
+						
+						if (x % 32 == 0) {
+							l = new WorldLocation(l1.world, (int)(x / 32) - 1, (int)(y / 32) - 1);
+							if (!l1.world.getTile(l).isTransparent()) {
+								if (!(l1.world.getTile(l) instanceof TileDoor && (l1.equals(l) || l2.equals(l))))
+									return false;
+							}
 						}
 					}
 				}

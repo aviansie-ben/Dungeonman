@@ -35,7 +35,7 @@ public class ItemPopulator {
 	 */
 	public void generateAllItems() {
 		for (WorldLocation l : possibleLocations) {
-			if (random.nextInt(3) == 0) {
+			if (random.nextInt(/*3*/1) == 0) {
 				l.world.addEntity(new EntityDroppedItem(l, selectItem()));
 			}
 		}
