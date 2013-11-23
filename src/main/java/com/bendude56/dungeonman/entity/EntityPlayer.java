@@ -158,10 +158,10 @@ public class EntityPlayer extends EntityAlive {
 	 * @return True if the item was picked up successfully, otherwise false.
 	 */
 	public boolean doPickup(EntityDroppedItem e) {
+		logMessage("You pick up a " + e.getItemStack().getItem().getItemName(e.getItemStack()) + " (x" + e.getItemStack().getAmount() + ")");
+		
 		inventory.addItem(e.getItemStack());
 		e.die();
-		
-		logMessage("You pick up a " + e.getItemStack().getItem().getItemName(e.getItemStack()) + " (x" + e.getItemStack().getAmount() + ")");
 		
 		return true;
 	}
