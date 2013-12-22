@@ -4,11 +4,6 @@ import java.awt.Color;
 import java.awt.image.RGBImageFilter;
 
 /**
- * Benjamin C. Thomas
- * Computer Science 30
- * 2012/13 Semester 2
- * Centennial High School
- *
  * @author Benjamin C. Thomas
  */
 

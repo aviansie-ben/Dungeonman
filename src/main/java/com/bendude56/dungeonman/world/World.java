@@ -13,11 +13,6 @@ import com.bendude56.dungeonman.world.tile.TileState;
 import com.bendude56.dungeonman.world.tile.TileWall;
 
 /**
- * Benjamin C. Thomas
- * Computer Science 30
- * 2012/13 Semester 2
- * Centennial High School
- *
  * @author Benjamin C. Thomas
  */
 
