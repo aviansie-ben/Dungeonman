@@ -105,6 +105,7 @@ public class NewGameFrame extends JFrame {
 		reallyjoelsDadButton.setEnabled(false);
 		difficultyButtonGroup.add(reallyjoelsDadButton);
 		reallyjoelsDadButton.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				JOptionPane.showMessageDialog(NewGameFrame.this, "I know you might think this is a good idea, but it's really not!\nTrust me: There is no need to prove yourself!", "Reallyjoel's Dad", JOptionPane.WARNING_MESSAGE);
 			}
@@ -114,6 +115,7 @@ public class NewGameFrame extends JFrame {
 		
 		JButton btnOk = new JButton("OK");
 		btnOk.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				int difficulty = 0;
 				// String difficultyName;
@@ -249,6 +251,7 @@ public class NewGameFrame extends JFrame {
 			Class<?>[] columnTypes = new Class<?>[] {
 				String.class, Integer.class, Integer.class
 			};
+			@Override
 			public Class<?> getColumnClass(int columnIndex) {
 				return columnTypes[columnIndex];
 			}
@@ -260,6 +263,7 @@ public class NewGameFrame extends JFrame {
 		
 		JButton btnReroll = new JButton("Reroll");
 		btnReroll.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				rerollStats();
 			}

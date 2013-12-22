@@ -69,6 +69,7 @@ public class InventoryFrame extends JFrame {
 		
 		useButton = new JButton("Use");
 		useButton.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				ItemStack i = list.getSelectedValue().i;
 				
@@ -89,6 +90,7 @@ public class InventoryFrame extends JFrame {
 		
 		dropButton = new JButton("Drop");
 		dropButton.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				ItemStack i = list.getSelectedValue().i;
 				
@@ -107,6 +109,7 @@ public class InventoryFrame extends JFrame {
 		
 		list = new JList<InventoryItem>();
 		list.addListSelectionListener(new ListSelectionListener() {
+			@Override
 			public void valueChanged(ListSelectionEvent e) {
 				if (list.getSelectedIndex() == -1) {
 					useButton.setEnabled(false);
@@ -140,6 +143,7 @@ public class InventoryFrame extends JFrame {
 			this.i = i;
 		}
 		
+		@Override
 		public String toString() {
 			return i.getItem().getItemName(i) + " (x" + i.getAmount() + ")";
 		}

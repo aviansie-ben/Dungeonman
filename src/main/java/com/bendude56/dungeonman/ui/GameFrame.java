@@ -81,6 +81,7 @@ public class GameFrame extends JFrame {
 		}
 		
 		EventQueue.invokeAndWait(new Runnable() {
+			@Override
 			public void run() {
 				try {
 					activeFrame = new GameFrame();
@@ -147,6 +148,7 @@ public class GameFrame extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				EventQueue.invokeLater(new Runnable() {
+					@Override
 					public void run() {
 						try {
 							NewGameFrame f = new NewGameFrame(GameFrame.this);
@@ -185,6 +187,7 @@ public class GameFrame extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				EventQueue.invokeLater(new Runnable() {
+					@Override
 					public void run() {
 						try {
 							if (activeInventory == null) {
@@ -205,6 +208,7 @@ public class GameFrame extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				EventQueue.invokeLater(new Runnable() {
+					@Override
 					public void run() {
 						try {
 							if (activeStats == null) {
@@ -225,6 +229,7 @@ public class GameFrame extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				EventQueue.invokeLater(new Runnable() {
+					@Override
 					public void run() {
 						try {
 							if (activeLog == null) {
