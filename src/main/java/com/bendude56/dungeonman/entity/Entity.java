@@ -2,6 +2,7 @@ package com.bendude56.dungeonman.entity;
 
 import java.awt.Graphics;
 
+import com.bendude56.dungeonman.item.ItemStack;
 import com.bendude56.dungeonman.world.World;
 import com.bendude56.dungeonman.world.WorldLocation;
 
@@ -23,6 +24,16 @@ public abstract class Entity {
 	public Entity(WorldLocation l) {
 		setLocation(l);
 		id = l.world.getGameInstance().generateEntityId();
+	}
+	
+	/**
+	 * Drops the specified {@link com.bendude56.dungeonman.item.ItemStack} at this
+	 * entity's location.
+	 * 
+	 * @param i The stack of items to be dropped
+	 */
+	public final void dropItem(ItemStack i) {
+		world.addEntity(new EntityDroppedItem(getLocation(), i));
 	}
 	
 	/**
