@@ -51,6 +51,7 @@ public class TileMetadataDoor extends TileMetadata {
 		return true;
 	}
 	
+	@Override
 	public TileMetadata clone() {
 		return new TileMetadataDoor(keyId);
 	}

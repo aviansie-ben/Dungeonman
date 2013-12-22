@@ -15,6 +15,7 @@ public class TileMetadata {
 	 * Makes an exact copy of this metadata. Modifying this copy MUST NOT
 	 * affect the original.
 	 */
+	@Override
 	public TileMetadata clone() {
 		return new TileMetadata();
 	}
