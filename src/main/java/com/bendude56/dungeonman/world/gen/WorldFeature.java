@@ -80,7 +80,7 @@ public abstract class WorldFeature {
 		public static DoorType getRandomType(Random random) {
 			boolean locked = (random.nextInt(6) == 0);
 			
-			if (random.nextInt(6) == 0) {
+			if (random.nextInt(10) == 0) {
 				return (locked) ? DoorType.SECRET_LOCKED : DoorType.SECRET;
 			} else {
 				return (locked) ? DoorType.LOCKED : DoorType.NORMAL;
