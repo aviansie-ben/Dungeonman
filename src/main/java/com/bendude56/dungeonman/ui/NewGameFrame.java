@@ -158,6 +158,7 @@ public class NewGameFrame extends JFrame {
 				
 				NewGameFrame.this.parent.windowMenu.setEnabled(true);
 				NewGameFrame.this.parent.gamePanel.repaint();
+				NewGameFrame.this.parent.openDefaultWindows();
 				
 				NewGameFrame.this.dispose();
 			}

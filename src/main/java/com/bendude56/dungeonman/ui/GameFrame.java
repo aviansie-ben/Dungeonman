@@ -291,6 +291,42 @@ public class GameFrame extends JFrame {
 		});
 	}
 	
+	public void openDefaultWindows() {
+		try {
+			if (activeInventory == null) {
+				activeInventory = new InventoryFrame();
+				activeInventory.setVisible(true);
+			} else {
+				activeInventory.requestFocus();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		try {
+			if (activeStats == null) {
+				activeStats = new StatsFrame();
+				activeStats.setVisible(true);
+			} else {
+				activeStats.requestFocus();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		try {
+			if (activeLog == null) {
+				activeLog = new TextLogFrame();
+				activeLog.logTextBox.setText(loggedMessages);
+				activeLog.setVisible(true);
+			} else {
+				activeLog.requestFocus();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public void logMessage(String message) {
 		loggedMessages += message + "\n";
 		if (activeLog != null) {
