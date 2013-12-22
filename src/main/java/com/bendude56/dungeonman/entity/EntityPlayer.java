@@ -167,14 +167,16 @@ public class EntityPlayer extends EntityAlive {
 	}
 	
 	public enum PlayerRace {
-		HUMAN("Human", new EntityStats(5, 5, 5, 5, 5, 5, 200));
+		HUMAN("Human", new EntityStats(5, 5, 5, 5, 5, 5, 200), EntityPlayer.humanSprite);
 		
 		public final String name;
 		public final EntityStats bonusStats;
+		public final Image sprite;
 		
-		private PlayerRace(String name, EntityStats bonusStats) {
+		private PlayerRace(String name, EntityStats bonusStats, Image sprite) {
 			this.name = name;
 			this.bonusStats = bonusStats;
+			this.sprite = sprite;
 		}
 	}
 
