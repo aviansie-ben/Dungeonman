@@ -39,6 +39,7 @@ public class StatsFrame extends JFrame {
 				GameFrame.activeFrame.activeStats = null;
 			}
 		});
+		setAlwaysOnTop(true);
 		setResizable(false);
 		setTitle("Player Stats");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
