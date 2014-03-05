@@ -12,8 +12,8 @@ public class ItemHealingPotion extends ItemPotion {
 	
 	private int healingAmount;
 
-	public ItemHealingPotion(String unidentifiedName, Color c, int id, int rarity, int healingAmount) {
-		super("Potion of Healing (+" + healingAmount + ")", unidentifiedName, c, id, rarity);
+	public ItemHealingPotion(String unidentifiedName, Color c, int id, int rarity, int healingAmount, int identifyLevel) {
+		super("Potion of Healing (+" + healingAmount + ")", unidentifiedName, c, id, rarity, identifyLevel);
 		
 		this.healingAmount = healingAmount;
 	}

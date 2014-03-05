@@ -12,8 +12,8 @@ public class ItemDamagePotion extends ItemPotion {
 	
 	private int damageAmount;
 
-	public ItemDamagePotion(String unidentifiedName, Color c, int id, int rarity, int damageAmount) {
-		super("Potion of Damage (-" + damageAmount + ")", unidentifiedName, c, id, rarity);
+	public ItemDamagePotion(String unidentifiedName, Color c, int id, int rarity, int damageAmount, int identifyLevel) {
+		super("Potion of Damage (-" + damageAmount + ")", unidentifiedName, c, id, rarity, identifyLevel);
 		
 		this.damageAmount = damageAmount;
 	}

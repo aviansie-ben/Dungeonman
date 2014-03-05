@@ -1,6 +1,7 @@
 package com.bendude56.dungeonman.ui;
 
 import java.awt.BorderLayout;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -8,6 +9,7 @@ import javax.swing.JSplitPane;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
 import javax.swing.JButton;
+
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -16,9 +18,12 @@ import javax.swing.ScrollPaneConstants;
 import com.bendude56.dungeonman.GameInstance;
 import com.bendude56.dungeonman.entity.EntityDroppedItem;
 import com.bendude56.dungeonman.entity.EntityPlayer;
+import com.bendude56.dungeonman.item.ItemIdentifiable;
 import com.bendude56.dungeonman.item.ItemStack;
+
 import javax.swing.event.ListSelectionListener;
 import javax.swing.event.ListSelectionEvent;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.FlowLayout;
@@ -34,6 +39,7 @@ public class InventoryFrame extends JFrame {
 	private JList<InventoryItem> list;
 	private JButton useButton;
 	private JButton dropButton;
+	private JButton identifyButton;
 
 	/**
 	 * Create the frame.
@@ -76,6 +82,7 @@ public class InventoryFrame extends JFrame {
 					}
 					
 					GameFrame.activeFrame.doTurn();
+					GameFrame.activeFrame.render();
 				}
 			}
 		});
@@ -93,10 +100,29 @@ public class InventoryFrame extends JFrame {
 				GameInstance.getActiveInstance().getPlayerEntity().getInventory().removeItem(i);
 				
 				GameFrame.activeFrame.doTurn();
+				GameFrame.activeFrame.render();
 			}
 		});
 		dropButton.setEnabled(false);
 		panel.add(dropButton);
+		
+		identifyButton = new JButton("Identify");
+		identifyButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				ItemStack i = list.getSelectedValue().i;
+				
+				if (i.getItem() instanceof ItemIdentifiable) {
+					((ItemIdentifiable)i.getItem()).tryIdentify(GameInstance.getActiveInstance().getPlayerEntity());
+					GameFrame.activeFrame.doTurn();
+					GameFrame.activeFrame.render();
+				} else {
+					GameFrame.activeFrame.logMessage("That item cannot be identified!");
+				}
+			}
+		});
+		identifyButton.setEnabled(false);
+		panel.add(identifyButton);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
@@ -109,9 +135,11 @@ public class InventoryFrame extends JFrame {
 				if (list.getSelectedIndex() == -1) {
 					useButton.setEnabled(false);
 					dropButton.setEnabled(false);
+					identifyButton.setEnabled(false);
 				} else {
 					useButton.setEnabled(list.getSelectedValue().i.getItem().canUse(list.getSelectedValue().i, GameInstance.getActiveInstance().getPlayerEntity()));
 					dropButton.setEnabled(true);
+					identifyButton.setEnabled(list.getSelectedValue().i.getItem() instanceof ItemIdentifiable && !GameInstance.getActiveInstance().isItemIdentified(list.getSelectedValue().i.getItem()));
 				}
 			}
 		});

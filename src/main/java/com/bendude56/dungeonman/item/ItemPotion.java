@@ -5,13 +5,15 @@ import java.awt.Image;
 import java.util.Random;
 
 import com.bendude56.dungeonman.GameInstance;
+import com.bendude56.dungeonman.entity.EntityPlayer;
 import com.bendude56.dungeonman.gfx.ImageUtil;
+import com.bendude56.dungeonman.ui.GameFrame;
 
 /**
  * @author Benjamin C. Thomas
  */
 
-public abstract class ItemPotion extends ItemConsumable {
+public abstract class ItemPotion extends ItemConsumable implements ItemIdentifiable {
 	public static final Image potionSprite = ImageUtil.loadImage("/entity/item/potion.png");
 	
 	public static final String[] adjectives = new String[] { "Bubbly", "Thick", "Oily", "Foggy", "Hazy", "Fizzy", "Murky" };
@@ -21,13 +23,15 @@ public abstract class ItemPotion extends ItemConsumable {
 	private Image sprite;
 	private String name;
 	private String unidentifiedName;
+	private int identifyLevel;
 	
-	public ItemPotion(String name, String unidentifiedName, Color c, int id, int rarity) {
+	public ItemPotion(String name, String unidentifiedName, Color c, int id, int rarity, int identifyLevel) {
 		super(id, rarity, 1);
 		
 		this.name = name;
 		this.unidentifiedName = unidentifiedName;
 		this.sprite = ImageUtil.colorPotion(potionSprite, c);
+		this.identifyLevel = identifyLevel;
 	}
 
 	@Override
@@ -50,6 +54,18 @@ public abstract class ItemPotion extends ItemConsumable {
 		return 200;
 	}
 	
+	@Override
+	public void tryIdentify(EntityPlayer e) {
+		if (GameInstance.getActiveInstance().isItemIdentified(this)) {
+			GameFrame.activeFrame.logMessage("You have already identified that!");
+		} else if (e.getStats().getIntelligence() >= identifyLevel) {
+			GameInstance.getActiveInstance().setItemIdentified(this, true);
+			GameFrame.activeFrame.logMessage("You successfully identify the item!");
+		} else {
+			GameFrame.activeFrame.logMessage("You fail to identify the item!");
+		}
+	}
+	
 	/**
 	 * Generates a random new potion, with a random appearance and effect on
 	 * the player.
@@ -65,13 +81,14 @@ public abstract class ItemPotion extends ItemConsumable {
 		String adjective = adjectives[random.nextInt(adjectives.length)];
 		int color = random.nextInt(colors.length);
 		int type = random.nextInt(2);
+		int identifyLevel = random.nextInt(10);
 		
 		if (type == 0) {
 			// Healing potion
-			return new ItemHealingPotion(adjective + " " + colorNames[color] + " Potion", colors[color], id, 10, random.nextInt(96) + 5);
+			return new ItemHealingPotion(adjective + " " + colorNames[color] + " Potion", colors[color], id, 10, random.nextInt(96) + 5, identifyLevel);
 		} else if (type == 1) {
 			// Damage potion
-			return new ItemDamagePotion(adjective + " " + colorNames[color] + " Potion", colors[color], id, 10, random.nextInt(96) + 5);
+			return new ItemDamagePotion(adjective + " " + colorNames[color] + " Potion", colors[color], id, 10, random.nextInt(96) + 5, identifyLevel);
 		} else {
 			// Should never happen
 			return null;

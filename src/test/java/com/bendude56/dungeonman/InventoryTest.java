@@ -50,12 +50,12 @@ public class InventoryTest {
 		
 		Assert.assertEquals(player.getMaxHp() - 5, player.getHp());
 		
-		ItemPotion p = new ItemHealingPotion("", Color.white, 0, 0, 1);
+		ItemPotion p = new ItemHealingPotion("", Color.white, 0, 0, 1, 0);
 		p.onConsumed(new ItemStack(p, new ItemMetadata(), 1), player);
 		
 		Assert.assertEquals(player.getMaxHp() - 4, player.getHp());
 		
-		p = new ItemDamagePotion("", Color.white, 0, 0, 1);
+		p = new ItemDamagePotion("", Color.white, 0, 0, 1, 0);
 		p.onConsumed(new ItemStack(p, new ItemMetadata(), 1), player);
 		
 		Assert.assertEquals(player.getMaxHp() - 5, player.getHp());

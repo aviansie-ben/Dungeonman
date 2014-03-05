@@ -357,10 +357,7 @@ public class GameFrame extends JFrame {
 			World w = GameInstance.getActiveWorld();
 			EntityPlayer p =  GameInstance.getActiveInstance().getPlayerEntity();
 			
-			gamePanel.centerX = p.getLocation().x;
-			gamePanel.centerY = p.getLocation().y;
-			gamePanel.drawGameWorld();
-			gamePanel.repaint();
+			render();
 			
 			if (p.isDead()) {
 				JOptionPane.showMessageDialog(this, "You have died.");
@@ -448,6 +445,13 @@ public class GameFrame extends JFrame {
 			
 			doTurn();
 		}
+	}
+	
+	public void render() {
+		gamePanel.centerX = GameInstance.getActiveInstance().getPlayerEntity().getLocation().x;
+		gamePanel.centerY = GameInstance.getActiveInstance().getPlayerEntity().getLocation().y;
+		gamePanel.drawGameWorld();
+		gamePanel.repaint();
 	}
 	
 	public void doTurn() {
