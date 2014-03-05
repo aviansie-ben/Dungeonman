@@ -4,7 +4,6 @@ import java.util.Random;
 
 import com.bendude56.dungeonman.world.WorldLocation;
 import com.bendude56.dungeonman.world.tile.Tile;
-import com.bendude56.dungeonman.world.tile.TileDoor;
 
 /**
  * @author Benjamin C. Thomas
@@ -51,7 +50,7 @@ public class AIController {
 			for (int y = Math.min(y1, y2); y <= Math.max(y1, y2); y += Tile.TILE_HEIGHT) {
 				WorldLocation l = new WorldLocation(l1.world, (int)(x1 / Tile.TILE_WIDTH), (int)(y / Tile.TILE_HEIGHT));
 				if (!l1.world.getTile(l).isTransparent()) {
-					if (!(l1.world.getTile(l) instanceof TileDoor && (l1.equals(l) || l2.equals(l))))
+					if (!(l1.equals(l) || l2.equals(l)))
 						return false;
 				}
 			}
@@ -76,26 +75,26 @@ public class AIController {
 				
 				l = new WorldLocation(l1.world, (int)(x / Tile.TILE_WIDTH), (int)(y / Tile.TILE_HEIGHT));
 				if (!l1.world.getTile(l).isTransparent()) {
-					if (!(l1.world.getTile(l) instanceof TileDoor && (l1.equals(l) || l2.equals(l))))
+					if (!(l1.equals(l) || l2.equals(l)))
 						return false;
 				}
 				
 				l = new WorldLocation(l1.world, (int)(x / Tile.TILE_WIDTH) - 1, (int)(y / Tile.TILE_HEIGHT));
 				if (!l1.world.getTile(l).isTransparent()) {
-					if (!(l1.world.getTile(l) instanceof TileDoor && (l1.equals(l) || l2.equals(l))))
+					if (!(l1.equals(l) || l2.equals(l)))
 						return false;
 				}
 				
 				if (y % Tile.TILE_HEIGHT == 0) {
 					l = new WorldLocation(l1.world, (int)(x / Tile.TILE_WIDTH), (int)(y / Tile.TILE_HEIGHT) - 1);
 					if (!l1.world.getTile(l).isTransparent()) {
-						if (!(l1.world.getTile(l) instanceof TileDoor && (l1.equals(l) || l2.equals(l))))
+						if (!(l1.equals(l) || l2.equals(l)))
 							return false;
 					}
 					
 					l = new WorldLocation(l1.world, (int)(x / Tile.TILE_WIDTH) - 1, (int)(y / Tile.TILE_HEIGHT) - 1);
 					if (!l1.world.getTile(l).isTransparent()) {
-						if (!(l1.world.getTile(l) instanceof TileDoor && (l1.equals(l) || l2.equals(l))))
+						if (!(l1.equals(l) || l2.equals(l)))
 							return false;
 					}
 				}
@@ -112,14 +111,14 @@ public class AIController {
 					
 					l = new WorldLocation(l1.world, (int)(x / Tile.TILE_WIDTH), (int)(y / Tile.TILE_HEIGHT));
 					if (!l1.world.getTile(l).isTransparent()) {
-						if (!(l1.world.getTile(l) instanceof TileDoor && (l1.equals(l) || l2.equals(l))))
+						if (!(l1.equals(l) || l2.equals(l)))
 							return false;
 					}
 					
 					if (x % Tile.TILE_WIDTH == 0) {
 						l = new WorldLocation(l1.world, (int)(x / Tile.TILE_WIDTH) - 1, (int)(y / Tile.TILE_HEIGHT));
 						if (!l1.world.getTile(l).isTransparent()) {
-							if (!(l1.world.getTile(l) instanceof TileDoor && (l1.equals(l) || l2.equals(l))))
+							if (!(l1.equals(l) || l2.equals(l)))
 								return false;
 						}
 					}
@@ -127,14 +126,14 @@ public class AIController {
 					if (y % Tile.TILE_HEIGHT == 0) {
 						l = new WorldLocation(l1.world, (int)(x / Tile.TILE_WIDTH), (int)(y / Tile.TILE_HEIGHT) - 1);
 						if (!l1.world.getTile(l).isTransparent()) {
-							if (!(l1.world.getTile(l) instanceof TileDoor && (l1.equals(l) || l2.equals(l))))
+							if (!(l1.equals(l) || l2.equals(l)))
 								return false;
 						}
 						
 						if (x % Tile.TILE_WIDTH == 0) {
 							l = new WorldLocation(l1.world, (int)(x / Tile.TILE_WIDTH) - 1, (int)(y / Tile.TILE_HEIGHT) - 1);
 							if (!l1.world.getTile(l).isTransparent()) {
-								if (!(l1.world.getTile(l) instanceof TileDoor && (l1.equals(l) || l2.equals(l))))
+								if (!(l1.equals(l) || l2.equals(l)))
 									return false;
 							}
 						}
