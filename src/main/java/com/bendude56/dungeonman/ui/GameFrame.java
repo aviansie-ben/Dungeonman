@@ -407,7 +407,7 @@ public class GameFrame extends JFrame {
 				for (Entity e : entities) {
 					if (e.doAction(ActionType.PICKUP, p)) {
 						done = true;
-						continue;
+						break;
 					}
 				}
 				
