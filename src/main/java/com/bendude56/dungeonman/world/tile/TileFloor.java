@@ -28,7 +28,7 @@ public abstract class TileFloor extends Tile {
 	@Override
 	public void render(Graphics g, int x, int y, TileState state) {
 		g.setColor(getColor(state));
-		g.fillRect(x, y, 32, 32);
+		g.fillRect(x, y, Tile.TILE_WIDTH, Tile.TILE_HEIGHT);
 	}
 
 	@Override

@@ -3,6 +3,7 @@ package com.bendude56.dungeonman.entity;
 import java.util.Random;
 
 import com.bendude56.dungeonman.world.WorldLocation;
+import com.bendude56.dungeonman.world.tile.Tile;
 import com.bendude56.dungeonman.world.tile.TileDoor;
 
 /**
@@ -40,15 +41,15 @@ public class AIController {
 	 *         blocking the line of sight
 	 */
 	public static boolean checkVisibility(WorldLocation l1, WorldLocation l2) {
-		int x1 = l1.x * 32 + 16;
-		int y1 = l1.y * 32 + 16;
-		int x2 = l2.x * 32 + 16;
-		int y2 = l2.y * 32 + 16;
+		int x1 = l1.x * Tile.TILE_WIDTH + Tile.TILE_WIDTH / 2;
+		int y1 = l1.y * Tile.TILE_HEIGHT + Tile.TILE_HEIGHT / 2;
+		int x2 = l2.x * Tile.TILE_WIDTH + Tile.TILE_WIDTH / 2;
+		int y2 = l2.y * Tile.TILE_HEIGHT + Tile.TILE_HEIGHT / 2;
 		
 		// Special case for vertical lines
 		if (x1 == x2) {
-			for (int y = Math.min(y1, y2); y <= Math.max(y1, y2); y += 32) {
-				WorldLocation l = new WorldLocation(l1.world, (int)(x1 / 32), (int)(y / 32));
+			for (int y = Math.min(y1, y2); y <= Math.max(y1, y2); y += Tile.TILE_HEIGHT) {
+				WorldLocation l = new WorldLocation(l1.world, (int)(x1 / Tile.TILE_WIDTH), (int)(y / Tile.TILE_HEIGHT));
 				if (!l1.world.getTile(l).isTransparent()) {
 					if (!(l1.world.getTile(l) instanceof TileDoor && (l1.equals(l) || l2.equals(l))))
 						return false;
@@ -69,30 +70,30 @@ public class AIController {
 			double slope = (double)(y2 - y1) / (double)(x2 - x1);
 			
 			// Check when x = x1 + 16 + 32n
-			for (int x = x1 + 16; x <= x2; x += 32) {
+			for (int x = x1 + Tile.TILE_WIDTH / 2; x <= x2; x += Tile.TILE_WIDTH) {
 				WorldLocation l;
 				int y = (int)(y1 + (x - x1) * slope);
 				
-				l = new WorldLocation(l1.world, (int)(x / 32), (int)(y / 32));
+				l = new WorldLocation(l1.world, (int)(x / Tile.TILE_WIDTH), (int)(y / Tile.TILE_HEIGHT));
 				if (!l1.world.getTile(l).isTransparent()) {
 					if (!(l1.world.getTile(l) instanceof TileDoor && (l1.equals(l) || l2.equals(l))))
 						return false;
 				}
 				
-				l = new WorldLocation(l1.world, (int)(x / 32) - 1, (int)(y / 32));
+				l = new WorldLocation(l1.world, (int)(x / Tile.TILE_WIDTH) - 1, (int)(y / Tile.TILE_HEIGHT));
 				if (!l1.world.getTile(l).isTransparent()) {
 					if (!(l1.world.getTile(l) instanceof TileDoor && (l1.equals(l) || l2.equals(l))))
 						return false;
 				}
 				
-				if (y % 32 == 0) {
-					l = new WorldLocation(l1.world, (int)(x / 32), (int)(y / 32) - 1);
+				if (y % Tile.TILE_HEIGHT == 0) {
+					l = new WorldLocation(l1.world, (int)(x / Tile.TILE_WIDTH), (int)(y / Tile.TILE_HEIGHT) - 1);
 					if (!l1.world.getTile(l).isTransparent()) {
 						if (!(l1.world.getTile(l) instanceof TileDoor && (l1.equals(l) || l2.equals(l))))
 							return false;
 					}
 					
-					l = new WorldLocation(l1.world, (int)(x / 32) - 1, (int)(y / 32) - 1);
+					l = new WorldLocation(l1.world, (int)(x / Tile.TILE_WIDTH) - 1, (int)(y / Tile.TILE_HEIGHT) - 1);
 					if (!l1.world.getTile(l).isTransparent()) {
 						if (!(l1.world.getTile(l) instanceof TileDoor && (l1.equals(l) || l2.equals(l))))
 							return false;
@@ -102,36 +103,36 @@ public class AIController {
 			
 			// Do not check for straight horizontal lines
 			if (slope != 0) {
-				double deltaX = Math.abs(16 / slope);
+				double deltaX = Math.abs((Tile.TILE_HEIGHT / 2) / slope);
 				
 				// Check when y = y1 + 16 + 32n
 				for (int x = x1; x <= x2; x += deltaX) {
 					WorldLocation l;
 					int y = (int)(y1 + (x - x1) * slope);
 					
-					l = new WorldLocation(l1.world, (int)(x / 32), (int)(y / 32));
+					l = new WorldLocation(l1.world, (int)(x / Tile.TILE_WIDTH), (int)(y / Tile.TILE_HEIGHT));
 					if (!l1.world.getTile(l).isTransparent()) {
 						if (!(l1.world.getTile(l) instanceof TileDoor && (l1.equals(l) || l2.equals(l))))
 							return false;
 					}
 					
-					if (x % 32 == 0) {
-						l = new WorldLocation(l1.world, (int)(x / 32) - 1, (int)(y / 32));
+					if (x % Tile.TILE_WIDTH == 0) {
+						l = new WorldLocation(l1.world, (int)(x / Tile.TILE_WIDTH) - 1, (int)(y / Tile.TILE_HEIGHT));
 						if (!l1.world.getTile(l).isTransparent()) {
 							if (!(l1.world.getTile(l) instanceof TileDoor && (l1.equals(l) || l2.equals(l))))
 								return false;
 						}
 					}
 					
-					if (y % 32 == 0) {
-						l = new WorldLocation(l1.world, (int)(x / 32), (int)(y / 32) - 1);
+					if (y % Tile.TILE_HEIGHT == 0) {
+						l = new WorldLocation(l1.world, (int)(x / Tile.TILE_WIDTH), (int)(y / Tile.TILE_HEIGHT) - 1);
 						if (!l1.world.getTile(l).isTransparent()) {
 							if (!(l1.world.getTile(l) instanceof TileDoor && (l1.equals(l) || l2.equals(l))))
 								return false;
 						}
 						
-						if (x % 32 == 0) {
-							l = new WorldLocation(l1.world, (int)(x / 32) - 1, (int)(y / 32) - 1);
+						if (x % Tile.TILE_WIDTH == 0) {
+							l = new WorldLocation(l1.world, (int)(x / Tile.TILE_WIDTH) - 1, (int)(y / Tile.TILE_HEIGHT) - 1);
 							if (!l1.world.getTile(l).isTransparent()) {
 								if (!(l1.world.getTile(l) instanceof TileDoor && (l1.equals(l) || l2.equals(l))))
 									return false;

@@ -21,6 +21,9 @@ public abstract class Tile {
 	public static TileSecretDoor secretDoor = new TileSecretDoor();
 	public static TileGravestone gravestone = new TileGravestone();
 	
+	public final static int TILE_WIDTH = 32;
+	public final static int TILE_HEIGHT = 32;
+	
 	private int id;
 	
 	public Tile(int tileId) {
