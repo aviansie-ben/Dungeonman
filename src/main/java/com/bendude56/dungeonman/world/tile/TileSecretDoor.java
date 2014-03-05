@@ -18,7 +18,7 @@ public class TileSecretDoor extends Tile {
 
 	@Override
 	public Color getColor(TileState state) {
-		return Color.darkGray;
+		return Color.gray;
 	}
 
 	@Override
