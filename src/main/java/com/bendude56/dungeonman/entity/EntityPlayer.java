@@ -161,6 +161,11 @@ public class EntityPlayer extends EntityAlive {
 		return true;
 	}
 	
+	@Override
+	public int getDrawOrder() {
+		return 1;
+	}
+	
 	public enum PlayerRace {
 		HUMAN("Human", new EntityStats(5, 5, 5, 5, 5, 5, 200), EntityPlayer.humanSprite);
 		

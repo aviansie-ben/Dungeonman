@@ -10,7 +10,7 @@ import com.bendude56.dungeonman.world.WorldLocation;
  * @author Benjamin C. Thomas
  */
 
-public abstract class Entity {
+public abstract class Entity implements Comparable<Entity> {
 	private int x, y;
 	private World world;
 	private boolean dead = false;
@@ -107,6 +107,15 @@ public abstract class Entity {
 		dead = true;
 	}
 	
+	public int getDrawOrder() {
+		return 0;
+	}
+
+	@Override
+	public final int compareTo(Entity o) {
+		return ((Integer) getDrawOrder()).compareTo(o.getDrawOrder());
+	}
+
 	/**
 	 * Gets the ID associated with this entity
 	 */

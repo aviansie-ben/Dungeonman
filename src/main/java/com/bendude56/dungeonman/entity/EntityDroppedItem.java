@@ -5,6 +5,7 @@ import java.awt.Image;
 
 import com.bendude56.dungeonman.item.ItemStack;
 import com.bendude56.dungeonman.world.WorldLocation;
+import com.bendude56.dungeonman.world.tile.Tile;
 
 /**
  * @author Benjamin C. Thomas
@@ -51,8 +52,8 @@ public class EntityDroppedItem extends Entity {
 		Image i = stack.getItem().getDrawImage(stack);
 		int yo, xo;
 		
-		yo = (32 - i.getHeight(null)) / 2;
-		xo = (32 - i.getWidth(null)) / 2;
+		yo = (Tile.TILE_HEIGHT - i.getHeight(null)) / 2;
+		xo = (Tile.TILE_WIDTH - i.getWidth(null)) / 2;
 		
 		g.drawImage(i, x + xo, y + yo, null);
 	}

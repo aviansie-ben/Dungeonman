@@ -1,6 +1,7 @@
 package com.bendude56.dungeonman.world;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
@@ -372,6 +373,7 @@ public class World {
 			}
 		}
 		
+		Collections.sort(presentEntities);
 		return presentEntities;
 	}
 	
@@ -403,6 +405,7 @@ public class World {
 			}
 		}
 		
+		Collections.sort(presentEntities);
 		return presentEntities;
 	}
 	
