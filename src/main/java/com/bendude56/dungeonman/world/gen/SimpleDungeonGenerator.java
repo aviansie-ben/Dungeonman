@@ -13,7 +13,9 @@ import com.bendude56.dungeonman.entity.EntitySoldier;
 import com.bendude56.dungeonman.entity.EntityStats;
 import com.bendude56.dungeonman.world.World;
 import com.bendude56.dungeonman.world.WorldLocation;
+import com.bendude56.dungeonman.world.WorldLocation.Direction;
 import com.bendude56.dungeonman.world.gen.WorldFeature.DoorType;
+import com.bendude56.dungeonman.world.gen.WorldFeature.WallInfo;
 import com.bendude56.dungeonman.world.gen.WorldFeature.WorldFeatureInfo;
 import com.bendude56.dungeonman.world.tile.Tile;
 import com.bendude56.dungeonman.world.tile.TileMetadataStairs;
@@ -37,7 +39,7 @@ public class SimpleDungeonGenerator extends WorldGenerator {
         // Start the generation algorithm with a 4x4 room in the center of the
         // map
         generate(new WorldFeatureRoom(4, 4), new WorldLocation(world, world.getWidth() / 2, world.getHeight() / 2),
-                DoorType.NONE, -1, 0);
+                DoorType.NONE, null, 0);
         
         // Select locations for entry and exit stairs
         if (possibleStairs.size() < 2) {
@@ -79,7 +81,7 @@ public class SimpleDungeonGenerator extends WorldGenerator {
      * 
      * @return True if the generation was successful, false otherwise.
      */
-    public boolean generate(WorldFeature f, WorldLocation l, DoorType door, int orientation, int iteration) {
+    public boolean generate(WorldFeature f, WorldLocation l, DoorType door, Direction orientation, int iteration) {
         WorldFeatureInfo info;
         
         if (f.checkLocation(l, orientation)) {
@@ -138,15 +140,14 @@ public class SimpleDungeonGenerator extends WorldGenerator {
         for (int i = 0; i < numRooms; i++) {
             DoorType door = DoorType.getRandomType(random);
             
-            tryGenerate(new WorldFeatureRoom(random.nextInt(5) + 3, random.nextInt(5) + 3),
-                    (List<WorldLocation>) info.walls.clone(), (List<Integer>) info.wallOrientations.clone(), door, iteration);
+            tryGenerate(new WorldFeatureRoom(random.nextInt(5) + 3, random.nextInt(5) + 3), (List<WallInfo>) info.walls.clone(),
+                    door, iteration);
         }
         
         for (int i = 0; i < numCorridors; i++) {
             DoorType door = (f instanceof WorldFeatureRoom) ? DoorType.getRandomType(random) : DoorType.NONE;
             
-            tryGenerate(new WorldFeatureCorridor(random.nextInt(10) + 5), (List<WorldLocation>) info.walls.clone(),
-                    (List<Integer>) info.wallOrientations.clone(), door, iteration);
+            tryGenerate(new WorldFeatureCorridor(random.nextInt(10) + 5), (List<WallInfo>) info.walls.clone(), door, iteration);
         }
     }
     
@@ -164,16 +165,15 @@ public class SimpleDungeonGenerator extends WorldGenerator {
      *            world feature.
      * @param iteration The iteration represented by the last generated feature
      */
-    public void tryGenerate(WorldFeature f, List<WorldLocation> locations, List<Integer> orientations, DoorType door,
+    public void tryGenerate(WorldFeature f, List<WallInfo> walls, DoorType door,
             int iteration) {
-        while (locations.size() > 0) {
-            int location = random.nextInt(locations.size());
+        while (walls.size() > 0) {
+            int location = random.nextInt(walls.size());
             
-            if (generate(f, locations.get(location), door, orientations.get(location), iteration + 1)) {
+            if (generate(f, walls.get(location).location, door, walls.get(location).orientation, iteration + 1)) {
                 return;
             } else {
-                locations.remove(location);
-                orientations.remove(location);
+                walls.remove(location);
             }
         }
     }

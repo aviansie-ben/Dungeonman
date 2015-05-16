@@ -33,11 +33,6 @@ public class ItemKey extends Item {
     }
     
     @Override
-    public int getMaxStack(ItemStack stack) {
-        return 1;
-    }
-    
-    @Override
     public int getWeight(ItemStack stack) {
         return 2;
     }

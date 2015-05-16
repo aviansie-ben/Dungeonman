@@ -68,11 +68,6 @@ public abstract class Item {
     public abstract String getItemName(ItemStack stack);
     
     /**
-     * Gets the maximum amount of this item that can be stored in one stack.
-     */
-    public abstract int getMaxStack(ItemStack stack);
-    
-    /**
      * Gets the relative weight of one of this specified item.
      */
     public abstract int getWeight(ItemStack stack);

@@ -8,6 +8,8 @@ import java.util.Map.Entry;
 
 import com.bendude56.dungeonman.GameInstance;
 import com.bendude56.dungeonman.entity.Entity;
+import com.bendude56.dungeonman.entity.EntityDroppedItem;
+import com.bendude56.dungeonman.item.ItemStack;
 import com.bendude56.dungeonman.world.tile.Tile;
 import com.bendude56.dungeonman.world.tile.TileMetadata;
 import com.bendude56.dungeonman.world.tile.TileState;
@@ -343,6 +345,25 @@ public class World {
     
     public int getFloor() {
         return dungeonLevel;
+    }
+    
+    public void dropItemStack(ItemStack stack, WorldLocation l) {
+        dropItemStack(stack, l.x, l.y);
+    }
+    
+    public void dropItemStack(ItemStack stack, int x, int y) {
+        List<Entity> entities = getEntities(x, y);
+        
+        for (Entity e : entities) {
+            if (e instanceof EntityDroppedItem && ((EntityDroppedItem) e).getItemStack().getItem() == stack.getItem()
+                    && ((EntityDroppedItem) e).getItemStack().getMetadata().equals(stack.getMetadata())) {
+                ((EntityDroppedItem) e).getItemStack().setAmount(
+                        ((EntityDroppedItem) e).getItemStack().getAmount() + stack.getAmount());
+                return;
+            }
+        }
+        
+        addEntity(new EntityDroppedItem(new WorldLocation(this, x, y), stack));
     }
     
     public void addEntity(Entity e) {

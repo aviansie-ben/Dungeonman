@@ -39,10 +39,8 @@ public class Inventory {
     public void addItem(ItemStack stack) {
         for (ItemStack i : items) {
             if (i.getItem().getItemId() == stack.getItem().getItemId() && i.getMetadata().equals(stack.getMetadata())) {
-                int a = Math.min(stack.getAmount(), i.getItem().getMaxStack(i) - i.getAmount());
-                
-                stack.setAmount(stack.getAmount() - a);
-                i.setAmount(i.getAmount() + a);
+                i.setAmount(i.getAmount() + stack.getAmount());
+                return;
             }
         }
         

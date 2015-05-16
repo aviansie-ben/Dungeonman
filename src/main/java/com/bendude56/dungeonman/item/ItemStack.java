@@ -13,9 +13,6 @@ public class ItemStack {
         this.item = item;
         this.metadata = metadata;
         
-        if (amount > item.getMaxStack(this))
-            throw new IllegalArgumentException("Amount is greater than max stack!");
-        
         this.amount = amount;
     }
     
@@ -46,9 +43,6 @@ public class ItemStack {
      * Sets the amount of the specified item represented by this stack of items.
      */
     public void setAmount(int amount) {
-        if (amount > item.getMaxStack(this))
-            throw new IllegalArgumentException("Amount is greater than max stack!");
-        
         this.amount = amount;
     }
     

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import com.bendude56.dungeonman.world.WorldLocation;
+import com.bendude56.dungeonman.world.WorldLocation.Direction;
 import com.bendude56.dungeonman.world.tile.Tile;
 import com.bendude56.dungeonman.world.tile.TileMetadataDoor;
 
@@ -21,7 +22,7 @@ public abstract class WorldFeature {
      * 
      * @return True if the area is free, false otherwise.
      */
-    public abstract boolean checkLocation(WorldLocation l, int orientation);
+    public abstract boolean checkLocation(WorldLocation l, Direction orientation);
     
     /**
      * Generates this feature with the specified parameters.
@@ -35,7 +36,7 @@ public abstract class WorldFeature {
      * @return A structure containing information about the feature's final
      *         parameters.
      */
-    public abstract WorldFeatureInfo generateAt(DoorType door, WorldLocation l, int orientation, Random random);
+    public abstract WorldFeatureInfo generateAt(DoorType door, WorldLocation l, Direction orientation, Random random);
     
     /**
      * Sets the specified door type at the requested location.
@@ -62,11 +63,20 @@ public abstract class WorldFeature {
     }
     
     public static class WorldFeatureInfo {
-        public ArrayList<WorldLocation> walls = new ArrayList<WorldLocation>();
-        public ArrayList<Integer> wallOrientations = new ArrayList<Integer>();
+        public ArrayList<WallInfo> walls = new ArrayList<WallInfo>();
         public ArrayList<WorldLocation> possibleItems = new ArrayList<WorldLocation>();
         public ArrayList<WorldLocation> possibleStairs = new ArrayList<WorldLocation>();
         public ArrayList<WorldLocation> possibleMonsters = new ArrayList<WorldLocation>();
+    }
+    
+    public static class WallInfo {
+        public final WorldLocation location;
+        public final Direction orientation;
+        
+        public WallInfo(WorldLocation location, Direction orientation) {
+            this.location = location;
+            this.orientation = orientation;
+        }
     }
     
     public enum DoorType {

@@ -3,6 +3,7 @@ package com.bendude56.dungeonman.world.gen;
 import java.util.Random;
 
 import com.bendude56.dungeonman.world.WorldLocation;
+import com.bendude56.dungeonman.world.WorldLocation.Direction;
 import com.bendude56.dungeonman.world.tile.Tile;
 
 /**
@@ -17,12 +18,12 @@ public class WorldFeatureCorridor extends WorldFeature {
     }
     
     @Override
-    public boolean checkLocation(WorldLocation l, int orientation) {
+    public boolean checkLocation(WorldLocation l, Direction orientation) {
         return l.world.isAvailable(l.adjustLocation(-1, corridorLength, orientation), l.adjustLocation(1, 0, orientation));
     }
     
     @Override
-    public WorldFeatureInfo generateAt(DoorType door, WorldLocation l, int orientation, Random random) {
+    public WorldFeatureInfo generateAt(DoorType door, WorldLocation l, Direction orientation, Random random) {
         WorldFeatureInfo info = new WorldFeatureInfo();
         
         for (int i = 0; i < corridorLength; i++) {
@@ -31,17 +32,13 @@ public class WorldFeatureCorridor extends WorldFeature {
             else
                 l.setTile(Tile.stoneFloor);
             
-            info.walls.add(l.adjustLocation(1, 0, orientation));
-            info.wallOrientations.add((orientation + 1) % 4);
-            
-            info.walls.add(l.adjustLocation(-1, 0, orientation));
-            info.wallOrientations.add((orientation + 3) % 4);
+            info.walls.add(new WallInfo(l.adjustLocation(1, 0, orientation), orientation.rotateClockwise()));
+            info.walls.add(new WallInfo(l.adjustLocation(-1, 0, orientation), orientation.rotateCounterClockwise()));
             
             l = l.adjustLocation(0, 1, orientation);
         }
         
-        info.walls.add(l);
-        info.wallOrientations.add(orientation);
+        info.walls.add(new WallInfo(l, orientation));
         
         return info;
     }

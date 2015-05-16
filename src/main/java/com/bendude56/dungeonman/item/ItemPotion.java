@@ -46,11 +46,6 @@ public abstract class ItemPotion extends ItemConsumable implements ItemIdentifia
     }
     
     @Override
-    public int getMaxStack(ItemStack stack) {
-        return 10;
-    }
-    
-    @Override
     public int getWeight(ItemStack stack) {
         return 200;
     }

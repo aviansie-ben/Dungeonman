@@ -34,11 +34,6 @@ public class ItemGoldCoin extends Item {
     }
     
     @Override
-    public int getMaxStack(ItemStack stack) {
-        return Integer.MAX_VALUE;
-    }
-    
-    @Override
     public int getWeight(ItemStack stack) {
         return 1;
     }

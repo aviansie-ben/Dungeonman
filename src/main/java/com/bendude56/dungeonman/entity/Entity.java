@@ -28,7 +28,7 @@ public abstract class Entity implements Comparable<Entity> {
      * @param i The stack of items to be dropped
      */
     public final void dropItem(ItemStack i) {
-        world.addEntity(new EntityDroppedItem(getLocation(), i));
+        world.dropItemStack(i, getLocation());
     }
     
     /**

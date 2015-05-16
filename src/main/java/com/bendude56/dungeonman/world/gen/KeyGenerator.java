@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import com.bendude56.dungeonman.entity.EntityDroppedItem;
 import com.bendude56.dungeonman.item.Item;
 import com.bendude56.dungeonman.item.ItemMetadataKey;
 import com.bendude56.dungeonman.item.ItemStack;
@@ -79,7 +78,7 @@ public class KeyGenerator {
                 WorldLocation key = itemLocations.get(k);
                 int keyId = ((TileMetadataDoor) door.getMetadata()).getKeyId();
                 
-                world.addEntity(new EntityDroppedItem(key, new ItemStack(Item.key, new ItemMetadataKey(keyId, world.getFloor()), 1)));
+                world.dropItemStack(new ItemStack(Item.key, new ItemMetadataKey(keyId, world.getFloor()), 1), key);
                 itemLocations.remove(k);
                 
                 return keyId;

@@ -6,7 +6,6 @@ import java.util.Map.Entry;
 import java.util.Random;
 
 import com.bendude56.dungeonman.GameInstance;
-import com.bendude56.dungeonman.entity.EntityDroppedItem;
 import com.bendude56.dungeonman.item.Item;
 import com.bendude56.dungeonman.item.ItemMetadata;
 import com.bendude56.dungeonman.item.ItemStack;
@@ -31,7 +30,7 @@ public class ItemPopulator {
     public void generateAllItems() {
         for (WorldLocation l : possibleLocations) {
             if (random.nextInt(/* 3 */1) == 0) {
-                l.world.addEntity(new EntityDroppedItem(l, selectItem()));
+                l.world.dropItemStack(selectItem(), l);
             }
         }
     }

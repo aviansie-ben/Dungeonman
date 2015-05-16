@@ -112,11 +112,6 @@ public class InventoryTest {
         }
         
         @Override
-        public int getMaxStack(ItemStack stack) {
-            return 10;
-        }
-        
-        @Override
         public int getWeight(ItemStack stack) {
             return 10;
         }

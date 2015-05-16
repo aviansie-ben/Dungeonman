@@ -8,8 +8,8 @@ import com.bendude56.dungeonman.world.tile.TileMetadata;
  */
 
 public class WorldLocation {
-    public World world;
-    public int x, y;
+    public final World world;
+    public final int x, y;
     
     public WorldLocation(World world, int x, int y) {
         this.world = world;
@@ -34,26 +34,21 @@ public class WorldLocation {
     }
     
     public WorldLocation adjustLocation(int deltaX, int deltaY) {
-        return adjustLocation(deltaX, deltaY, 0);
+        return adjustLocation(deltaX, deltaY, Direction.NORTH);
     }
     
-    // 0
-    // |
-    // 3 --+-- 1
-    // |
-    // 2
-    
-    public WorldLocation adjustLocation(int deltaX, int deltaY, int orientation) {
-        if (orientation == 0) {
+    public WorldLocation adjustLocation(int deltaX, int deltaY, Direction dir) {
+        switch (dir) {
+        case NORTH:
             return new WorldLocation(world, x + deltaX, y - deltaY);
-        } else if (orientation == 1) {
+        case EAST:
             return new WorldLocation(world, x + deltaY, y + deltaX);
-        } else if (orientation == 2) {
+        case SOUTH:
             return new WorldLocation(world, x - deltaX, y + deltaY);
-        } else if (orientation == 3) {
+        case WEST:
             return new WorldLocation(world, x - deltaY, y - deltaX);
-        } else {
-            throw new IllegalArgumentException("orientation must be between 0 and 3");
+        default:
+            throw new IllegalArgumentException("Unknown direction!");
         }
     }
     
@@ -80,5 +75,29 @@ public class WorldLocation {
         if (y != other.y)
             return false;
         return true;
+    }
+    
+    public enum Direction {
+        NORTH(0), EAST(1), SOUTH(2), WEST(3);
+        
+        private static final Direction[] byValue = new Direction[] { NORTH, EAST, SOUTH, WEST };
+        
+        private final int value;
+        
+        private Direction(int value) {
+            this.value = value;
+        }
+        
+        public Direction flip() {
+            return byValue[(value + 2) % 4];
+        }
+        
+        public Direction rotateClockwise() {
+            return byValue[(value + 1) % 4];
+        }
+        
+        public Direction rotateCounterClockwise() {
+            return byValue[(value + 3) % 4];
+        }
     }
 }

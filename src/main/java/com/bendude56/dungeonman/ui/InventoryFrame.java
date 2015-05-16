@@ -16,7 +16,6 @@ import java.awt.event.WindowEvent;
 import javax.swing.ScrollPaneConstants;
 
 import com.bendude56.dungeonman.GameInstance;
-import com.bendude56.dungeonman.entity.EntityDroppedItem;
 import com.bendude56.dungeonman.entity.EntityPlayer;
 import com.bendude56.dungeonman.item.ItemIdentifiable;
 import com.bendude56.dungeonman.item.ItemStack;
@@ -96,8 +95,7 @@ public class InventoryFrame extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 ItemStack i = list.getSelectedValue().i;
                 
-                GameInstance.getActiveWorld().addEntity(
-                        new EntityDroppedItem(GameInstance.getActiveInstance().getPlayerEntity().getLocation(), i));
+                GameInstance.getActiveWorld().dropItemStack(i, GameInstance.getActiveInstance().getPlayerEntity().getLocation());
                 GameInstance.getActiveInstance().getPlayerEntity().getInventory().removeItem(i);
                 
                 GameFrame.activeFrame.doTurn();
