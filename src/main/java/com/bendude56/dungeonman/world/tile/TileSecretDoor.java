@@ -11,47 +11,47 @@ import com.bendude56.dungeonman.entity.EntityPlayer;
  */
 
 public class TileSecretDoor extends Tile {
-
-	public TileSecretDoor() {
-		super(4);
-	}
-
-	@Override
-	public Color getColor(TileState state) {
-		return Color.gray;
-	}
-
-	@Override
-	public boolean onPlayerMove(TileState state, EntityPlayer player) {
-		player.logMessage("You discover a hidden door!");
-		state.setTileType(Tile.door);
-		return false;
-	}
-
-	@Override
-	public boolean onEntityMove(TileState state, Entity e) {
-		return false;
-	}
-	
-	@Override
-	public void render(Graphics g, int x, int y, TileState state) {
-		g.setColor(getColor(state));
-		g.fillRect(x, y, Tile.TILE_WIDTH, Tile.TILE_HEIGHT);
-	}
-
-	@Override
-	public boolean canItemAlgorithmPass() {
-		return false;
-	}
-
-	@Override
-	public boolean isTransparent() {
-		return false;
-	}
-
-	@Override
-	public boolean onPlayerClimb(TileState state, EntityPlayer player) {
-		return false;
-	}
-
+    
+    public TileSecretDoor() {
+        super(4);
+    }
+    
+    @Override
+    public Color getColor(TileState state) {
+        return Color.gray;
+    }
+    
+    @Override
+    public boolean onPlayerMove(TileState state, EntityPlayer player) {
+        player.logMessage("You discover a hidden door!");
+        state.setTileType(Tile.door);
+        return false;
+    }
+    
+    @Override
+    public boolean onEntityMove(TileState state, Entity e) {
+        return false;
+    }
+    
+    @Override
+    public void render(Graphics g, int x, int y, TileState state) {
+        g.setColor(getColor(state));
+        g.fillRect(x, y, Tile.TILE_WIDTH, Tile.TILE_HEIGHT);
+    }
+    
+    @Override
+    public boolean canItemAlgorithmPass() {
+        return false;
+    }
+    
+    @Override
+    public boolean isTransparent() {
+        return false;
+    }
+    
+    @Override
+    public boolean onPlayerClimb(TileState state, EntityPlayer player) {
+        return false;
+    }
+    
 }

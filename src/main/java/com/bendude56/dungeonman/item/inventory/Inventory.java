@@ -11,77 +11,77 @@ import com.bendude56.dungeonman.item.ItemStack;
  */
 
 public class Inventory {
-	private ArrayList<ItemStack> items;
-	
-	public Inventory() {
-		this.items = new ArrayList<ItemStack>();
-	}
-	
-	/**
-	 * Calculates the combined weight of all items held by the player.
-	 */
-	public int getCurrentWeight() {
-		int weight = 0;
-		
-		for (ItemStack i : items) {
-			weight += i.getAmount() * i.getItem().getWeight(i);
-		}
-		
-		return weight;
-	}
-	
-	/**
-	 * Adds a stack of items into the player's inventory. If possible, this
-	 * stack will be combined with similar stacks within the inventory.
-	 * 
-	 * @param stack The stack to be added to this inventory.
-	 */
-	public void addItem(ItemStack stack) {
-		for (ItemStack i : items) {
-			if (i.getItem().getItemId() == stack.getItem().getItemId() && i.getMetadata().equals(stack.getMetadata())) {
-				int a = Math.min(stack.getAmount(), i.getItem().getMaxStack(i) - i.getAmount());
-				
-				stack.setAmount(stack.getAmount() - a);
-				i.setAmount(i.getAmount() + a);
-			}
-		}
-		
-		if (stack.getAmount() > 0) {
-			items.add(stack);
-		}
-	}
-	
-	/**
-	 * Removes the specified item stack from this inventory.
-	 * 
-	 * @param stack The stack which should be removed.
-	 */
-	public void removeItem(ItemStack stack) {
-		items.remove(stack);
-	}
-	
-	/**
-	 * Gets a list of all items present in this inventory.
-	 */
-	public List<ItemStack> getItems() {
-		return items;
-	}
-	
-	/**
-	 * Attempts to find a key in this inventory with the specified keyId.
-	 * 
-	 * @param keyId The unique identifier of the key which should be found.
-	 * 
-	 * @return If the key is present, the {@link ItemStack} of the key.
-	 *         Otherwise, returns null.
-	 */
-	public ItemStack getKey(int keyId) {
-		for (ItemStack i : items) {
-			if (i.getMetadata() instanceof ItemMetadataKey && ((ItemMetadataKey)i.getMetadata()).getKeyId() == keyId) {
-				return i;
-			}
-		}
-		
-		return null;
-	}
+    private ArrayList<ItemStack> items;
+    
+    public Inventory() {
+        this.items = new ArrayList<ItemStack>();
+    }
+    
+    /**
+     * Calculates the combined weight of all items held by the player.
+     */
+    public int getCurrentWeight() {
+        int weight = 0;
+        
+        for (ItemStack i : items) {
+            weight += i.getAmount() * i.getItem().getWeight(i);
+        }
+        
+        return weight;
+    }
+    
+    /**
+     * Adds a stack of items into the player's inventory. If possible, this
+     * stack will be combined with similar stacks within the inventory.
+     * 
+     * @param stack The stack to be added to this inventory.
+     */
+    public void addItem(ItemStack stack) {
+        for (ItemStack i : items) {
+            if (i.getItem().getItemId() == stack.getItem().getItemId() && i.getMetadata().equals(stack.getMetadata())) {
+                int a = Math.min(stack.getAmount(), i.getItem().getMaxStack(i) - i.getAmount());
+                
+                stack.setAmount(stack.getAmount() - a);
+                i.setAmount(i.getAmount() + a);
+            }
+        }
+        
+        if (stack.getAmount() > 0) {
+            items.add(stack);
+        }
+    }
+    
+    /**
+     * Removes the specified item stack from this inventory.
+     * 
+     * @param stack The stack which should be removed.
+     */
+    public void removeItem(ItemStack stack) {
+        items.remove(stack);
+    }
+    
+    /**
+     * Gets a list of all items present in this inventory.
+     */
+    public List<ItemStack> getItems() {
+        return items;
+    }
+    
+    /**
+     * Attempts to find a key in this inventory with the specified keyId.
+     * 
+     * @param keyId The unique identifier of the key which should be found.
+     * 
+     * @return If the key is present, the {@link ItemStack} of the key.
+     *         Otherwise, returns null.
+     */
+    public ItemStack getKey(int keyId) {
+        for (ItemStack i : items) {
+            if (i.getMetadata() instanceof ItemMetadataKey && ((ItemMetadataKey) i.getMetadata()).getKeyId() == keyId) {
+                return i;
+            }
+        }
+        
+        return null;
+    }
 }

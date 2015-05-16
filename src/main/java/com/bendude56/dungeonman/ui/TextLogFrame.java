@@ -15,37 +15,37 @@ import java.awt.event.WindowEvent;
  */
 
 public class TextLogFrame extends JFrame {
-	private static final long	serialVersionUID	= 0L;
-	
-	private JPanel	contentPane;
-	public JTextArea logTextBox;
-
-	/**
-	 * Create the frame.
-	 */
-	public TextLogFrame() {
-		addWindowListener(new WindowAdapter() {
-			@Override
-			public void windowClosed(WindowEvent e) {
-				GameFrame.activeFrame.activeLog = null;
-			}
-		});
-		setAlwaysOnTop(true);
-		setTitle("Text Log");
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 537, 211);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setLayout(new BorderLayout(0, 0));
-		setContentPane(contentPane);
-		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		contentPane.add(scrollPane, BorderLayout.CENTER);
-		
-		logTextBox = new JTextArea();
-		logTextBox.setEnabled(false);
-		scrollPane.setViewportView(logTextBox);
-	}
-
+    private static final long serialVersionUID = 0L;
+    
+    private JPanel contentPane;
+    public JTextArea logTextBox;
+    
+    /**
+     * Create the frame.
+     */
+    public TextLogFrame() {
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                GameFrame.activeFrame.activeLog = null;
+            }
+        });
+        setAlwaysOnTop(true);
+        setTitle("Text Log");
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setBounds(100, 100, 537, 211);
+        contentPane = new JPanel();
+        contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+        contentPane.setLayout(new BorderLayout(0, 0));
+        setContentPane(contentPane);
+        
+        JScrollPane scrollPane = new JScrollPane();
+        scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        contentPane.add(scrollPane, BorderLayout.CENTER);
+        
+        logTextBox = new JTextArea();
+        logTextBox.setEnabled(false);
+        scrollPane.setViewportView(logTextBox);
+    }
+    
 }

@@ -19,112 +19,112 @@ import com.bendude56.dungeonman.world.gen.SimpleDungeonGenerator;
  */
 
 public class GameInstance {
-	private static GameInstance activeInstance;
-	
-	public static GameInstance getActiveInstance() {
-		return activeInstance;
-	}
-	
-	public static GameInstance createNewGame(int difficulty, EntityStats stats) {
-		activeInstance = new GameInstance();
-		activeInstance.difficulty = difficulty;
-		activeInstance.populateItems();
-		activeInstance.generateFloor(1);
-		
-		activeInstance.player = new EntityPlayer(activeInstance.getFloor(1).getEntryLocation(), stats);
-		activeInstance.getFloor(1).addEntity(activeInstance.player);
-		activeInstance.getFloor(1).doTurn();
-		
-		return activeInstance;
-	}
-	
-	public static void endGame() {
-		activeInstance = null;
-	}
-	
-	public static World getActiveWorld() {
-		return activeInstance.getPlayerEntity().getWorld();
-	}
-	
-	private int nextEntityId = 1;
-	private int nextKeyId = 1;
-	private HashMap<Integer, World> floors = new HashMap<Integer, World>();
-	private HashMap<Integer, Item> items = new HashMap<Integer, Item>();
-	private EntityPlayer player;
-	private HashMap<Integer, Boolean> itemIdentified = new HashMap<Integer, Boolean>();
-	private int difficulty;
-	private Random random = new Random();
-	
-	public GameInstance() {
-	}
-	
-	public EntityPlayer getPlayerEntity() {
-		return player;
-	}
-	
-	public boolean isFloorGenerated(int floor) {
-		return floors.containsKey(floor);
-	}
-	
-	public World getFloor(int floor) {
-		return floors.get(floor);
-	}
-	
-	public void generateFloor(int floor) {
-		if (isFloorGenerated(floor))
-			return;
-		
-		floors.put(floor, new World(200, 200, floor));
-		new SimpleDungeonGenerator(floors.get(floor)).generateLevel(difficulty, floor);
-	}
-	
-	public int getCurrentFloor() {
-		return player.getWorld().getFloor();
-	}
-	
-	public boolean isItemIdentified(Item item) {
-		return DebugCheats.identifyOverride || itemIdentified.get(item.getItemId());
-	}
-	
-	public void setItemIdentified(Item item, boolean identified) {
-		itemIdentified.put(item.getItemId(), identified);
-	}
-	
-	public void teleport(Entity e, WorldLocation l) {
-		e.getWorld().removeEntity(e);
-		e.setLocation(l);
-		e.getWorld().addEntity(e);
-	}
-	
-	public int generateEntityId() {
-		return nextEntityId++;
-	}
-	
-	public int generateKeyId() {
-		return nextKeyId++;
-	}
-	
-	public Item getItem(int id) {
-		return items.get(id);
-	}
-	
-	public HashMap<Integer, Item> getItems() {
-		return items;
-	}
-	
-	public int getDifficulty() {
-		return difficulty;
-	}
-	
-	private void populateItems() {
-		int numPotions = 10 + random.nextInt(11);
-		items.put(1, Item.goldCoin = new ItemGoldCoin(1));
-		items.put(2, Item.key = new ItemKey(2));
-		
-		Item.potions = new ItemPotion[numPotions];
-		for (int i = 0; i < numPotions; i++) {
-			items.put(3 + i, Item.potions[i] = ItemPotion.generateNewPotion(3 + i, difficulty, random));
-			itemIdentified.put(3 + i, false);
-		}
-	}
+    private static GameInstance activeInstance;
+    
+    public static GameInstance getActiveInstance() {
+        return activeInstance;
+    }
+    
+    public static GameInstance createNewGame(int difficulty, EntityStats stats) {
+        activeInstance = new GameInstance();
+        activeInstance.difficulty = difficulty;
+        activeInstance.populateItems();
+        activeInstance.generateFloor(1);
+        
+        activeInstance.player = new EntityPlayer(activeInstance.getFloor(1).getEntryLocation(), stats);
+        activeInstance.getFloor(1).addEntity(activeInstance.player);
+        activeInstance.getFloor(1).doTurn();
+        
+        return activeInstance;
+    }
+    
+    public static void endGame() {
+        activeInstance = null;
+    }
+    
+    public static World getActiveWorld() {
+        return activeInstance.getPlayerEntity().getWorld();
+    }
+    
+    private int nextEntityId = 1;
+    private int nextKeyId = 1;
+    private HashMap<Integer, World> floors = new HashMap<Integer, World>();
+    private HashMap<Integer, Item> items = new HashMap<Integer, Item>();
+    private EntityPlayer player;
+    private HashMap<Integer, Boolean> itemIdentified = new HashMap<Integer, Boolean>();
+    private int difficulty;
+    private Random random = new Random();
+    
+    public GameInstance() {
+    }
+    
+    public EntityPlayer getPlayerEntity() {
+        return player;
+    }
+    
+    public boolean isFloorGenerated(int floor) {
+        return floors.containsKey(floor);
+    }
+    
+    public World getFloor(int floor) {
+        return floors.get(floor);
+    }
+    
+    public void generateFloor(int floor) {
+        if (isFloorGenerated(floor))
+            return;
+        
+        floors.put(floor, new World(200, 200, floor));
+        new SimpleDungeonGenerator(floors.get(floor)).generateLevel(difficulty, floor);
+    }
+    
+    public int getCurrentFloor() {
+        return player.getWorld().getFloor();
+    }
+    
+    public boolean isItemIdentified(Item item) {
+        return DebugCheats.identifyOverride || itemIdentified.get(item.getItemId());
+    }
+    
+    public void setItemIdentified(Item item, boolean identified) {
+        itemIdentified.put(item.getItemId(), identified);
+    }
+    
+    public void teleport(Entity e, WorldLocation l) {
+        e.getWorld().removeEntity(e);
+        e.setLocation(l);
+        e.getWorld().addEntity(e);
+    }
+    
+    public int generateEntityId() {
+        return nextEntityId++;
+    }
+    
+    public int generateKeyId() {
+        return nextKeyId++;
+    }
+    
+    public Item getItem(int id) {
+        return items.get(id);
+    }
+    
+    public HashMap<Integer, Item> getItems() {
+        return items;
+    }
+    
+    public int getDifficulty() {
+        return difficulty;
+    }
+    
+    private void populateItems() {
+        int numPotions = 10 + random.nextInt(11);
+        items.put(1, Item.goldCoin = new ItemGoldCoin(1));
+        items.put(2, Item.key = new ItemKey(2));
+        
+        Item.potions = new ItemPotion[numPotions];
+        for (int i = 0; i < numPotions; i++) {
+            items.put(3 + i, Item.potions[i] = ItemPotion.generateNewPotion(3 + i, difficulty, random));
+            itemIdentified.put(3 + i, false);
+        }
+    }
 }

@@ -10,40 +10,40 @@ import com.bendude56.dungeonman.entity.EntityPlayer;
  */
 
 public abstract class TileFloor extends Tile {
-
-	public TileFloor(int tileId) {
-		super(tileId);
-	}
-	
-	@Override
-	public boolean onPlayerMove(TileState state, EntityPlayer player) {
-		return true;
-	}
-
-	@Override
-	public boolean onEntityMove(TileState state, Entity e) {
-		return true;
-	}
-	
-	@Override
-	public void render(Graphics g, int x, int y, TileState state) {
-		g.setColor(getColor(state));
-		g.fillRect(x, y, Tile.TILE_WIDTH, Tile.TILE_HEIGHT);
-	}
-
-	@Override
-	public boolean canItemAlgorithmPass() {
-		return true;
-	}
-
-	@Override
-	public boolean isTransparent() {
-		return true;
-	}
-
-	@Override
-	public boolean onPlayerClimb(TileState state, EntityPlayer player) {
-		return false;
-	}
-
+    
+    public TileFloor(int tileId) {
+        super(tileId);
+    }
+    
+    @Override
+    public boolean onPlayerMove(TileState state, EntityPlayer player) {
+        return true;
+    }
+    
+    @Override
+    public boolean onEntityMove(TileState state, Entity e) {
+        return true;
+    }
+    
+    @Override
+    public void render(Graphics g, int x, int y, TileState state) {
+        g.setColor(getColor(state));
+        g.fillRect(x, y, Tile.TILE_WIDTH, Tile.TILE_HEIGHT);
+    }
+    
+    @Override
+    public boolean canItemAlgorithmPass() {
+        return true;
+    }
+    
+    @Override
+    public boolean isTransparent() {
+        return true;
+    }
+    
+    @Override
+    public boolean onPlayerClimb(TileState state, EntityPlayer player) {
+        return false;
+    }
+    
 }
