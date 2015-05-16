@@ -423,7 +423,7 @@ public class GameFrame extends JFrame {
                 } else {
                     newLocation = p.getLocation();
                 }
-            } else {
+            } else if (lastKeyCode != KeyEvent.VK_SPACE) {
                 continue;
             }
             
