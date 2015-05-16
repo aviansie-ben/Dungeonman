@@ -126,7 +126,8 @@ public class EntityPlayer extends EntityAlive {
 	}
 
 	public void logMessage(String message) {
-		GameFrame.activeFrame.logMessage(message);
+	    if (GameFrame.activeFrame != null)
+	        GameFrame.activeFrame.logMessage(message);
 	}
 
 	@Override

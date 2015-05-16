@@ -75,7 +75,7 @@ public class GameInstance {
 			return;
 		
 		floors.put(floor, new World(200, 200, floor));
-		new SimpleDungeonGenerator(floors.get(floor)).generateLevel(difficulty);
+		new SimpleDungeonGenerator(floors.get(floor)).generateLevel(difficulty, floor);
 	}
 	
 	public int getCurrentFloor() {

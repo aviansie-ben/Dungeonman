@@ -10,6 +10,7 @@ import javax.swing.JOptionPane;
 
 import com.bendude56.dungeonman.GameInstance;
 import com.bendude56.dungeonman.entity.EntitySoldier;
+import com.bendude56.dungeonman.entity.EntityStats;
 import com.bendude56.dungeonman.world.World;
 import com.bendude56.dungeonman.world.WorldLocation;
 import com.bendude56.dungeonman.world.gen.WorldFeature.DoorType;
@@ -32,13 +33,13 @@ public class SimpleDungeonGenerator extends WorldGenerator {
 	}
 
 	@Override
-	public void generateLevel(int difficulty) {	
+	public void generateLevel(int difficulty, int floor) {	
 		// Start the generation algorithm with a 4x4 room in the center of the map
 		generate(new WorldFeatureRoom(4, 4), new WorldLocation(world, world.getWidth() / 2, world.getHeight() / 2), DoorType.NONE, -1, 0);
 		
 		// Select locations for entry and exit stairs
 		if (possibleStairs.size() < 2) {
-			generateLevel(difficulty);
+			generateLevel(difficulty, floor);
 			return;
 		}
 		
@@ -114,14 +115,14 @@ public class SimpleDungeonGenerator extends WorldGenerator {
 		int numRooms, numCorridors;
 		
 		if (f instanceof WorldFeatureCorridor) {
-			numRooms = (random.nextInt(3) > 0) ? 1 : 0;
-			numCorridors = random.nextInt((((WorldFeatureCorridor)f).corridorLength / 3) + 1);
+			numRooms = random.nextInt((((WorldFeatureCorridor)f).corridorLength / 3)) + 1;
+			numCorridors = random.nextInt((((WorldFeatureCorridor)f).corridorLength / 5) + 1);
 			
 			if (iteration < 3 && numCorridors == 0 && numRooms == 0) {
 				numRooms = 1;
 			}
 		} else if (f instanceof WorldFeatureRoom) {
-			numRooms = 0;
+			numRooms = random.nextInt(6) / 2;
 			numCorridors = random.nextInt(3) + ((iteration > 0) ? 0 : 1);
 			
 			if (iteration < 3 && numCorridors == 0) {
@@ -174,7 +175,7 @@ public class SimpleDungeonGenerator extends WorldGenerator {
 	
 	public static void main(String[] args) {
 		while (true) {
-			GameInstance.createNewGame(0, null);
+			GameInstance.createNewGame(0, new EntityStats(0, 0, 0, 0, 0, 0, 0));
 			World w = GameInstance.getActiveInstance().getFloor(1);
 			
 			showDialog(w);
