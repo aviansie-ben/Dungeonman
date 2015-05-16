@@ -171,7 +171,7 @@ public class InventoryFrame extends JFrame {
         
         @Override
         public String toString() {
-            return i.getItem().getItemName(i) + " (x" + i.getAmount() + ")";
+            return i.toString();
         }
     }
     

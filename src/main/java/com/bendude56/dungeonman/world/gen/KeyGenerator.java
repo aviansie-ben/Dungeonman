@@ -79,7 +79,7 @@ public class KeyGenerator {
                 WorldLocation key = itemLocations.get(k);
                 int keyId = ((TileMetadataDoor) door.getMetadata()).getKeyId();
                 
-                world.addEntity(new EntityDroppedItem(key, new ItemStack(Item.key, new ItemMetadataKey(keyId), 1)));
+                world.addEntity(new EntityDroppedItem(key, new ItemStack(Item.key, new ItemMetadataKey(keyId, world.getFloor()), 1)));
                 itemLocations.remove(k);
                 
                 return keyId;

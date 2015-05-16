@@ -6,9 +6,11 @@ package com.bendude56.dungeonman.item;
 
 public class ItemMetadataKey extends ItemMetadata {
     private int keyId;
+    private int floor;
     
-    public ItemMetadataKey(int keyId) {
+    public ItemMetadataKey(int keyId, int floor) {
         this.keyId = keyId;
+        this.floor = floor;
     }
     
     /**
@@ -18,9 +20,13 @@ public class ItemMetadataKey extends ItemMetadata {
         return keyId;
     }
     
+    public int getFloor() {
+        return floor;
+    }
+    
     @Override
     public ItemMetadata clone() {
-        return new ItemMetadataKey(keyId);
+        return new ItemMetadataKey(keyId, floor);
     }
     
     @Override

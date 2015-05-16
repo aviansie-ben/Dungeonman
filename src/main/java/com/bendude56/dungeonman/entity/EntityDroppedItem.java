@@ -29,7 +29,7 @@ public class EntityDroppedItem extends Entity {
     @Override
     public boolean doAction(ActionType type, Entity e) {
         if (type == ActionType.MOVE && e instanceof EntityPlayer) {
-            ((EntityPlayer) e).logMessage("You see a " + stack.getItem().getItemName(stack) + " (x" + stack.getAmount() + ")");
+            ((EntityPlayer) e).logMessage("You see a " + stack);
         } else if (type == ActionType.PICKUP && e instanceof EntityPlayer) {
             return ((EntityPlayer) e).doPickup(this);
         }

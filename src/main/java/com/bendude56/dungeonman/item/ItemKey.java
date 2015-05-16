@@ -29,7 +29,7 @@ public class ItemKey extends Item {
     
     @Override
     public String getItemName(ItemStack stack) {
-        return "Key";
+        return "Key (Floor " + ((ItemMetadataKey) stack.getMetadata()).getFloor() + ")";
     }
     
     @Override

@@ -58,4 +58,12 @@ public class ItemStack {
     public Item getItem() {
         return item;
     }
+    
+    @Override
+    public String toString() {
+        if (amount == 1)
+            return item.getItemName(this);
+        else
+            return item.getItemName(this) + " (x" + amount + ")";
+    }
 }
